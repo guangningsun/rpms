@@ -1,0 +1,46 @@
+
+
+.msg-header-month {
+    background: #FF8626;
+    height: 30px;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+.msg-header-contract {
+    background: #F3182E;
+    height: 30px;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tag {
+    height: 0;
+    width: 50px;
+    margin: 0 auto;
+    border-bottom: 25px solid #ec9314;
+/*    border-left: 10px solid transparent;*/
+    border-right: 10px solid transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+
+.rowMarginTop {
+	margin-top: 8px;
+}
+
+.modalPanel {
+	margin-top: 10px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+}

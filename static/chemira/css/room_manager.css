@@ -1,0 +1,20 @@
+p {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+#toolbar{
+	margin-top: 8px;
+}
+
+.rowMarginTop {
+	margin-top: 8px;
+}
+
+.modalPanel {
+	margin-top: 10px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+}

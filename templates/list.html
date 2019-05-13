@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Web Application | todo</title>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/css/app.v1.css">
+    <link rel="stylesheet" href="/static/css/font.css" cache="false">
+    <!--[if lt IE 9]>
+    <script src="/static/js/ie/respond.min.js" cache="false"></script>
+    <script src="/static/js/ie/html5.js" cache="false"></script>
+    <script src="/static/js/ie/fix.js" cache="false"></script> <![endif]--></head>
+<body>
+<section class="hbox stretch"> <!-- .aside -->
+    <aside class="bg-dark aside-sm" id="nav">
+        <section class="vbox">
+            <header class="dker nav-bar"><a class="btn btn-link visible-xs"
+                                            data-toggle="class:nav-off-screen" data-target="body">
+                <i class="icon-reorder"></i> </a> <a href="#" class="nav-brand"
+                                                     data-toggle="fullscreen">云平台团队</a> <a
+                    class="btn btn-link visible-xs" data-toggle="class:show"
+                    data-target=".nav-user"> <i class="icon-comment-alt"></i> </a></header>
+            <footer class="footer bg-gradient hidden-xs"><a href="modal.lockme.html"
+                                                            data-toggle="ajaxModal"
+                                                            class="btn btn-sm btn-link m-r-n-xs pull-right">
+                <i class="icon-off"></i> </a> <a href="#nav" data-toggle="class:nav-vertical"
+                                                 class="btn btn-sm btn-link m-l-n-sm"> <i
+                    class="icon-reorder"></i> </a></footer>
+            <section>
+                <div class="lter nav-user hidden-xs pos-rlt">
+                    <div class="nav-avatar pos-rlt"><a href="#"
+                                                       class="thumb-sm avatar animated rollIn"
+                                                       data-toggle="dropdown"> <img
+                            src="/static/images/avatar.jpg" alt="" class=""> <span
+                            class="caret caret-white"></span> </a>
+                        <ul class="dropdown-menu m-t-sm animated fadeInLeft"><span
+                                class="arrow top"></span>
+                            <li><a href="#">设置</a></li>
+                            <li><a href="profile.html">个人中心</a></li>
+                            <li><a href="#"> <span class="badge bg-danger pull-right">3</span>
+                                通知 </a></li>
+                            <li class="divider"></li>
+                            <li><a href="docs.html">帮助</a></li>
+                            <li><a href="signin.html">退出</a></li>
+                        </ul>
+                        <div class="visible-xs m-t m-b"><a href="#" class="h3">托尼老师</a>
+
+                            <p><i class="icon-map-marker"></i> 唐镇, 中国</p></div>
+                    </div>
+                    <div class="nav-msg"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="badge badge-white count-n">2</b> </a>
+                        <section class="dropdown-menu m-l-sm pull-left animated fadeInRight">
+                            <div class="arrow left"></div>
+                            <section class="panel bg-white">
+                                <header class="panel-heading"><strong>您有 <span
+                                        class="count-n">2</span> 通知</strong></header>
+                                <div class="list-group"><a href="#" class="media list-group-item">
+                                    <span class="pull-left thumb-sm"> <img src="/static/images/avatar.jpg"
+                                                                           alt="托尼说"
+                                                                           class="img-circle"> </span>
+                                    <span class="media-body block m-b-none"> 托尼老师<br> <small
+                                            class="text-muted">15 8月 17年
+                                    </small> </span> </a> <a href="#" class="media list-group-item">
+                                    <span class="media-body block m-b-none"> 云团队资源管理平台1.0 <br> <small
+                                            class="text-muted">15 9月 17年
+                                    </small> </span> </a></div>
+                                <footer class="panel-footer text-sm"><a href="#" class="pull-right"><i
+                                        class="icon-cog"></i></a> <a href="#">查看所有通知</a></footer>
+                            </section>
+                        </section>
+                    </div>
+                </div>
+                <nav class="nav-primary hidden-xs">
+                    <ul class="nav">
+                        <li><a href="/dev_manager" > <i class="icon-building"></i> <span>资产管理</span> </a>
+                        </li>
+                        <li class="dropdown-submenu active" ><a href="/file_list"> <b class="badge bg-primary pull-right">3</b> <i
+                                class="icon-envelope-alt"></i> <span>文件下载</span> </a></li>
+                    </ul>
+                </nav>
+            </section>
+        </section>
+    </aside>
+    <!-- /.aside --> <!-- .vbox -->
+    <section id="content">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient b-b"><p>原始文件下载</p></header>
+            <section class="scrollable wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="m-t-none">Sortable list
+                            <small>(drag to sort)</small>
+                        </h4>
+                        <ul class="list-group gutter list-group-lg list-group-sp sortable">
+                            <li class="list-group-item"><a href="#" class="pull-right"
+                                                           data-dismiss="alert"><i
+                                    class="icon-remove"></i></a> <span class="pull-left media-xs"><i
+                                    class="icon-sort text-muted icon-sm"></i> 01</span>
+
+                                <div class="clear"> Browser compatibility</div>
+                            </li>
+                            <li class="list-group-item"><a href="#" class="pull-right"
+                                                           data-dismiss="alert"><i
+                                    class="icon-remove"></i></a> <span class="pull-left media-xs"><i
+                                    class="icon-sort text-muted icon-sm"></i> 02</span>
+
+                                <div class="clear"> Looking for more example templates</div>
+                            </li>
+                            <li class="list-group-item"><a href="#" class="pull-right"
+                                                           data-dismiss="alert"><i
+                                    class="icon-remove"></i></a> <span class="pull-left media-xs"><i
+                                    class="icon-sort text-muted icon-sm"></i> 03</span>
+
+                                <div class="clear"> Customizing components</div>
+                            </li>
+                            <li class="list-group-item"><a href="#" class="pull-right"
+                                                           data-dismiss="alert"><i
+                                    class="icon-remove"></i></a> <span class="pull-left media-xs"><i
+                                    class="icon-sort text-muted icon-sm"></i> 04</span>
+
+                                <div class="clear"> The fastest way to get started</div>
+                            </li>
+                            <li class="list-group-item"><a href="#" class="pull-right"
+                                                           data-dismiss="alert"><i
+                                    class="icon-remove"></i></a> <span class="pull-left media-xs"><i
+                                    class="icon-sort text-muted icon-sm"></i> 05</span>
+
+                                <div class="clear"> HTML5 doctype required</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="list-group bg-white"><a href="#" class="list-group-item"> <i
+                                class="icon-chevron-right"></i> <span class="badge">201</span> <i
+                                class="icon-envelope"></i> 行业云原始资源表下载20170915 </a>
+                            <a href="#" class="list-group-item"> <i
+                                class="icon-chevron-right"></i> <span
+                                class="badge bg-info">5021</span> <i class="icon-eye-open"></i>
+                            Profile visits </a> <a href="#" class="list-group-item"> <i
+                                class="icon-chevron-right"></i> <span
+                                class="badge bg-success">14</span> <i class="icon-phone"></i> Call
+                        </a> <a href="#" class="list-group-item"> <i class="icon-chevron-right"></i>
+                            <span class="badge bg-dark">20</span> <i class="icon-comments-alt"></i>
+                            Messages </a> <a href="#" class="list-group-item"> <i
+                                class="icon-chevron-right"></i> <span class="badge">14</span> <i
+                                class="icon-bookmark"></i> Bookmarks </a> <a href="#"
+                                                                             class="list-group-item">
+                            <i class="icon-chevron-right"></i> <span class="badge bg-info">30</span>
+                            <i class="icon-bell"></i> Notifications </a> <a href="#"
+                                                                            class="list-group-item">
+                            <i class="icon-chevron-right"></i> <span
+                                class="badge bg-danger">10</span> <i class="icon-time"></i> Watch
+                        </a></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <div class="input-group text-sm"><input type="text"
+                                                                        class="input-sm form-control"
+                                                                        placeholder="Search">
+
+                                    <div class="input-group-btn">
+                                        <button type="button"
+                                                class="btn btn-sm btn-white dropdown-toggle"
+                                                data-toggle="dropdown">Action <span
+                                                class="caret"></span></button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </header>
+                            <ul class="list-group alt">
+                                <li class="list-group-item">
+                                    <div class="media"><span class="pull-left thumb-sm"><img
+                                            src="/static/images/avatar.jpg" alt="John said"
+                                            class="img-circle"></span>
+
+                                        <div class="pull-right text-success m-t-sm"><i
+                                                class="icon-circle"></i></div>
+                                        <div class="media-body">
+                                            <div><a href="#">Chris Fox</a></div>
+                                            <small class="text-muted">about 2 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="media"><span class="pull-left thumb-sm"><img
+                                            src="/static/images/avatar.jpg" alt="John said"
+                                            class="img-circle"></span>
+
+                                        <div class="pull-right text-muted m-t-sm"><i
+                                                class="icon-circle"></i></div>
+                                        <div class="media-body">
+                                            <div><a href="#">Amanda Conlan</a></div>
+                                            <small class="text-muted">about 2 hours ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="media"><span class="pull-left thumb-sm"><img
+                                            src="/static/images/avatar.jpg" alt="John said"
+                                            class="img-circle"></span>
+
+                                        <div class="pull-right text-warning m-t-sm"><i
+                                                class="icon-circle"></i></div>
+                                        <div class="media-body">
+                                            <div><a href="#">Dan Doorack</a></div>
+                                            <small class="text-muted">3 days ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="media"><span class="pull-left thumb-sm"><img
+                                            src="/static/images/avatar.jpg" alt="John said"
+                                            class="img-circle"></span>
+
+                                        <div class="pull-right text-danger m-t-sm"><i
+                                                class="icon-circle"></i></div>
+                                        <div class="media-body">
+                                            <div><a href="#">Lauren Taylor</a></div>
+                                            <small class="text-muted">about 2 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <!-- /.vbox --> </section>
+<script src="/static/css/app.v1.js"></script>
+<!-- Bootstrap --> <!-- App --> <!-- Sortable --> </body>
+</html>

@@ -1,0 +1,14 @@
+p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#toolbar {
+    margin-top: 8px;
+}
+
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

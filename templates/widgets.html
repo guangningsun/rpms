@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Web Application | todo</title>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/app.v1.css">
+    <link rel="stylesheet" href="css/font.css" cache="false">
+    <!--[if lt IE 9]>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/html5.js" cache="false"></script>
+    <script src="js/ie/fix.js" cache="false"></script> <![endif]--></head>
+<body>
+<section class="hbox stretch"> <!-- .aside -->
+    <aside class="bg-dark aside-sm" id="nav">
+        <section class="vbox">
+            <header class="dker nav-bar"><a class="btn btn-link visible-xs"
+                                            data-toggle="class:nav-off-screen" data-target="body">
+                <i class="icon-reorder"></i> </a> <a href="#" class="nav-brand"
+                                                     data-toggle="fullscreen">todo</a> <a
+                    class="btn btn-link visible-xs" data-toggle="class:show"
+                    data-target=".nav-user"> <i class="icon-comment-alt"></i> </a></header>
+            <footer class="footer bg-gradient hidden-xs"><a href="modal.lockme.html"
+                                                            data-toggle="ajaxModal"
+                                                            class="btn btn-sm btn-link m-r-n-xs pull-right">
+                <i class="icon-off"></i> </a> <a href="#nav" data-toggle="class:nav-vertical"
+                                                 class="btn btn-sm btn-link m-l-n-sm"> <i
+                    class="icon-reorder"></i> </a></footer>
+            <section>
+                <div class="lter nav-user hidden-xs pos-rlt">
+                    <div class="nav-avatar pos-rlt"><a href="#"
+                                                       class="thumb-sm avatar animated rollIn"
+                                                       data-toggle="dropdown"> <img
+                            src="images/avatar.jpg" alt="" class=""> <span
+                            class="caret caret-white"></span> </a>
+                        <ul class="dropdown-menu m-t-sm"><span class="arrow top"></span>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="#"> <span class="badge bg-danger pull-right">3</span>
+                                Notifications </a></li>
+                            <li class="divider"></li>
+                            <li><a href="docs.html">Help</a></li>
+                            <li><a href="signin.html">Logout</a></li>
+                        </ul>
+                        <div class="visible-xs m-t m-b"><a href="#" class="h3">John.Smith</a>
+
+                            <p><i class="icon-map-marker"></i> London, UK</p></div>
+                    </div>
+                    <div class="nav-msg"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="badge badge-white count-n">2</b> </a>
+                        <section class="dropdown-menu m-l-sm pull-left animated fadeInRight">
+                            <div class="arrow left"></div>
+                            <section class="panel bg-white">
+                                <header class="panel-heading"><strong>You have <span
+                                        class="count-n">2</span> notifications</strong></header>
+                                <div class="list-group"><a href="#" class="media list-group-item">
+                                    <span class="pull-left thumb-sm"> <img src="images/avatar.jpg"
+                                                                           alt="John said"
+                                                                           class="img-circle"> </span>
+                                    <span class="media-body block m-b-none"> Use awesome animate.css<br> <small
+                                            class="text-muted">28 Aug 13
+                                    </small> </span> </a> <a href="#" class="media list-group-item">
+                                    <span class="media-body block m-b-none"> 1.0 initial released<br> <small
+                                            class="text-muted">27 Aug 13
+                                    </small> </span> </a></div>
+                                <footer class="panel-footer text-sm"><a href="#" class="pull-right"><i
+                                        class="icon-cog"></i></a> <a href="#">See all the
+                                    notifications</a></footer>
+                            </section>
+                        </section>
+                    </div>
+                </div>
+                <nav class="nav-primary hidden-xs">
+                    <ul class="nav">
+                        <li><a href="index.html"> <i class="icon-eye-open"></i>
+                            <span>Discover</span> </a></li>
+                        <li class="dropdown-submenu active"><a href="#" class="dropdown-toggle"
+                                                               data-toggle="dropdown"> <i
+                                class="icon-beaker"></i> <span>UI kit</span> </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="icons.html"> <b class="badge pull-right">302</b>Icons
+                                </a></li>
+                                <li><a href="grid.html">Grid</a></li>
+                                <li><a href="widgets.html"> <b
+                                        class="badge bg-primary pull-right">8</b>Widgets </a></li>
+                                <li><a href="components.html"> <b class="badge pull-right">18</b>Components
+                                </a></li>
+                                <li><a href="list.html">List groups</a></li>
+                                <li><a href="table.html">Table</a></li>
+                                <li><a href="form.html">Form</a></li>
+                                <li><a href="chart.html">Chart</a></li>
+                                <li><a href="calendar.html">Fullcalendar</a></li>
+                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="signin.html">Signin page</a></li>
+                                <li><a href="signup.html">Signup page</a></li>
+                                <li><a href="404.html">404 page</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="mail.html"> <b class="badge bg-primary pull-right">3</b> <i
+                                class="icon-envelope-alt"></i> <span>Mail</span> </a></li>
+                        <li><a href="tasks.html"> <i class="icon-tasks"></i> <span>Tasks</span> </a>
+                        </li>
+                        <li><a href="notes.html"> <i class="icon-pencil"></i> <span>Notes</span>
+                        </a></li>
+                        <li><a href="timeline.html"> <i class="icon-time"></i> <span>Timeline</span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </section>
+        </section>
+    </aside>
+    <!-- /.aside --> <!-- .vbox -->
+    <section id="content">
+        <section class="vbox">
+            <header class="header bg-light dker bg-gradient"><p>Widgets</p></header>
+            <section class="scrollable wrapper">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">Chat</header>
+                            <section class="chat-list panel-body">
+                                <article id="chat-id-1" class="chat-item left"><a href="#"
+                                                                                  class="pull-left thumb-sm avatar"><img
+                                        src="images/avatar.jpg" class="img-circle"></a>
+                                    <section class="chat-body">
+                                        <div class="panel text-sm m-b-none">
+                                            <div class="panel-body"><span class="arrow left"></span>Lorem
+                                                ipsum dolor sit amet, consecteter adipiscing elit,
+                                                sed diam nonummy nibh euismod tincidunt ut laoreet
+                                                dolore magna aliquam erat volutpat.
+                                            </div>
+                                        </div>
+                                        <small class="text-muted"><i
+                                                class="icon-ok text-success"></i> 2 minutes ago
+                                        </small>
+                                    </section>
+                                </article>
+                                <article id="chat-id-1" class="chat-item right"><a href="#"
+                                                                                   class="pull-right thumb-sm avatar"><img
+                                        src="images/avatar.jpg" class="img-circle"></a>
+                                    <section class="chat-body">
+                                        <div class="panel bg bg-success text-sm m-b-none">
+                                            <div class="panel-body"><span
+                                                    class="arrow right"></span>Lorem ipsum dolor sit
+                                                amet, consecteter adipiscing elit, sed diam nonummy
+                                                nibh euismod tincidunt ut laoreet dolore magna
+                                                aliquam erat volutpat.
+                                            </div>
+                                        </div>
+                                        <small class="text-muted"><i
+                                                class="icon-ok text-success"></i> 1 minutes ago
+                                        </small>
+                                    </section>
+                                </article>
+                                <!-- chat form -->
+                                <article class="chat-item" id="chat-form"><a
+                                        class="pull-left thumb-sm avatar"><img
+                                        src="images/avatar.jpg" class="img-circle"></a>
+                                    <section class="chat-body">
+                                        <form action="#" class="m-b-none">
+                                            <div class="input-group"><input type="text"
+                                                                            class="form-control"
+                                                                            placeholder="Say something">
+                                                <span class="input-group-btn"> <button
+                                                        class="btn btn-info" type="button">SEND
+                                                </button> </span></div>
+                                        </form>
+                                    </section>
+                                </article>
+                            </section>
+                        </section>
+                        <!-- .scrollable -->
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <ul class="nav nav-pills pull-right">
+                                    <li><a href="#" class="panel-toggle text-muted"><i
+                                            class="icon-caret-down text-active"></i><i
+                                            class="icon-caret-up text"></i></a></li>
+                                </ul>
+                                <span class="label bg-dark">15</span> Inbox
+                            </header>
+                            <section style="height:180px" class="panel-body scrollbar scroll-y m-b">
+                                <article class="media"><span class="pull-left thumb-sm"><img
+                                        src="images/avatar.jpg" alt="John said" class="img-circle"></span>
+
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">12:18</strong><br>
+                                            <small class="label bg-light">pm</small>
+                                        </div>
+                                        <a href="#" class="h4">Bootstrap 3.0 is comming</a>
+                                        <small class="block"><a href="#" class="">John Smith</a>
+                                            <span class="label label-success">Circle</span></small>
+                                        <small class="block m-t-sm">Sleek, intuitive, and powerful
+                                            mobile-first front-end framework for faster and easier
+                                            web development.
+                                        </small>
+                                    </div>
+                                </article>
+                                <div class="line pull-in"></div>
+                                <article class="media"><span class="pull-left thumb-sm"><i
+                                        class="icon-user icon-2x text-muted"></i></span>
+
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">17</strong><br>
+                                            <small class="label bg-light">feb</small>
+                                        </div>
+                                        <a href="#" class="h4">Bootstrap documents</a>
+                                        <small class="block"><a href="#" class="">John Smith</a>
+                                            <span class="label label-info">Friends</span></small>
+                                        <small class="block m-t-sm">There are a few easy ways to
+                                            quickly get started with Bootstrap, each one appealing
+                                            to a different skill level and use case. Read through to
+                                            see what suits your particular needs.
+                                        </small>
+                                    </div>
+                                </article>
+                                <div class="line pull-in"></div>
+                                <article class="media">
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">09</strong><br>
+                                            <small class="label bg-light">jan</small>
+                                        </div>
+                                        <a href="#" class="h4 text-success">Mobile first html/css
+                                            framework</a>
+                                        <small class="block m-t-sm">Bootstrap, Ratchet</small>
+                                    </div>
+                                </article>
+                            </section>
+                        </section>
+                        <!-- / scrollable --> <!-- .scrollable -->
+                        <section class="panel">
+                            <header class="panel-heading"><span
+                                    class="badge bg-info pull-right">32</span> News
+                            </header>
+                            <section class="panel-body">
+                                <article class="media">
+                                    <div class="pull-left thumb-sm"><span class="icon-stack"> <i
+                                            class="icon-circle text-success icon-stack-base"></i> <i
+                                            class="icon-flag icon-light"></i> </span></div>
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">12:18</strong><br>
+                                            <small class="label bg-light">pm</small>
+                                        </div>
+                                        <a href="#" class="h4">Bootstrap 3.0 is comming</a>
+                                        <small class="block m-t-sm">Sleek, intuitive, and powerful
+                                            mobile-first front-end framework for faster and easier
+                                            web development.
+                                        </small>
+                                    </div>
+                                </article>
+                                <div class="line pull-in"></div>
+                                <article class="media">
+                                    <div class="pull-left thumb-sm"><span class="icon-stack"> <i
+                                            class="icon-circle text-danger icon-stack-base"></i> <i
+                                            class="icon-file icon-light"></i> </span></div>
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">17</strong><br>
+                                            <small class="label bg-light">feb</small>
+                                        </div>
+                                        <a href="#" class="h4">Bootstrap documents</a>
+                                        <small class="block m-t-sm">There are a few easy ways to
+                                            quickly get started with Bootstrap, each one appealing
+                                            to a different skill level and use case. Read through to
+                                            see what suits your particular needs.
+                                        </small>
+                                    </div>
+                                </article>
+                                <div class="line pull-in"></div>
+                                <article class="media">
+                                    <div class="pull-left thumb-sm"><span class="icon-stack"> <i
+                                            class="icon-circle text-warning icon-stack-base"></i> <i
+                                            class="icon-star icon-light"></i> </span></div>
+                                    <div class="media-body">
+                                        <div class="pull-right media-xs text-center text-muted">
+                                            <strong class="h4">09</strong><br>
+                                            <small class="label bg-light">jan</small>
+                                        </div>
+                                        <a href="#" class="h4 text-success">Mobile first html/css
+                                            framework</a>
+                                        <small class="block m-t-sm">Bootstrap, Ratchet</small>
+                                    </div>
+                                </article>
+                            </section>
+                        </section>
+                        <!-- / scrollable --> </div>
+                    <div class="col-lg-6"> <!-- .comment-list -->
+                        <section class="comment-list block">
+                            <article id="comment-id-1" class="comment-item"><a
+                                    class="pull-left thumb-sm avatar"> <img src="images/avatar.jpg"
+                                                                            class="img-circle"> </a>
+                                <span class="arrow left"></span>
+                                <section class="comment-body panel">
+                                    <header class="panel-heading"><a href="#">John smith</a> <label
+                                            class="label bg-info m-l-xs">Editor</label> <span
+                                            class="text-muted m-l-sm pull-right"> <i
+                                            class="icon-time"></i> 24 minutes ago </span></header>
+                                    <div class="panel-body">
+                                        <div>Lorem ipsum dolor sit amet, consecteter adipiscing
+                                            elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+                                            dolore magna aliquam erat volutpat.
+                                        </div>
+                                        <div class="comment-action m-t-sm"><a href="#"
+                                                                              data-toggle="class"
+                                                                              class="btn btn-white btn-xs active">
+                                            <i class="icon-star-empty text-muted text"></i> <i
+                                                class="icon-star text-danger text-active"></i> Like
+                                        </a> <a href="#comment-form" class="btn btn-white btn-xs">
+                                            <i class="icon-mail-reply text-muted"></i>Reply </a>
+                                        </div>
+                                    </div>
+                                </section>
+                            </article>
+                            <!-- .comment-reply -->
+                            <article id="comment-id-2" class="comment-item comment-reply"><a
+                                    class="pull-left thumb-sm avatar"> <img src="images/avatar.jpg"
+                                                                            class="img-circle"> </a>
+                                <span class="arrow left"></span>
+                                <section class="comment-body panel text-sm">
+                                    <div class="panel-body"><a href="#">Mika Sam</a> <label
+                                            class="label bg-dark m-l-xs">Admin</label> Report this
+                                        comment is helpful <span
+                                                class="text-muted m-l-sm pull-right"> <i
+                                                class="icon-time"></i> 10 minutes ago </span></div>
+                                </section>
+                            </article>
+                            <!-- / .comment-reply -->
+                            <article id="comment-id-3" class="comment-item"><a
+                                    class="pull-left thumb-sm avatar"><img src="images/avatar.jpg"
+                                                                           class="img-circle"></a>
+                                <span class="arrow left"></span>
+                                <section class="comment-body panel">
+                                    <header class="panel-heading"><a href="#">By me</a> <label
+                                            class="label bg-success m-l-xs">User</label> <span
+                                            class="text-muted m-l-sm pull-right"> <i
+                                            class="icon-time"></i> about 1 hour ago </span></header>
+                                    <div class="panel-body">
+                                        <div>This comment was posted by you.</div>
+                                        <div class="comment-action m-t-sm"><a href="#comment-id-3"
+                                                                              data-dismiss="alert"
+                                                                              class="btn btn-white btn-xs"><i
+                                                class="icon-trash text-muted"></i>Remove</a></div>
+                                    </div>
+                                </section>
+                            </article>
+                            <article id="comment-id-4" class="comment-item"><a
+                                    class="pull-left thumb-sm avatar"><img src="images/avatar.jpg"
+                                                                           class="img-circle"></a>
+                                <span class="arrow left"></span>
+                                <section class="comment-body panel">
+                                    <header class="panel-heading"><a href="#">Peter</a> <label
+                                            class="label bg-primary m-l-xs">Vip</label> <span
+                                            class="text-muted m-l-sm pull-right"> <i
+                                            class="icon-time"></i> 2 hours ago </span></header>
+                                    <div class="panel-body">
+                                        <blockquote><p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Integer posuere erat a ante.</p>
+                                            <small>Someone famous in <cite title="Source Title">Source
+                                                Title</cite></small>
+                                        </blockquote>
+                                        <div>Lorem ipsum dolor sit amet, consecteter adipiscing
+                                            elit...
+                                        </div>
+                                        <div class="comment-action m-t-sm"><a href="#"
+                                                                              data-toggle="class"
+                                                                              class="btn btn-white btn-xs"><i
+                                                class="icon-star-empty text-muted text"></i><i
+                                                class="icon-star text-danger text-active"></i>Like</a>
+                                            <a href="#comment-form" class="btn btn-white btn-xs"><i
+                                                    class="icon-mail-reply text-muted"></i>Reply</a>
+                                        </div>
+                                    </div>
+                                </section>
+                            </article>
+                            <!-- comment form -->
+                            <article class="comment-item media" id="comment-form"><a
+                                    class="pull-left thumb-sm avatar"><img src="images/avatar.jpg"
+                                                                           class="img-circle"></a>
+                                <section class="media-body">
+                                    <form action="#" class="m-b-none">
+                                        <div class="input-group"><input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="Input your comment here">
+                                            <span class="input-group-btn"> <button
+                                                    class="btn btn-primary" type="button">POST
+                                            </button> </span></div>
+                                    </form>
+                                </section>
+                            </article>
+                        </section>
+                        <!-- / .comment-list --> </div>
+                </div>
+            </section>
+        </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen"
+           data-target="body"></a></section>
+    <!-- /.vbox --> </section>
+<script src="css/app.v1.js"></script>
+<!-- Bootstrap --> <!-- App --> </body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>便民管理系统</title>
+    <meta name="description" content="mis">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/css/app.v1.css">
+    <link rel="stylesheet" href="/static/chemira/css/room_manager.css">
+    <link rel="stylesheet" href="/static/chemira/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/chemira/css/bootstrap-datetimepicker.min.css">
+    <!--[if lt IE 9]>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/html5.js" cache="false"></script>
+    <script src="js/ie/fix.js" cache="false"></script> <![endif]-->
+    <script src="/static/chemira/css/app.v1.js"></script>
+    <script src="/static/chemira/js/bootstrap3-validation.js"></script>
+    <script src="/static/chemira/js/tableExport.js"></script>
+    <script src="/static/chemira/js/jquery.base64.js"></script>
+    <script src="/static/chemira/js/bootstrap-table.js"></script>
+    <script src="/static/chemira/js/bootstrap-table-export.js"></script>
+    <script src="/static/chemira/js/bootstrap-table-zh-CN.js"></script>
+    <script>
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+    </script>
+    <script src="/static/chemira/js/jquery.toggle-password.js"></script>
+    <script src="/static/chemira/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/static/chemira/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script src="/static/chemira/js/jquery.cookie.js"></script>
+</head>
+
+<body>
+    <section class="hbox stretch">
+        <!-- .aside -->
+        <aside class="bg-dark aside-sm" id="nav">
+            <section class="vbox">
+                <header class="dker nav-bar">
+                    <a href="#" class="nav-brand" data-toggle="fullscreen" id="navi_domain">质朴软件</a>
+                    <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
+                        <i class="icon-comment-alt"></i>
+                    </a>
+                </header>
+                <footer class="footer bg-gradient hidden-xs">
+                    <a href="login.html" class="btn btn-sm btn-link m-r-n-xs pull-right">
+                        <i class="icon-off"></i>
+                    </a>
+                </footer>
+                <section>
+                    <!-- user -->
+                    <div class="bg-success nav-user hidden-xs pos-rlt">
+                        <div class="nav-avatar pos-rlt">
+                            <a href="#" class="thumb-sm avatar animated rollIn" data-toggle="dropdown">
+                                <img src="/static/images/avatar.jpg" alt="" class="">
+                                <span class="caret caret-white"></span>
+                            </a>
+                            <ul class="dropdown-menu m-t-sm animated fadeInLeft">
+                                <span class="arrow top"></span>
+                                <li><a href="login.html">logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="nav-msg">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <b class="badge badge-white count-n" id="navi_user_name"></b>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- / user -->
+                    <!-- nav -->
+                    <nav class="nav-primary hidden-xs">
+                        <ul class="nav">
+                            <li>
+                                <a href="overall.html">
+                                    <i class="icon-home"></i>
+                                    <span>商家管理</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">
+                                    <!-- <b class="badge bg-primary pull-right">3</b>  -->
+                                    <i class="icon-building"></i>
+                                    <span>用户管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="domain_manager.html">
+                                    <i class="icon-sitemap"></i>
+                                    <span>新闻管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+                                <a href="record.html">
+                                    <i class="icon-tasks"></i>
+                                    <span>街道管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+                                <a href="record.html">
+                                    <i class="icon-tasks"></i>
+                                    <span>用户爱好管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="settings.html">
+                                    <!-- <b class="badge bg-primary pull-right">3</b>  -->
+                                    <i class="icon-book"></i>
+                                    <span>设&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp置</span>
+                                </a>
+                            </li>
+                            <li id="user_menu_item" style="display:none">
+                                <a href="user_manager.html">
+                                    <!-- <b class="badge bg-primary pull-right">3</b>  -->
+                                    <i class="icon-group"></i>
+                                    <span>用户管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- / nav -->
+                    <!-- note -->
+                    <!-- <div class="bg-danger wrapper hidden-vertical animated rollIn text-sm">
+                            <a href="#" data-dismiss="alert" class="pull-right m-r-n-sm m-t-n-sm"><i class="icon-close icon-remove "></i></a>
+                            Hi, this is welcome msg.
+                        </div> -->
+                    <!-- / note -->
+                </section>
+            </section>
+        </aside>
+        <!-- /.aside -->
+        <!-- .vbox -->
+        <section id="content">
+            <section>
+                <header class="header bg-white b-b">
+                    <p>用户管理</p>
+                </header>
+                <div class="container">
+                    <!-- <div class="panel" id="user_table"></div> -->
+                    <div id="toolbar" class="pull-left col-">
+                        <button id="remove" class="btn btn-danger">
+                            <i class="icon-remove"></i>批量删用户
+                        </button>
+                        <button id="addSingle" class="btn btn-success " data-toggle="modal" data-target="#addSingleRoom">
+                            <i class="icon-plus"></i>添加用户
+                        </button>
+                    </div>
+                    <table style="background: #EBF8EC" id="table" data-show-columns="true" data-search="true" data-toolbar="#toolbar" data-show-toggle="true" data-pagination="true" data-height="525" data-striped="true" data-id-field="id" data-url="" data-checkbox-header="true" data-show-pagination-switch="true" data-page-list="[10, 25, 50, 100, all]">
+                    </table>
+                </div>
+            </section>
+            <a href="login.html" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="body"></a>
+        </section>
+        <!-- /.vbox -->
+    </section>
+    <div class="modal fade" id="addSingleRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="myModalLabel">添加用户</h4>
+                </div>
+                <form id="add_room_form" action="/create_user_web/" class="form-horizontal" role="form" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-8">
+                                <input name="username" class="form-control" id="focusedInput" type="text"  placeholder="请输入用户名...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-8">
+                                <input name="password" class="form-control" id="focusedInput" type="password" placeholder="请输入密码...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-8">
+                                <input name="user_email" class="form-control" id="focusedInput" type="text" placeholder="请输入邮箱...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号</label>
+                            <div class="col-sm-8">
+                                <input name="user_phone" class="form-control" id="focusedInput" type="text" placeholder="请输入手机号...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号</label>
+                            <div class="col-sm-8">
+                                <input name="user_permission" class="form-control" id="focusedInput" type="text" placeholder="请输入权限...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-8">
+                                <input name="user_address" class="form-control" id="focusedInput" type="text" placeholder="请输入地址...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">创建</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modifyInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="myModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modify_form" action="modifyApartment.action" class="form-horizontal" role="form" method="post">
+                        <div class="panel modalPanel">
+                            <div class="row modalPanel">
+                                <div>
+                                    <label class=" col-md-2 pull-left control-label">序列号</label>
+                                    <div class="col-md-4">
+                                        <input name="apartment.apartment_floor" class="form-control" id="modify_apartment_floor" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">服务器型号</label>
+                                    <div class="col-md-4">
+                                        <input name="apartment.apartment_name" class="form-control" id="modify_apartment_name" type="text" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row modalPanel ">
+                                <div>
+                                    <label class=" col-md-2 pull-left control-label">CPU内核数</label>
+                                    <div class="col-md-4">
+                                        <input name="apartment.apartment_person_num" class="form-control" id="modify_apartment_person_num" type="number" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel modalPanel">
+                            <div class="form-group row modalPanel">
+                                <div>
+                                    <label class="col-md-3 control-label">使用日期</label>
+                                    <div class="col-md-6">
+                                        <input name="contract.contract_starttime" class="form-control" id="modify_contract_start" type="text" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel">
+                                <div>
+                                    <label class="col-md-3 control-label">退还日期</label>
+                                    <div class="col-md-6">
+                                        <input name="contract.contract_endtime" class="form-control" id="modify_contract_end" type="text" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel">
+                                <div>
+                                    <label class="col-md-2 control-label">RAM</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_month_price" class="form-control" id="modify_contract_month_price" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">DISK</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_deposit" class="form-control" id="modify_contract_deposit" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel">
+                                <div style="display:none">
+                                    <label class="col-md-2 control-label">周期</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_frequency" class="form-control" id="modify_contract_frequency" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">电源</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_electric_fee" class="form-control" id="modify_apartment_electric_fee" type="number" min="0" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                             <div class="form-group row modalPanel">
+                                <div>
+                                    <label class="col-md-2 control-label">总额</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" id="modify_total" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">实收</label>
+                                    <div class="col-md-3">
+                                        <input name="feehistory.month_fee" class="form-control" id="modify_month_fee" type="number" min="0">
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group row modalPanel">
+                                <div style="display:none">
+                                    <label class="col-md-2 control-label">欠费</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_owe" class="form-control" id="modify_apartment_owe" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div id="modify_water_div">
+                                    <label class="col-md-2 control-label">水表刻度</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_water_meter" class="form-control" id="modify_apartment_water_meter" type="number" min="0" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel modalPanel">
+                            <div class="form-group row rowMarginTop">
+                                <div>
+                                    <label class="col-md-2 control-label">姓名</label>
+                                    <div class="col-md-3">
+                                        <input name="tenant.tenant_name" class="form-control" id="modify_tenant_name" type="text">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">手机</label>
+                                    <div class="col-md-4">
+                                        <input name="tenant.tenant_phonenumber" class="form-control" id="modify_tenant_phonenumber" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row rowMarginTop">
+                                <div>
+                                    <label class="col-md-2 control-label">性别</label>
+                                    <div class="col-md-4">
+                                        <!-- <input name="tenant.tenant_sex" class="form-control" id="modify_tenant_sex" type="text"> -->
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="tenant.tenant_sex" id="modify_radio_male" value="男">男
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="tenant.tenant_sex" id="modify_radio_female" value="女"> 女
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">年龄</label>
+                                    <div class="col-md-2">
+                                        <input name="tenant.tenant_age" class="form-control" id="modify_tenant_age" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row rowMarginTop">
+                                <div>
+                                    <label class="col-md-2 control-label">身份证</label>
+                                    <div class="col-md-9">
+                                        <input name="tenant.tenant_desc" class="form-control" id="modify_tenant_desc" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input name="apartment.apartment_id" id="modify_apartment_apartment_id" type="hidden">
+                        <input name="roomInfoResponseId" id="modify_roomInfoResponseId" type="hidden">
+                        <input name="tenant.tenant_id" id="modify_tenant_tenant_id" type="hidden">
+                        <input name="tenant.tenant_status" id="modify_tenant_status" type="hidden" value="0">
+                        <input name="apartment.apartment_desc" id="modify_apartment_area" type="hidden">
+                        <input name="feehistory.user_name" id="modify_user_name" type="hidden">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-success">修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="overallModalTitle">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="overallModalTitle">入住登记</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline" role="form" id="form3">
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" check-type="required">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputPassword2">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" check-type="required">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me<span>ssss</span>
+                            </label>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <button type="submit" id="submit3" class="btn btn-success">OK</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="checkin" tabindex="-1" role="dialog" aria-labelledby="overallModalTitle">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="overallModalTitle">入住登记</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="checkin_form" action="check_in.action" class="form-horizontal " role="form" method="post">
+                        <div class="panel modalPanel">
+                            <div class="row modalPanel">
+                                <!-- <div>
+                                    <label for="apartment_area" class="col-md-2 control-label">区域</label>
+                                    <div class="col-sm-4">
+                                        <input name="apartment.apartment_desc" class="form-control" id="checkin_apartment_area" type="text" readonly>
+                                    </div>
+                                </div> -->
+                                <div>
+                                    <label class=" col-md-2 pull-left control-label">楼层</label>
+                                    <div class="col-md-4">
+                                        <input name="apartment.apartment_floor" class="form-control" id="checkin_apartment_floor" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">房间号</label>
+                                    <div class="col-md-4">
+                                        <input name="apartment.apartment_name" class="form-control" id="checkin_apartment_name" type="text" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row modalPanel form-group" id="checkin_person_num_div">
+                                <label class=" col-md-2 pull-left control-label" for="checkin_apartment_person_num">入住人数</label>
+                                <div class="col-md-4">
+                                    <input name="apartment.apartment_person_num" class="form-control" id="checkin_apartment_person_num" type="number" min="1" required check-type="required" required-message="请输入人数">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel modalPanel">
+                            <div class="form-group row modalPanel" id="checkin_contract_start_div">
+                                <label for="checkin_contract_start" class="col-md-3 control-label">合同起始日期</label>
+                                <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="checkin_contract_start" data-link-format="yyyy-mm-dd">
+                                    <input id="checkin_contract_start_show" class="form-control" size="16" type="text" value="" readonly required check-type="required" required-message="请选择合同起始日期">
+                                    <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <input name="contract.contract_starttime" type="hidden" id="checkin_contract_start" />
+                            </div>
+                            <div class="form-group row modalPanel" id="checkin_contract_end_div">
+                                <label for="checkin_contract_end" class="col-md-3 control-label">合同结束日期</label>
+                                <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="checkin_contract_end" data-link-format="yyyy-mm-dd">
+                                    <input id="checkin_contract_end_show" class="form-control" size="16" type="text" value="" readonly required check-type="required" required-message="请选择合同结束日期">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <input name="contract.contract_endtime" type="hidden" id="checkin_contract_end" />
+                            </div>
+                            <div class="form-group row modalPanel" id="checkin_frequency_next_div">
+                                <label for="checkin_contract_frequency_next" class="col-md-3 control-label">周期</label>
+                                <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="checkin_contract_frequency_next" data-link-format="yyyy-mm-dd">
+                                    <input id="checkin_contract_frequency_next_show" class=" form-control" size="16" type="text" value="" readonly required check-type="required" required-message="请选择周期">
+                                    <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <input name="apartment.apartment_nextcharge_point" type="hidden" id="checkin_contract_frequency_next" />
+                            </div>
+                            <div class="form-group row modalPanel">
+                                <div>
+                                    <label class="col-md-2 control-label">租金</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_month_price" class="form-control" id="checkin_contract_month_price" type="number" min="0">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">押金</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_deposit" class="form-control" id="checkin_contract_deposit" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel" style="display:none">
+                                <div>
+                                    <label class="col-md-2 control-label">周期</label>
+                                    <div class="col-md-3">
+                                        <input name="contract.contract_frequency" class="form-control" id="checkin_contract_frequency" type="number" min="0">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">当前周期</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" name="contract.contract_cycle" id="checkin_contract_current_frequency" type="number" min="1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel">
+                                <div style="display:none">
+                                    <label class="col-md-2 control-label">应收</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" id="checkin_total" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                                <div style="display:none">
+                                    <label class="col-md-2 control-label">欠费</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_owe" class="form-control" id="checkin_apartment_owe" type="number" min="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row modalPanel">
+                                <div>
+                                    <label class="col-md-2 control-label">实收</label>
+                                    <div class="col-md-3">
+                                        <input name="feehistory.month_fee" class="form-control" id="checkin_month_fee" type="number" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="checkin_electric_div">
+                                    <label class="col-md-2 control-label">电表刻度</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_electric_fee" class="form-control" id="checkin_apartment_electric_fee" type="number" min="0" step="0.1" check-type="required" required-message="请输入电表刻度">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row modalPanel" id="checkin_water_div">
+                                <div>
+                                    <label class="col-md-2 control-label">水表刻度</label>
+                                    <div class="col-md-3">
+                                        <input name="apartment.apartment_water_meter" class="form-control" id="checkin_apartment_water_meter" type="number" min="0" step="0.1" check-type="required" required-message="请输入水表刻度">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel modalPanel">
+                            <div class="row rowMarginTop ">
+                                <div class="form-group" id="checkin_tenant_name_div">
+                                    <label class="col-md-2 control-label" for="checkin_tenant_name">姓名</label>
+                                    <div class="col-md-4">
+                                        <input name="tenant.tenant_name" class="form-control" id="checkin_tenant_name" type="text" required check-type="required" required-message="请输入姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">手机</label>
+                                    <div class="col-md-4">
+                                        <input name="tenant.tenant_phonenumber" class="form-control" id="checkin_tenant_phonenumber" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row rowMarginTop">
+                                <div>
+                                    <label class="col-md-2 control-label">性别</label>
+                                    <div class="col-md-4">
+                                        <!-- <input name="tenant.tenant_sex" class="form-control" id="checkin_tenant_sex" type="text"> -->
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="tenant.tenant_sex" id="radio_male" value="男" checked>男
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="tenant.tenant_sex" id="radio_female" value="女"> 女
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-2 control-label">年龄</label>
+                                    <div class="col-md-2">
+                                        <input name="tenant.tenant_age" class="form-control" id="checkin_tenant_age" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row rowMarginTop">
+                                <div>
+                                    <label class="col-md-2 control-label">身份证</label>
+                                    <div class="col-md-9">
+                                        <input name="tenant.tenant_desc" class="form-control" id="checkin_tenant_desc" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input name="apartment.apartment_id" id="checkin_apartment_apartment_id" type="hidden">
+                        <input name="roomInfoResponseId" id="checkin_roomInfoResponseId" type="hidden">
+                        <input name="tenant.tenant_id" id="checkin_tenant_tenant_id" type="hidden">
+                        <input name="tenant.tenant_status" id="checkin_tenant_status" type="hidden" value="0">
+                        <input name="apartment.apartment_desc" id="checkin_apartment_area" type="hidden">
+                        <input name="feehistory.user_name" id="checkin_user_name" type="hidden">
+                        <div class="alert alert-danger" id="checkin_alert_msg" style="display:none">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <i class="icon-remove"></i>
+                            </button>
+                            <i class="icon-ban-circle"></i>
+                            <strong>&nbsp&nbsp&nbsp请录入完整信息！</strong>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <button type="submit" id="checkinOK" class="btn btn-success">登记</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteMultiRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-danger" id="myModalLabel">警告</h4>
+                </div>
+                <form id="delete_room_form" action="" class="form-horizontal" role="form" method="post">
+                    <div class="modal-body">
+                        <p>确认删除</p>
+                        <p class="text-left text-justify" id="deleteMultiRoomMsg"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <button type="button" id="deleteMultiRoomOk" class="btn btn-success">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSingleRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-danger" id="myModalLabel">警告</h4>
+                </div>
+                <form id="delete_single_room_form" action="" class="form-horizontal" role="form" method="post">
+                    <div class="modal-body">
+                        <p>确认删除</p>
+                        <p class="text-left text-justify" id="deleteSingleRoomMsg"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <button type="button" id="deleteSingleRoomOk" class="btn btn-success">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap -->
+    <!-- Sparkline Chart -->
+    <!-- App -->
+    <script src="/static/chemira/js/room_manager.js"></script>
+    <script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+<table id="asset_list_table" class="display table  table-hover" data-toggle="table"
+                data-method="get"
+                data-pagination="true"
+                data-side-pagination="server"
+                data-page-list="[10, 20, 50, 100, 200]"
+                data-search="true" data-mobile-responsive="true" searchOnEnterKey="true"
+                data-show-refresh="true" data-show-columns="true"
+                data-show-toggle="true" data-page-size=20 data-unique-id="asset_id"
+                data-striped="true"
+                >
+              <thead >
+                    <tr>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-field="asset_id" data-align="center" data-sortable="true">资产ID(点击ID查看详情)</th>
+                    <th data-field="asset_sn" data-align="center" data-sortable="true"  data-width="50px">资产编号</th>
+                    <th data-field="asset_business_unit" data-sortable="true">产品线</th>
+                    <th data-field="asset_name" data-align="center" data-sortable="true"  data-class="asset_name">资产名</th>
+                    <th data-field="asset_management_ip" data-align="center" data-sortable="true"  data-class="asset_management_ip">管理IP</th>
+                    <th data-field="asset_manufactory" data-sortable="true">厂商</th>
+                    <th data-field="asset_type" data-sortable="true">类型</th>
+                    <th data-field="asset_os_release" data-sortable="true">操作系统</th>
+                    <th data-field="asset_salt_minion_id" data-sortable="true">saltminion_id</th>
+                    <th data-field="asset_cpu_model" data-sortable="true">CPU型号</th>
+                    <th data-field="asset_cpu_count" data-sortable="true">CPU个数</th>
+                    <th data-field="asset_cpu_core_count" data-sortable="true">CPU总核数</th>
+                    <th data-field="asset_rams_size" data-sortable="true">内存大小（MB）</th>
+                    <th data-field="asset_localdisks_size" data-sortable="true">磁盘总空间（GB）</th>
+                    <th data-field="asset_admin" >资产管理员</th>
+                    <th data-field="asset_idc" data-sortable="true">机房名</th>
+                    <th data-field="asset_trade_date" data-sortable="true">购买日期</th>
+                    <th data-field="asset_create_date" data-sortable="true">创建日期</th>
+                    </tr>
+              </thead>
+              
+    <script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/static/js//bootstrap-table.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="/static/js/bootstrap-table-zh-CN.min.js"></script>   
