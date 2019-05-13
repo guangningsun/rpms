@@ -1,6 +1,19 @@
 # RPMS
 ----------
+
 缴费管理系统
+
+* This project is used for payment management easily
+
+* Apollo Co.,Ltd
+
+
+* Connect
+
+  >  月池 sun-guangning@126.com
+  >
+  >  老麦 victormak357@gmail.com
+  >
 
 * 微信小程序客户端
 * 后台管理UI+API
@@ -8,6 +21,7 @@
 |    URL   |       方法      |  所需参数  |      返回结构     |     描述     |
 |:--------:|:------------------: |:-----------: |:----------------:|:----------------:|
 |   114.116.64.103:8000/user_login |  POST   ||   0   |用户登录接口|
+
 
 #### 用户信息操作API
 
