@@ -28,7 +28,7 @@
 			}
 		},
 		{
-		    "path" : "pages/pay/main",
+		    "path" : "pages/pay/pay_index",
 		    "style" : {
 				"navigationBarTitleText" : "缴费",
 				"app-plus":{
@@ -64,7 +64,7 @@
 				"text": "主页"
 			},
 			{
-				"pagePath": "pages/pay/main",
+				"pagePath": "pages/pay/pay_index",
 				"iconPath": "static/img/common/pay_unchecked.png",
 				"selectedIconPath": "static/img/common/pay_checked.png",
 				"text": "缴费"
