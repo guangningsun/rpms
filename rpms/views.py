@@ -51,14 +51,14 @@ def manage_class(request):
     return render(request, 'manage_class.html', context)
 
 
-
 # 创建学生
 # success
 def create_student(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
-            student_info = StudentInfo(stu_num_id=request.POST['stu_num_id'],
+            student_info = StudentInfo(stu_id=_get_timestamp(),
+                                       stu_num_id=request.POST['stu_num_id'],
                                        stu_name=request.POST['stu_name'],
                                        stu_id_card=request.POST['stu_id_card'],
                                        stu_sexy=request.POST['stu_sexy'],
@@ -72,7 +72,7 @@ def create_student(request):
         return _generate_json_message(False, "create student false")
 
 
-def get_all_student_info():
+def get_all_student_info(request):
     list_response = []
     list_student = StudentInfo.objects.all()
     for res in list_student:
@@ -83,15 +83,15 @@ def get_all_student_info():
     return _generate_json_from_models(list_response)
 
 
-def get_student_info_by_id():
+def get_student_info_by_id(request):
     pass
 
 
-def modify_student():
+def modify_student(request):
     pass
 
 
-def remove_student():
+def remove_student(request):
     context = {}
     try:
         stu_num_ids = request.POST['stu_num_ids']

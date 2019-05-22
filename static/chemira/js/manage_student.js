@@ -156,49 +156,49 @@ $(document).ready(function() {
         checkbox: true
     });
     columns.push({
-        field: 'user_id',
-        title: '用户ID',
+        field: 'stu_id',
+        title: '学生ID',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'login_name',
-        title: '登录名',
+        field: 'stu_num_id',
+        title: '学号',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'username',
+        field: 'stu_name',
         title: '用户名',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'password',
-        title: '密码',
+        field: 'stu_id_card',
+        title: '身份证号',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'user_permission',
-        title: '权限',
+        field: 'stu_sexy',
+        title: '性别',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'create_time',
-        title: '创建时间',
+        field: 'stu_phone_num',
+        title: '手机号',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'description',
+        field: 'stu_desc',
         title: '备注',
         align: 'center',
         valign: 'middle',
@@ -229,10 +229,9 @@ $(document).ready(function() {
 
     $.ajax({
         type: "GET",
-        url: '/get_all_user_info',
+        url: '/get_all_student_info',
         success: function(data) {
             var allRoomDataObjs = eval(data);
-            console.log(allRoomDataObjs);
             $('#table').bootstrapTable('destroy').bootstrapTable({
                 data: allRoomDataObjs,
                 columns: columns
