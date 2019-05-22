@@ -25,6 +25,84 @@ def _generate_json_from_models(response_list):
     return HttpResponse(json.dumps(response_list), content_type="application/json")
 
 
+# 学生管理界面跳转
+def manage_student(request):
+    context = {}
+    return render(request, 'manage_student.html', context)
+
+
+def manage_payment(request):
+    context = {}
+    return render(request, 'manage_payment.html', context)
+
+
+def manage_user(request):
+    context = {}
+    return render(request, 'manage_user.html', context)
+
+
+def manage_payment_class(request):
+    context = {}
+    return render(request, 'manage_payment_class.html', context)
+
+
+def manage_class(request):
+    context = {}
+    return render(request, 'manage_class.html', context)
+
+
+
+# 创建学生
+# success
+def create_student(request):
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    try:
+        if request.POST:
+            student_info = StudentInfo(stu_num_id=request.POST['stu_num_id'],
+                                       stu_name=request.POST['stu_name'],
+                                       stu_id_card=request.POST['stu_id_card'],
+                                       stu_sexy=request.POST['stu_sexy'],
+                                       stu_phone_num=request.POST['stu_phone_num'],
+                                       stu_desc=request.POST['stu_desc'],
+                                       class_id=request.POST['class_id']
+                                       )
+            student_info.save()
+        return _generate_json_message(True, "create student success")
+    except:
+        return _generate_json_message(False, "create student false")
+
+
+def get_all_student_info():
+    list_response = []
+    list_student = StudentInfo.objects.all()
+    for res in list_student:
+        dict_tmp = {}
+        dict_tmp.update(res.__dict__)
+        dict_tmp.pop("_state", None)
+        list_response.append(dict_tmp)
+    return _generate_json_from_models(list_response)
+
+
+def get_student_info_by_id():
+    pass
+
+
+def modify_student():
+    pass
+
+
+def remove_student():
+    context = {}
+    try:
+        stu_num_ids = request.POST['stu_num_ids']
+        for stu_num_id in stu_num_ids.split(","):
+            student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
+            student_info.delete()
+        return render(request, 'manage_student.html', context)
+    except:
+        return render(request, 'manage_student.html', context)
+
+
 # 创建用户信息/用户注册
 # success
 def create_user(request):
