@@ -1,50 +1,59 @@
 # -*- coding:UTF-8 -*-
 from django.db import models
 
+
+# 0 超级管理员
+# 1 管理员
+# 2 老师
+# 3 普通用户，学生
 # 用户类
 class UserInfo(models.Model):
     user_id = models.CharField(max_length=200)
+    login_name = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
-    user_email = models.CharField(max_length=200)
-    user_address = models.CharField(max_length=200)
-    user_phone = models.CharField(max_length=200)
     user_permission = models.CharField(max_length=200)
+    create_time = models.CharField(max_length=200)
+    is_deleted = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+    class_id = models.CharField(max_length=200)
 
 
-# 街道类
-class AddressInfo(models.Model):
-    address_id = models.CharField(max_length=200)
-    address_province = models.CharField(max_length=200)
-    address_city = models.CharField(max_length=200)
-    address_street = models.CharField(max_length=200)
+# 学生类
+class StudentInfo(models.Model):
+    stu_id = models.CharField(max_length=200)
+    stu_num_id = models.CharField(max_length=200)
+    stu_name = models.CharField(max_length=200)
+    stu_id_card = models.CharField(max_length=200)
+    stu_sexy = models.CharField(max_length=200)
+    stu_phone_num = models.CharField(max_length=200)
+    stu_desc = models.CharField(max_length=200)
+    class_id = models.CharField(max_length=200)
 
-# 新闻类
-class NewsInfo(models.Model):
-    news_id = models.CharField(max_length=200)
-    news_title = models.CharField(max_length=200)
-    news_date = models.CharField(max_length=200)
-    news_author = models.CharField(max_length=200)
-    news_details = models.CharField(max_length=5000)
 
-# 用户收藏新闻映射
-class UserNewsMapping(models.Model):
-    user_news_mapping_id = models.CharField(max_length=200)
-    user_id = models.CharField(max_length=200)
-    news_id = models.CharField(max_length=2000)
+# 班级类
+class ClassInfo(models.Model):
+    class_id = models.CharField(max_length=200)
+    class_num = models.CharField(max_length=200)
 
-# 游戏类
-class GameInfo(models.Model):
-    game_id = models.CharField(max_length=200)
-    game_name = models.CharField(max_length=200)
-    game_desc = models.CharField(max_length=200)
 
-# 商户类
-class MerchantInfo(models.Model):
-    merchant_id = models.CharField(max_length=200)
-    merchant_name = models.CharField(max_length=200)
-    merchant_desc = models.CharField(max_length=2000)
-    application_user = models.CharField(max_length=200)
-    application_type = models.CharField(max_length=200)
-    approval_user = models.CharField(max_length=200)
+# 缴费信息类
+class PaymentInfo(models.Model):
+    payment_id = models.CharField(max_length=200)
+    payment_class_name = models.CharField(max_length=200)
+    payment_create_time = models.CharField(max_length=200)
+    stu_payment_time = models.CharField(max_length=200)
+    payment_amount = models.CharField(max_length=200)
+    payment_status = models.CharField(max_length=200)
+    stu_id = models.CharField(max_length=200)
+    create_user_id = models.CharField(max_length=200)
+    payment_res_desc = models.CharField(max_length=200)
+
+
+# 缴费项目类
+class PaymentClassInfo(models.Model):
+    payment_class_id = models.CharField(max_length=200)
+    payment_class_name = models.CharField(max_length=200)
+    payment_class_desc = models.CharField(max_length=200)
+
 
