@@ -36,4 +36,5 @@ urlpatterns = [
     url(r'^get_student_info_by_id/', views.get_student_info_by_id),
     url(r'^modify_student/', views.modify_student),
     url(r'^remove_student/', views.remove_student),
+    url(r'^student_login_api', views.student_login_api),
 ]

@@ -67,9 +67,9 @@ def create_student(request):
                                        class_id=request.POST['class_id']
                                        )
             student_info.save()
-        return _generate_json_message(True, "create student success")
+        return render(request, 'manage_student.html', context)
     except:
-        return _generate_json_message(False, "create student false")
+        return render(request, 'manage_student.html', context)
 
 
 def get_all_student_info(request):
@@ -120,9 +120,9 @@ def create_user(request):
                                  class_id=request.POST['class_id']
                                  )
             user_info.save()
-        return _generate_json_message(True, "create user success")
+        return render(request, 'manage_user.html', context)
     except:
-        return _generate_json_message(False, "create user false")
+        return render(request, 'manage_user.html', context)
 
 
 # 删除用户信息
@@ -186,6 +186,23 @@ def get_all_user_info(request):
         dict_tmp.pop("_state", None)
         list_response.append(dict_tmp)
     return _generate_json_from_models(list_response)
+
+
+# 用户登录
+# success
+def student_login_api(request):
+    if request.POST:
+        context = {}
+        stu_id_card = request.POST['stu_id_card']
+        try:
+            if stu_id_card:
+                student_info = StudentInfo.objects.get(stu_id_card=stu_id_card)
+            if student_info is not None:
+                return _generate_json_message(True, "login success")
+            else:
+                return r_generate_json_message(False, "login false")
+        except:
+            return _generate_json_message(False, "login false")
 
 
 # 用户登录
