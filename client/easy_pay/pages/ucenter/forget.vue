@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-green" :isBack="true">
-			<block slot="content">注册</block>
+			<block slot="content">忘记密码</block>
 		</cu-custom>
 		<view class="forget-bg">
 			<view class="forget-card">

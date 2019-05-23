@@ -1,8 +1,8 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/ucenter/login",
-			"style" : {
+		    "path" : "pages/ucenter/login",
+		    "style" : {
 				"navigationBarTitleText" : "登录",
 				"app-plus":{
 					"bounce":"none"
@@ -22,6 +22,24 @@
 		    "path" : "pages/ucenter/my_info",
 		    "style" : {
 				"navigationBarTitleText" : "我的",
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
+		},
+		{
+		    "path" : "pages/ucenter/forget",
+		    "style" : {
+				"navigationBarTitleText" : "忘记密码",
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
+		},
+		{
+		    "path" : "pages/pay/pay_success",
+		    "style" : {
+				"navigationBarTitleText" : "缴费结果",
 				"app-plus":{
 					"bounce":"none"
 				}
@@ -69,8 +87,14 @@
 				"selectedIconPath": "static/img/common/pay_checked.png",
 				"text": "缴费"
 			},
+//			{
+//				"pagePath": "pages/pay/pay_record",
+//				"iconPath": "static/img/common/pay_record_unchecked.png",
+//				"selectedIconPath": "static/img/common/pay_record_checked.png",
+//				"text": "记录"
+//			}
 			{
-				"pagePath": "pages/pay/pay_record",
+				"pagePath": "pages/pay/pay_success",
 				"iconPath": "static/img/common/pay_record_unchecked.png",
 				"selectedIconPath": "static/img/common/pay_record_checked.png",
 				"text": "记录"

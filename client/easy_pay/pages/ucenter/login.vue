@@ -1,244 +1,113 @@
 <template>
-	<view class="container">
-		<view class="left-bottom-sign"></view>
-		<view class="back-btn yticon icon-zuojiantou-up" @click="navBack"></view>
-		<view class="right-top-sign"></view>
-		<!-- 设置白色背景防止软键盘把下部绝对定位元素顶上来盖住输入框等 -->
-		<view class="wrapper">
-			<view class="left-top-sign">LOGIN</view>
-			<view class="welcome">
-				欢迎回来！
-			</view>
-			<view class="input-content">
-				<view class="input-item">
-					<text class="tit">身份证号码</text>
-					<input
-						:value="text"
-						placeholder="请输入身份证号码"
-						data-key="id_num"
-						maxlength=""
-						@input="inputChange"
-					/>
+	<view>
+		<cu-custom bgColor="bg-gradual-green" :isBack="false">
+			<block slot="content">登录</block>
+		</cu-custom>
+		<view class="login-bg">
+			<view class="login-card">
+				<view class="login-head">请登录</view>
+				<view class="login-input login-margin-b">
+					<input type="number" placeholder="身份证号" />
 				</view>
-				<view class="input-item">
-					<text class="tit">密码</text>
-					<input
-						type="text"
-						value=""
-						placeholder="8-18位不含特殊字符的数字、字母组合"
-						placeholder-class="input-empty"
-						maxlength="20"
-						password
-						data-key="password"
-						@input="inputChange"
-						@confirm="toLogin"
-					/>
+				<view class="login-input">
+					<input type="number" placeholder="请输入密码(8-16位)" />
 				</view>
-			</view>
-			<button class="confirm-btn" @click="toLogin" :disabled="logining">登录</button>
-			<view class="forget-section">
-				忘记密码?
+				<view class="login-function">
+					<view class="login-forget" @click="go_forget">忘记密码</view>
+					<view class="login-register" @click="go_register">快速注册></view>
+				</view>
 			</view>
 		</view>
-		<view class="register-section">
-			还没有账号?
-			<text @click="toRegist">马上注册</text>
+		<view class="login-btn">
+			<button class="landing" type="primary">登陆</button>
 		</view>
 	</view>
 </template>
 
 <script>
-	import {  
-        mapMutations  
-    } from 'vuex';
-	
-	export default{
-		data(){
+	export default {
+		data() {
 			return {
-				mobile: '',
-				password: '',
-				logining: false
+				title: 'Hello'
 			}
 		},
-		onLoad(){
-			
+		onLoad() {
+
 		},
 		methods: {
-			...mapMutations(['login']),
-			inputChange(e){
-				const key = e.currentTarget.dataset.key;
-				this[key] = e.detail.value;
+			go_forget(){
+				uni.navigateTo({
+				    url: '../../pages/ucenter/forget'
+				})
 			},
-			navBack(){
-				uni.navigateBack();
-			},
-			toRegist(){
-				this.$api.msg('去注册');
-			},
-			async toLogin(){
-				this.logining = true;
-				const {mobile, password} = this;
-				/* 数据验证模块
-				if(!this.$api.match({
-					mobile,
-					password
-				})){
-					this.logining = false;
-					return;
-				}
-				*/
-				const sendData = {
-					mobile,
-					password
-				};
-				const result = await this.$api.json('userInfo');
-				if(result.status === 1){
-					this.login(result.data);
-                    uni.navigateBack();  
-				}else{
-					this.$api.msg(result.msg);
-					this.logining = false;
-				}
+			go_register(){
+				uni.navigateTo({
+					url: '../../pages/ucenter/register'
+				})
 			}
-		},
-
+			
+		}
 	}
 </script>
 
-<style lang='scss'>
-	page{
-		background: #fff;
+<style>
+	.landing{
+		height: 84upx;
+		line-height: 84upx;
+		border-radius: 44upx;
+		font-size: 32upx;
+        background: linear-gradient(90deg, #39b54a, #8dc63f);
 	}
-	.container{
-		padding-top: 115px;
-		position:relative;
-		width: 100vw;
-		height: 100vh;
-		overflow: hidden;
-		background: #fff;
+	.login-btn{
+		padding: 10upx 20upx;
+		margin-top: 350upx;
 	}
-	.wrapper{
-		position:relative;
-		z-index: 90;
-		background: #fff;
-		padding-bottom: 40upx;
+	.login-function{
+		overflow: auto;
+		padding: 20upx 20upx 30upx 20upx;
 	}
-	.back-btn{
-		position:absolute;
-		left: 40upx;
-		z-index: 9999;
-		padding-top: var(--status-bar-height);
-		top: 40upx;
-		font-size: 40upx;
-		color: $font-color-dark;
+	.login-forget{
+		float: left;
+		font-size: 26upx;
+		color: #999;
 	}
-	.left-top-sign{
-		font-size: 120upx;
-		color: $page-color-base;
-		position:relative;
-		right: -400upx;
-	}
-	.right-top-sign{
-		position:absolute;
-		top: 80upx;
-		right: -30upx;
-		z-index: 95;
-		&:before, &:after{
-			display:block;
-			content:"";
-			width: 400upx;
-			height: 80upx;
-			background: #b4f3e2;
-		}
-		&:before{
-			transform: rotate(50deg);
-			border-radius: 0 50px 0 0;
-		}
-		&:after{
-			position: absolute;
-			right: -198upx;
-			top: 0;
-			transform: rotate(-50deg);
-			border-radius: 50px 0 0 0;
-			/* background: pink; */
-		}
-	}
-	.left-bottom-sign{
-		position:absolute;
-		left: -270upx;
-		bottom: -320upx;
-		border: 100upx solid #c7f6b6;
-		border-radius: 50%;
-		padding: 180upx;
-	}
-	.welcome{
-		position:relative;
-		left: 50upx;
-		top: -90upx;
-		font-size: 46upx;
-		color: #555;
-		text-shadow: 1px 0px 1px rgba(0,0,0,.3);
-	}
-	.input-content{
-		padding: 0 60upx;
-	}
-	.input-item{
-		display:flex;
-		flex-direction: column;
-		align-items:flex-start;
-		justify-content: center;
-		padding: 0 30upx;
-		background:$page-color-light;
-		height: 120upx;
-		border-radius: 4px;
-		margin-bottom: 50upx;
-		&:last-child{
-			margin-bottom: 0;
-		}
-		.tit{
-			height: 50upx;
-			line-height: 56upx;
-			font-size: $font-sm+2upx;
-			color: $font-color-base;
-		}
-		input{
-			height: 60upx;
-			font-size: $font-base + 2upx;
-			color: $font-color-dark;
-			width: 100%;
-		}	
-	}
+	.login-register{
+		color: #666;
+		float: right;
+		font-size: 26upx;
 
-	.confirm-btn{
-		width: 630upx;
-		height: 76upx;
-		line-height: 76upx;
-		border-radius: 50px;
-		margin-top: 70upx;
-		background: #0bd38a;
-		color: #fff;
-		font-size: $font-lg;
-		&:after{
-			border-radius: 100px;
-		}
 	}
-	.forget-section{
-		font-size: $font-sm+2upx;
-		color: $font-color-spec;
-		text-align: center;
-		margin-top: 40upx;
+	.login-input input{
+		background: #F2F5F6;
+		font-size: 28upx;
+		padding: 10upx 25upx;
+		height: 62upx;
+		line-height: 62upx;
+		border-radius: 8upx;
 	}
-	.register-section{
-		position:absolute;
-		left: 0;
-		bottom: 50upx;
-		width: 100%;
-		font-size: $font-sm+2upx;
-		color: $font-color-base;
+	.login-margin-b{
+		margin-bottom: 25upx;
+	}
+	.login-input{
+		padding: 10upx 20upx;
+	}
+	.login-head{
+		font-size: 34upx;
 		text-align: center;
-		text{
-			color: $font-color-spec;
-			margin-left: 10upx;
-		}
+		padding: 25upx 10upx 55upx 10upx;
+	}
+	.login-card{
+		background: #fff;
+		border-radius: 12upx;
+		padding: 10upx 25upx;
+		box-shadow: 0 6upx 18upx rgba(0,0,0,0.12);
+		position: relative;
+		margin-top: 120upx;
+	}
+	.login-bg {
+		height: 300upx;
+		padding: 25upx;
+        margin-top: -90upx;
+		background: linear-gradient(90deg, #39b54a, #8dc63f);
 	}
 </style>
