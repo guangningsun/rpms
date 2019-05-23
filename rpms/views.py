@@ -17,11 +17,21 @@ def _get_timestamp():
 # done
 def _generate_json_message(flag, message):
     if flag:
-        return HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
-                            content_type="application/json")
+        response = HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
+                                content_type="application/json",
+                                )
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'POST'
+        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+        return response
     else:
-        return HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",
-                            content_type="application/json")
+        response = HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",
+                                content_type="application/json"
+                                )
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'POST'
+        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+        return response 
 
 
 # 内部方法用于将对象返回值转换成json串
