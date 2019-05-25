@@ -17,7 +17,7 @@
 					<!--<view class="login-register" @click="go_register">快速注册></view>-->
 				<!--</view>-->
 				<text class="text-style text-red" >{{ verify_failed ? "验证未通过，请重新验证":""}}</text>
-				<view>{{ verify_failed ? " ":""}}</view>
+
 			</view>
 		</view>
 		<view class="login-btn">
@@ -72,8 +72,10 @@
 					},
 					success:function(result){
 						console.log(result);
-						this.verify_failed = false;
-						this.goToMyInfo();
+						if (result.error === 0) {
+							this.verify_failed = false;
+							this.goToMyInfo();	
+						}
 					},
 					fail: (err) => {
 						console.log('request fail', err);
