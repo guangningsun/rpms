@@ -76,7 +76,7 @@
 		"color": "#8F8F94",
 		"selectedColor": "#0bd38a",
 		"list": [{
-				"pagePath": "pages/ucenter/login",
+				"pagePath": "pages/ucenter/my_info",
 				"iconPath": "static/img/common/me_unchecked.png",
 				"selectedIconPath": "static/img/common/me_checked.png",
 				"text": "主页"

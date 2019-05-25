@@ -53,6 +53,7 @@
     export default {
         data() {
             return {
+				id_number:"",
                 CustomBar: this.CustomBar,
                 TabCur: 0,
                 avatar: ['https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big81005.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'],
@@ -64,7 +65,15 @@
                 this.TabCur = e.currentTarget.dataset.id;
                 this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
             }
-        }
+        },
+		onLoad:function(res){
+			uni.getStorage({
+				key:'key_id_number',
+				success:function(res){
+					console.log(res.data);
+				}
+			})
+		}
     }
 </script>
 

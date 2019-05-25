@@ -5,21 +5,23 @@
 		</cu-custom>
 		<view class="login-bg">
 			<view class="login-card">
-				<view class="login-head">请登录</view>
+				<view class="login-head">输入身份证号验证登录</view>
 				<view class="login-input login-margin-b">
-					<input type="number" placeholder="身份证号" />
+					<input type="text" placeholder="身份证号" v-model="id_number"/>
 				</view>
-				<view class="login-input">
-					<input type="number" placeholder="请输入密码(8-16位)" />
-				</view>
-				<view class="login-function">
-					<view class="login-forget" @click="go_forget">忘记密码</view>
-					<view class="login-register" @click="go_register">快速注册></view>
-				</view>
+				<!--<view class="login-input">-->
+                <!--<input type="number" placeholder="请输入密码(8-16位)" />-->
+                <!--</view>-->
+				<!--<view class="login-function">-->
+					<!--<view class="login-forget" @click="go_forget">忘记密码</view>-->
+					<!--<view class="login-register" @click="go_register">快速注册></view>-->
+				<!--</view>-->
+				<text class="text-style text-red" >{{ verify_failed ? "验证未通过，请重新验证":""}}</text>
+				<view>{{ verify_failed ? " ":""}}</view>
 			</view>
 		</view>
 		<view class="login-btn">
-			<button class="landing" type="primary">登陆</button>
+			<button class="landing" type="primary" @tap="verifyId">验证</button>
 		</view>
 	</view>
 </template>
@@ -28,12 +30,14 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				id_number:"",
+				verify_failed:false
 			}
 		},
 		onLoad() {
 
 		},
+		
 		methods: {
 			go_forget(){
 				uni.navigateTo({
@@ -44,8 +48,42 @@
 				uni.navigateTo({
 					url: '../../pages/ucenter/register'
 				})
+			},
+			goToMyInfo(){
+				uni.switchTab({
+					url:'my_info'
+				})
+
+			},
+			verifyId(){
+				// console.log(this.id_number);
+				
+				uni.setStorage({
+					key:'key_id_number',
+					data:this.id_number
+				})
+				
+				uni.request({
+					url:'http://114.116.64.103:9000/student_login_api',
+					dataType:'json',
+					method:'POST',
+					data: {
+						stu_id_card:this.id_number
+					},
+					success:function(result){
+						console.log(result);
+						this.verify_failed = false;
+						this.goToMyInfo();
+					},
+					fail: (err) => {
+						console.log('request fail', err);
+						this.verify_failed = true;
+					},
+					complete: () => {
+						this.loading = false;
+					}
+				})
 			}
-			
 		}
 	}
 </script>
@@ -109,5 +147,9 @@
 		padding: 25upx;
         margin-top: -90upx;
 		background: linear-gradient(90deg, #39b54a, #8dc63f);
+	}
+	.text-style{
+		padding:20upx;
+		margin-bottom: 20upx;
 	}
 </style>

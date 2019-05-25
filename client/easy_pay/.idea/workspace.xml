@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93da80ec-f0c7-416e-85f1-ed522c6a5767" name="Default" comment="1、UI框架、登录界面">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/pay/main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pay/pay_success.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/ucenter/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ucenter/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/ucenter/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ucenter/register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/ucenter/my_info.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ucenter/my_info.vue" afterDir="false" />
     </list>
     <list id="36822afa-f063-40dd-a48c-e406c0a20767" name="useless" comment="useless" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,17 +19,17 @@
       <file leaf-file-name="my_info.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/ucenter/my_info.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="60" column="10" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="10" />
+            <state relative-caret-position="497">
+              <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/ucenter/login.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="106" selection-start-line="106" selection-end-line="111" selection-end-column="5" />
+            <state relative-caret-position="658">
+              <caret line="72" column="25" lean-forward="true" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -45,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pay_success.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pay_success.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/pay/pay_success.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="437">
@@ -138,11 +136,11 @@
         <option value="$PROJECT_DIR$/pages/pay/pay_record.vue" />
         <option value="$PROJECT_DIR$/App.vue" />
         <option value="$PROJECT_DIR$/pages/pay/pay_index.vue" />
-        <option value="$PROJECT_DIR$/pages/ucenter/login.vue" />
         <option value="$PROJECT_DIR$/pages/ucenter/register.vue" />
         <option value="$PROJECT_DIR$/pages/ucenter/forget.vue" />
         <option value="$PROJECT_DIR$/pages.json" />
         <option value="$PROJECT_DIR$/pages/pay/pay_success.vue" />
+        <option value="$PROJECT_DIR$/pages/ucenter/login.vue" />
       </list>
     </option>
   </component>
@@ -157,9 +155,8 @@
       <path value="$PROJECT_DIR$/node_modules/prettier/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="x" value="84" />
-    <option name="y" value="55" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="878" />
   </component>
@@ -383,7 +380,7 @@
       <workItem from="1558449723566" duration="12078000" />
       <workItem from="1558544888082" duration="343000" />
       <workItem from="1558546180850" duration="1409000" />
-      <workItem from="1558615718617" duration="4270000" />
+      <workItem from="1558615718617" duration="5756000" />
     </task>
     <task id="LOCAL-00001" summary="1、UI框架、登录界面">
       <created>1557852796032</created>
@@ -396,11 +393,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21368000" />
+    <option name="totallyTimeSpent" value="22854000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1440" height="878" extended-state="1" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -751,8 +747,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/ucenter/my_info.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="60" column="10" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="10" />
+        <state relative-caret-position="497">
+          <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -787,13 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/ucenter/login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="106" selection-start-line="106" selection-end-line="111" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/ucenter/register.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -819,6 +808,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/ucenter/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="72" column="25" lean-forward="true" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
         </state>
       </provider>
     </entry>
