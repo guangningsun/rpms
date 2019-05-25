@@ -23,6 +23,15 @@
 |   114.116.64.103:8000/user_login |  POST   ||   0   |用户登录接口|
 
 
+## 手机端API
+- 学生登录
+
+```
+/student_login_api
+参数
+stu_id_card
+```
+
 #### 用户信息操作API
 
 - 创建用户信息/用户注册
@@ -74,3 +83,35 @@ user_login
 username
 password
 ```
+
+init_web
+create_user
+get_all_user_info
+user_login
+get_user_info_by_id
+modify_user
+remove_user
+manage_student
+manage_payment
+manage_student
+manage_payment_class
+manage_class
+create_student
+get_all_student_info
+dent_info_by_id
+modify_student
+remove_student
+create_payment
+remove_payment
+get_all_payment_info
+modify_payment
+get_payment_by_stu_id_card
+remove_payment_class
+create_payment_class
+get_all_payment_class_info
+modify_payment_class
+create_class
+remove_class
+views.get_all_class_info
+modify_class
+student_login_api

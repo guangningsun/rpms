@@ -8,39 +8,62 @@ from TestModel.models import *
 
 
 # 内部方法，用于获取当前时间戳
+# done
 def _get_timestamp():
     return int(time.time())
 
 
 # 内部方法用于返回json消息
+# done
 def _generate_json_message(flag, message):
     if flag:
-        return HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",content_type="application/json")
+        response = HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
+                                content_type="application/json",
+                                )
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'POST'
+        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+        return response
     else:
-        return HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",content_type="application/json")
+        response = HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",
+                                content_type="application/json"
+                                )
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'POST'
+        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+        return response 
 
 
 # 内部方法用于将对象返回值转换成json串
+# done
 def _generate_json_from_models(response_list):
-    return HttpResponse(json.dumps(response_list), content_type="application/json")
+    return HttpResponse(json.dumps(response_list),
+                        content_type="application/json")
 
 
 # 学生管理界面跳转
+# done
 def manage_student(request):
     context = {}
     return render(request, 'manage_student.html', context)
 
 
+# 缴费管理界面跳转
+# done
 def manage_payment(request):
     context = {}
     return render(request, 'manage_payment.html', context)
 
 
+# 用户管理界面跳转
+# done
 def manage_user(request):
     context = {}
     return render(request, 'manage_user.html', context)
 
 
+# 缴费类别管理界面跳转
+# done
 def manage_payment_class(request):
     context = {}
     return render(request, 'manage_payment_class.html', context)
@@ -51,25 +74,95 @@ def manage_class(request):
     return render(request, 'manage_class.html', context)
 
 
+# 创建缴费记录
+def create_payment(request):
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    try:
+        if request.POST:
+            payment_info = PaymentInfo(
+                payment_id=_get_timestamp(),
+                payment_class_name=request.POST['payment_class_name'],
+                payment_create_time=current_time,
+                stu_payment_time=request.POST['stu_payment_time'],
+                payment_amount=request.POST['payment_amount'],
+                payment_status=request.POST['payment_status'],
+                stu_id=request.POST['stu_id'],
+                create_user_id=request.POST['create_user_id'],
+                payment_res_desc=request.POST['payment_res_desc']
+                )
+            payment_info.save()
+        return render(request, 'manage_payment.html', context)
+    except:
+        return render(request, 'manage_payment.html', context)
+
+
+def remove_payment(request):
+    pass
+
+
+def get_all_payment_info(request):
+    pass
+
+
+def modify_payment(request):
+    pass
+
+
+def get_payment_list_by_stu_id_card(request):
+    pass
+
+
+def create_payment_class(request):
+    pass
+
+
+def remove_payment_class(request):
+    pass
+
+
+def get_all_payment_class_info(request):
+    pass
+
+
+def modify_payment_class(request):
+    pass
+
+
+def create_class(request):
+    pass
+
+
+def remove_class(request):
+    pass
+
+
+def get_all_class_info(request):
+    pass
+
+
+def modify_class(request):
+    pass
+
+
 # 创建学生
-# success
 def create_student(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
-            student_info = StudentInfo(stu_id=_get_timestamp(),
-                                       stu_num_id=request.POST['stu_num_id'],
-                                       stu_name=request.POST['stu_name'],
-                                       stu_id_card=request.POST['stu_id_card'],
-                                       stu_sexy=request.POST['stu_sexy'],
-                                       stu_phone_num=request.POST['stu_phone_num'],
-                                       stu_desc=request.POST['stu_desc'],
-                                       class_id=request.POST['class_id']
-                                       )
+            student_info = StudentInfo(
+                stu_id=_get_timestamp(),
+                stu_num_id=request.POST['stu_num_id'],
+                stu_name=request.POST['stu_name'],
+                stu_id_card=request.POST['stu_id_card'],
+                stu_sexy=request.POST['stu_sexy'],
+                stu_phone_num=request.POST['stu_phone_num'],
+                stu_desc=request.POST['stu_desc'],
+                class_id=request.POST['class_id']
+                )
             student_info.save()
-        return _generate_json_message(True, "create student success")
+        return render(request, 'manage_student.html', context)
     except:
-        return _generate_json_message(False, "create student false")
+        return render(request, 'manage_student.html', context)
 
 
 def get_all_student_info(request):
@@ -109,20 +202,21 @@ def create_user(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
-            user_info = UserInfo(login_name=request.POST['login_name'],
-                                 username=request.POST['username'],
-                                 password=request.POST['password'],
-                                 user_id=_get_timestamp(),
-                                 user_permission=request.POST['user_permission'],
-                                 is_deleted=0,
-                                 create_time=current_time,
-                                 description=request.POST['description'],
-                                 class_id=request.POST['class_id']
-                                 )
+            user_info = UserInfo(
+                login_name=request.POST['login_name'],
+                username=request.POST['username'],
+                password=request.POST['password'],
+                user_id=_get_timestamp(),
+                user_permission=request.POST['user_permission'],
+                is_deleted=0,
+                create_time=current_time,
+                description=request.POST['description'],
+                class_id=request.POST['class_id']
+                )
             user_info.save()
-        return _generate_json_message(True, "create user success")
+        return render(request, 'manage_user.html', context)
     except:
-        return _generate_json_message(False, "create user false")
+        return render(request, 'manage_user.html', context)
 
 
 # 删除用户信息
@@ -212,3 +306,31 @@ def init_web(request):
     return render(request, 'signin.html')
 
 
+# 学生登录 API
+# success
+def student_login_api(request):
+    if request.POST:
+        context = {}
+        stu_id_card = request.POST['stu_id_card']
+        try:
+            if stu_id_card:
+                student_info = StudentInfo.objects.get(stu_id_card=stu_id_card)
+            if student_info is not None:
+                return _generate_json_message(True, "login success")
+            else:
+                return r_generate_json_message(False, "login false")
+        except:
+            return _generate_json_message(False, "login false")
+
+
+def get_student_info_summary_api(request):
+    if request.POST:
+        context = {}
+        stu_id_card = request.POST['stu_id_card']
+        try:
+            if stu_id_card:
+                student_info = StudentInfo.objects.get(stu_id_card=stu_id_card)
+            if student_info is not None:
+                return 0
+        except:
+            return _generate_json_message(False, "get student info  false")
