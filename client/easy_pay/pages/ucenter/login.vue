@@ -80,6 +80,9 @@
 					fail: (err) => {
 						console.log('request fail', err);
 						this.verify_failed = true;
+						
+						// test code
+						this.goToMyInfo();
 					},
 					complete: () => {
 						this.loading = false;

@@ -87,18 +87,18 @@
 				"selectedIconPath": "static/img/common/pay_checked.png",
 				"text": "缴费"
 			},
-//			{
-//				"pagePath": "pages/pay/pay_record",
-//				"iconPath": "static/img/common/pay_record_unchecked.png",
-//				"selectedIconPath": "static/img/common/pay_record_checked.png",
-//				"text": "记录"
-//			}
 			{
-				"pagePath": "pages/pay/pay_success",
+				"pagePath": "pages/pay/pay_record",
 				"iconPath": "static/img/common/pay_record_unchecked.png",
 				"selectedIconPath": "static/img/common/pay_record_checked.png",
 				"text": "记录"
 			}
+			// {
+			// 	"pagePath": "pages/pay/pay_success",
+			// 	"iconPath": "static/img/common/pay_record_unchecked.png",
+			// 	"selectedIconPath": "static/img/common/pay_record_checked.png",
+			// 	"text": "记录"
+			// }
 		]
 	}
 }

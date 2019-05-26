@@ -8,7 +8,11 @@
                 <view class="text-xsl padding">
                     <text class=" cuIcon-roundcheckfill text-green"></text>
                 </view>
-                <view class="padding">成功</view>
+                <view class="padding text-black text-bold text-xl">成功</view>
+				<view class="flex solid-bottom padding justify-around">
+					<button class="flex-sub cu-btn padding-sm margin-xs round lines-green shadow" @click="goOn">继续交费</button>
+					<button class="flex-sub cu-btn padding-sm margin-xs round lines-blue shadow" @click="backToMyInfo">返回主页</button>
+				</view>
             </view>
         </view>
     </view>
@@ -19,10 +23,27 @@
         data() {
             return {}
         },
-        methods: {}
+        methods: {
+			backToMyInfo(){
+				uni.switchTab({
+					url:'../ucenter/my_info'
+				})
+			},
+			goOn(){
+				uni.switchTab({
+					url:'pay_index'
+				})
+			}
+		}
     }
 </script>
 
 <style>
+.flex{
+	padding: 10upx, 30upx;
+}
 
+.flex-sub{
+	padding: 20upx;
+}
 </style>

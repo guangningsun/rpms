@@ -10,37 +10,37 @@
             <view class="padding bg-white">
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">姓名</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">姓名</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{name}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">学号</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">学号</view>
+                    <view class="flex-twice padding-sm margin-xs radius" >{{student_number}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">身份证号</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">身份证号</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{id_number}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">班级</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">班级</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{student_class}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">班主任</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">班主任</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{student_teacher}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">已缴费(元)</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">已缴费(元)</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{payed_fee}}</view>
                 </view>
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius">需缴费(元)</view>
-                    <view class="flex-twice padding-sm margin-xs radius">--</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">需缴费(元)</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{unpayed_fee}}</view>
                 </view>
 
             </view>
@@ -53,11 +53,13 @@
     export default {
         data() {
             return {
-				id_number:"",
-                CustomBar: this.CustomBar,
-                TabCur: 0,
-                avatar: ['https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big81005.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'],
-                tabNav: ['Flex布局', 'Grid布局', '辅助布局']
+				id_number:'',
+				name:'',
+				student_number:'',
+				student_class:'',
+				student_teacher:'',
+				payed_fee:'',
+				unpayed_fee:''
             };
         },
         methods: {
@@ -66,14 +68,53 @@
                 this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
             }
         },
-		onLoad:function(res){
-			uni.getStorage({
-				key:'key_id_number',
-				success:function(res){
-					console.log(res.data);
-				}
-			})
+		onShow() {
+			this.id_number = uni.getStorageSync('key_id_number');
+			
+			uni.request({
+				url: 'http://114.116.64.103:9000/',
+				method: 'POST',
+				dataType:'json',
+				data: {
+					stu_id_card:this.id_number
+				},
+				success: res => {
+					console.log(result);
+
+				},
+				fail: (err) => {
+					console.log('request fail', err);
+				},
+				complete: () => {}
+			});
 		}
+// 		onLoad:function(res){
+// 			uni.getStorage({
+// 				key:'key_id_number',
+// 				success:function(res){
+// 					this.id_number = res.data;
+// 					console.log(this.id_number);
+// // 					uni.request({
+// // 						url: 'http://114.116.64.103:9000/',
+// // 						method: 'POST',
+// // 						dataType:'json',
+// // 						data: {
+// // 							stu_id_card:this.id_number
+// // 						},
+// // 						success: res => {
+// // 							console.log(result);
+// // 
+// // 						},
+// // 						fail: (err) => {
+// // 							console.log('request fail', err);
+// // 						},
+// // 						complete: () => {}
+// // 					});
+// 
+// 
+// 				}
+// 			})
+// 		}
     }
 </script>
 
