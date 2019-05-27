@@ -30,7 +30,7 @@
 	export default {
 		data() {
 			return {
-				id_number:"",
+				id_number:0,
 				verify_failed:false
 			}
 		},
@@ -64,11 +64,11 @@
 				})
 				
 				uni.request({
-					url:'http://114.116.64.103:9000/student_login_api',
+					url:'http://114.116.64.103:9000/student_login_api/',
 					dataType:'json',
 					method:'POST',
 					data: {
-						stu_id_card:this.id_number
+						stu_num_id:this.id_number
 					},
 					success:function(result){
 						console.log(result);
@@ -82,7 +82,7 @@
 						this.verify_failed = true;
 						
 						// test code
-						this.goToMyInfo();
+						// this.goToMyInfo();
 					},
 					complete: () => {
 						this.loading = false;

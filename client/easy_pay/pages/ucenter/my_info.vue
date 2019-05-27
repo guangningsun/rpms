@@ -53,7 +53,7 @@
     export default {
         data() {
             return {
-				id_number:'',
+				id_number:0,
 				name:'',
 				student_number:'',
 				student_class:'',
@@ -70,13 +70,13 @@
         },
 		onShow() {
 			this.id_number = uni.getStorageSync('key_id_number');
-			
+			console.log(this.id_number);
 			uni.request({
-				url: 'http://114.116.64.103:9000/',
+				url: 'http://114.116.64.103:9000/get_student_info_summary_api/',
 				method: 'POST',
 				dataType:'json',
 				data: {
-					stu_id_card:this.id_number
+					stu_num_id:this.id_number
 				},
 				success: res => {
 					console.log(result);

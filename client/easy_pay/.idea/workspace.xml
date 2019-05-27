@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+    <list id="36822afa-f063-40dd-a48c-e406c0a20767" name="useless" comment="useless" />
     <list default="true" id="93da80ec-f0c7-416e-85f1-ed522c6a5767" name="Default" comment="1、UI框架、登录界面">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/pay/pay_index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pay/pay_index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/pay/pay_record.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pay/pay_record.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/pay/pay_success.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pay/pay_success.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/ucenter/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ucenter/login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/ucenter/my_info.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ucenter/my_info.vue" afterDir="false" />
     </list>
-    <list id="36822afa-f063-40dd-a48c-e406c0a20767" name="useless" comment="useless" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/pages/ucenter/login.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="333">
-              <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -819,7 +815,7 @@
     <entry file="file://$PROJECT_DIR$/pages/ucenter/login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
-          <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
         </state>
       </provider>
     </entry>
