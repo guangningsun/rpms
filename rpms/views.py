@@ -5,6 +5,7 @@ from django.shortcuts import render
 import json
 import time
 from TestModel.models import *
+from django.db.models import Avg, Count, Min, Sum
 
 
 # 内部方法，用于获取当前时间戳
@@ -17,9 +18,6 @@ def _get_timestamp():
 # done
 def _generate_json_message(flag, message):
     if flag:
-       # response.Headers['Access-Control-Allow-Origin'] = '*'
-       # response.Headers['Access-Control-Allow-Methods'] = 'POST'
-       # response.Headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
         return HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
                             content_type="application/json",
                             )
@@ -72,6 +70,7 @@ def manage_class(request):
 # 创建缴费记录
 def create_payment(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
     try:
         if request.POST:
             payment_info = PaymentInfo(
@@ -81,7 +80,7 @@ def create_payment(request):
                 stu_payment_time=request.POST['stu_payment_time'],
                 payment_amount=request.POST['payment_amount'],
                 payment_status=request.POST['payment_status'],
-                stu_id=request.POST['stu_id'],
+                stu_num_id=request.POST['stu_num_id'],
                 create_user_id=request.POST['create_user_id'],
                 payment_res_desc=request.POST['payment_res_desc']
                 )
@@ -96,7 +95,14 @@ def remove_payment(request):
 
 
 def get_all_payment_info(request):
-    pass
+    list_response = []
+    list_payment = PaymentInfo.objects.all()
+    for res in list_payment:
+        dict_tmp = {}
+        dict_tmp.update(res.__dict__)
+        dict_tmp.pop("_state", None)
+        list_response.append(dict_tmp)
+    return _generate_json_from_models(list_response)
 
 
 def modify_payment(request):
@@ -306,10 +312,10 @@ def init_web(request):
 def student_login_api(request):
     if request.POST:
         context = {}
-        stu_id_card = request.POST['stu_id_card']
+        stu_num_id = request.POST['stu_num_id']
         try:
             if stu_id_card:
-                student_info = StudentInfo.objects.get(stu_id_card=stu_id_card)
+                student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
             if student_info is not None:
                 return _generate_json_message(True, "login success")
             else:
@@ -321,11 +327,26 @@ def student_login_api(request):
 def get_student_info_summary_api(request):
     if request.POST:
         context = {}
-        stu_id_card = request.POST['stu_id_card']
+        stu_num_id = request.POST['stu_num_id']
         try:
-            if stu_id_card:
-                student_info = StudentInfo.objects.get(stu_id_card=stu_id_card)
-            if student_info is not None:
-                return 0
+            if stu_num_id:
+                student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
+                if student_info is not None:
+                    #import pdb;pdb.set_trace()
+                    total_amount = PaymentInfo.objects.\
+                        filter(stu_num_id=stu_num_id).\
+                        aggregate(total_amount=Sum("payment_amount"))
+
+                    already_payed_amount = PaymentInfo.objects.\
+                        filter(stu_num_id=stu_num_id).\
+                        filter(payment_status='0').\
+                        aggregate(already_payed_amount=Sum("payment_amount"))
+                    dict_tmp = {}
+                    dict_tmp.update(student_info.__dict__)
+                    dict_tmp.pop("_state", None)
+                    #dict_tmp.update({'total_amount': total_amount, 'already_payed_amount': already_payed_amount})
+                    dict_tmp.update(total_amount)
+                    dict_tmp.update(already_payed_amount)
+                    return _generate_json_from_models(dict_tmp)
         except:
             return _generate_json_message(False, "get student info  false")

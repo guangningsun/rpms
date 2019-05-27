@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rpms',
     'TestModel',
+    'corsheaders',
 ]
+
+# env need pip install django-cors-headers
+CORS_ORIGIN_ALLOW_ALL=True
 
 MIDDLEWARE = [
 #    'django.middleware.security.SecurityMiddleware',
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 #    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 #    'dwebsocket.middleware.WebSocketMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'rpms.urls'
