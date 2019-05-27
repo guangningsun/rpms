@@ -45,7 +45,7 @@ class PaymentInfo(models.Model):
     stu_payment_time = models.CharField(max_length=200)
     payment_amount = models.CharField(max_length=200)
     payment_status = models.CharField(max_length=200)
-    stu_id = models.CharField(max_length=200)
+    stu_num_id = models.CharField(max_length=200)
     create_user_id = models.CharField(max_length=200)
     payment_res_desc = models.CharField(max_length=200)
 

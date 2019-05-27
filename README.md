@@ -29,7 +29,29 @@
 ```
 /student_login_api
 参数
-stu_id_card
+stu_num_id
+```
+
+- 获取个人信息
+
+```
+/get_student_info_summary_api
+参数
+stu_num_id
+返回值
+{
+    "stu_phone_num": "21918621",
+    "total_amount": 9880,
+    "stu_name": "孙广宁",
+    "class_id": "20190505",
+    "already_payed_amount": 9800,
+    "stu_id": "1558960975",
+    "stu_id_card": "330301199009115615",
+    "stu_desc": "none",
+    "stu_sexy": "男",
+    "id": 23,
+    "stu_num_id": "88888"
+}
 ```
 
 #### 用户信息操作API
@@ -84,34 +106,63 @@ username
 password
 ```
 
-init_web
-create_user
-get_all_user_info
-user_login
-get_user_info_by_id
-modify_user
-remove_user
-manage_student
-manage_payment
-manage_student
-manage_payment_class
-manage_class
-create_student
-get_all_student_info
-dent_info_by_id
-modify_student
-remove_student
-create_payment
-remove_payment
-get_all_payment_info
-modify_payment
-get_payment_by_stu_id_card
-remove_payment_class
-create_payment_class
-get_all_payment_class_info
-modify_payment_class
-create_class
-remove_class
-views.get_all_class_info
-modify_class
-student_login_api
+-init_web
+
+-create_user
+
+-get_all_user_info
+
+-user_login
+
+-get_user_info_by_id
+
+-modify_user
+
+-remove_user
+
+-manage_student
+
+-manage_payment
+
+-manage_student
+
+-manage_payment_class
+
+-manage_class
+
+-create_student
+
+-get_all_student_info
+
+-dent_info_by_id
+
+-modify_student
+
+-remove_student
+
+-create_payment
+
+-remove_payment
+
+-get_all_payment_info
+
+-modify_payment
+
+-get_payment_by_stu_id_card
+
+-remove_payment_class
+
+-create_payment_class
+
+-get_all_payment_class_info
+
+-modify_payment_class
+
+-create_class
+
+-remove_class
+
+-get_all_class_info
+
+-modify_class
+
