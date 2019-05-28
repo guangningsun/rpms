@@ -31,14 +31,14 @@
 		<view class="cu-modal" :class="modalName == 'DialogModal1' ? 'show' : ''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
-					<view class="content">Modal标题</view>
+					<view class="content">退费申请</view>
 					<view class="action" @tap="hideModal"><text class="cuIcon-close text-red"></text></view>
 				</view>
-				<view class="padding-xl">Modal 内容。</view>
+				<view class="padding-xl">确定要退费？</view>
 				<view class="cu-bar bg-white justify-end">
 					<view class="action">
 						<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
-						<button class="cu-btn bg-green margin-left" @tap="hideModal">确定</button>
+						<button class="cu-btn bg-red margin-left" @tap="applyRefund">确定</button>
 					</view>
 				</view>
 			</view>
@@ -57,7 +57,10 @@ export default {
 		showModal(e) {
 			this.modalName = e.currentTarget.dataset.target;
 		},
-		hideModal(e) {
+		applyRefund(e) {
+			uni.showToast({
+				title: '申请退款成功！'
+			});
 			this.modalName = null;
 		}
 	}

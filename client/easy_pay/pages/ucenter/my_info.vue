@@ -50,10 +50,25 @@
 </template>
 
 <script>
+	
+// 	{
+//     "stu_phone_num": "21918621",
+//     "total_amount": 9880,
+//     "stu_name": "孙广宁",
+//     "class_id": "20190505",
+//     "already_payed_amount": 9800,
+//     "stu_id": "1558960975",
+//     "stu_id_card": "330301199009115615",
+//     "stu_desc": "none",
+//     "stu_sexy": "男",
+//     "id": 23,
+//     "stu_num_id": "88888"
+// }
+	
     export default {
         data() {
             return {
-				id_number:0,
+				id_number:'',
 				name:'',
 				student_number:'',
 				student_class:'',
@@ -69,18 +84,23 @@
             }
         },
 		onShow() {
-			this.id_number = uni.getStorageSync('key_id_number');
-			console.log(this.id_number);
+			this.student_number = uni.getStorageSync('key_id_number');
+			console.log(this.student_number);
 			uni.request({
 				url: 'http://114.116.64.103:9000/get_student_info_summary_api/',
 				method: 'POST',
 				dataType:'json',
 				data: {
-					stu_num_id:this.id_number
+					stu_num_id:this.student_number
 				},
 				success: res => {
 					console.log(result);
-
+					this.name = res.data.stu_name;
+					this.id_number = res.data.stu_id;
+					this.student_teacher = res.data.student_teacher;
+					this.unpayed_fee = res.data.total_amount;
+					this.payed_fee = res.data.already_payed_amount;
+					this.student_class = res.data.class_id;
 				},
 				fail: (err) => {
 					console.log('request fail', err);
