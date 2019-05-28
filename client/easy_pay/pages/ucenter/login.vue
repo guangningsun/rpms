@@ -163,7 +163,7 @@
 	.login-bg {
 		height: 300upx;
 		padding: 25upx;
-		margin-top: -90upx;
+		margin-top: -94upx;
 		background: linear-gradient(90deg, #39b54a, #8dc63f);
 	}
 
