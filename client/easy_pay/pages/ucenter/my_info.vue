@@ -30,11 +30,6 @@
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius text-grey">班主任</view>
-                    <view class="flex-twice padding-sm margin-xs radius">{{student_teacher}}</view>
-                </view>
-
-                <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
                     <view class="flex-sub padding-sm margin-xs radius text-grey">已缴费(元)</view>
                     <view class="flex-twice padding-sm margin-xs radius">{{payed_fee}}</view>
                 </view>
@@ -72,7 +67,6 @@
 				name:'',
 				student_number:'',
 				student_class:'',
-				student_teacher:'',
 				payed_fee:'',
 				unpayed_fee:''
             };
@@ -87,14 +81,17 @@
 			this.student_number = uni.getStorageSync('key_id_number');
 			console.log(this.student_number);
 			uni.request({
-				url: 'http://114.116.64.103:9000/get_student_info_summary_api/',
-				method: 'POST',
+				url: 'http://114.116.64.103:9000/get_student_info_summary_api',
+				method: "POST",
 				dataType:'json',
+				header: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
 				data: {
 					stu_num_id:this.student_number
 				},
 				success: res => {
-					console.log(result);
+					console.log(res);
 					this.name = res.data.stu_name;
 					this.id_number = res.data.stu_id;
 					this.student_teacher = res.data.student_teacher;

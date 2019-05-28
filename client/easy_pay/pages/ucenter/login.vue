@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-green" :isBack="false"><block slot="content">登录</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-green" :isBack="false">
+			<block slot="content">登录</block>
+		</cu-custom>
 		<view class="login-bg">
 			<view class="login-card">
 				<view class="login-head">输入身份证号验证登录</view>
@@ -20,136 +22,153 @@
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			id_number: "",
-			verify_failed: false
-		};
-	},
-	onLoad() {},
-
-	methods: {
-		go_forget() {
-			uni.navigateTo({
-				url: '../../pages/ucenter/forget'
-			});
+	export default {
+		data() {
+			return {
+				id_number: "",
+				verify_failed: false
+			};
 		},
-		go_register() {
-			uni.navigateTo({
-				url: '../../pages/ucenter/register'
-			});
-		},
-		goToMyInfo() {
-			uni.switchTab({
-				url: 'my_info'
-			});
-		},
-		verifyId() {
-			console.log(this.id_number);
+		onLoad() {},
 
-			uni.setStorage({
-				key: 'key_id_number',
-				data: this.id_number
-			});
+		methods: {
+			go_forget() {
+				uni.navigateTo({
+					url: '../../pages/ucenter/forget'
+				});
+			},
+			go_register() {
+				uni.navigateTo({
+					url: '../../pages/ucenter/register'
+				});
+			},
+			goToMyInfo() {
+				uni.switchTab({
+					url: 'my_info'
+				});
+			},
+			verifyId() {
+				console.log(this.id_number);
 
-			uni.request({
-				url: 'http://114.116.64.103:9000/student_login_api',
-				method: "POST",
-				header: {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				data: {
-					stu_num_id: this.id_number
-				},
-				success: function(result) {
-					console.log(result);
-					if (result.error === 0) {
-						this.verify_failed = false;
-						this.goToMyInfo();
+				uni.setStorage({
+					key: 'key_id_number',
+					data: this.id_number
+				});
+
+				uni.request({
+					url: 'http://114.116.64.103:9000/student_login_api',
+					method: "POST",
+					dataType: 'json',
+					header: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: {
+						stu_num_id: this.id_number
+					},
+					success: function(result) {
+						console.log(result.data.error);
+						// var data = JSON.parse(result.data);
+						// console.log(data.error);
+
+						if (result.data.error === 0) {
+							this.verify_failed = false;
+							uni.switchTab({
+								url: 'my_info'
+							});
+						}
+					},
+					fail: err => {
+						console.log('request fail', err);
+						this.verify_failed = true;
+
+						// test code
+						// this.goToMyInfo();
+					},
+					complete: () => {
+
+						this.loading = false;
+
+						// test code
+						// this.goToMyInfo();
 					}
-				},
-				fail: err => {
-					console.log('request fail', err);
-					this.verify_failed = true;
-
-					// test code
-					this.goToMyInfo();
-				},
-				complete: () => {
-					console.log('request complete');
-					this.loading = false;
-
-					// test code
-					// this.goToMyInfo();
-				}
-			});
+				});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style>
-.landing {
-	height: 84upx;
-	line-height: 84upx;
-	border-radius: 44upx;
-	font-size: 32upx;
-	background: linear-gradient(90deg, #39b54a, #8dc63f);
-}
-.login-btn {
-	padding: 10upx 20upx;
-	margin-top: 350upx;
-}
-.login-function {
-	overflow: auto;
-	padding: 20upx 20upx 30upx 20upx;
-}
-.login-forget {
-	float: left;
-	font-size: 26upx;
-	color: #999;
-}
-.login-register {
-	color: #666;
-	float: right;
-	font-size: 26upx;
-}
-.login-input input {
-	background: #f2f5f6;
-	font-size: 28upx;
-	padding: 10upx 25upx;
-	height: 62upx;
-	line-height: 62upx;
-	border-radius: 8upx;
-}
-.login-margin-b {
-	margin-bottom: 25upx;
-}
-.login-input {
-	padding: 10upx 20upx;
-}
-.login-head {
-	font-size: 34upx;
-	text-align: center;
-	padding: 25upx 10upx 55upx 10upx;
-}
-.login-card {
-	background: #fff;
-	border-radius: 12upx;
-	padding: 10upx 25upx;
-	box-shadow: 0 6upx 18upx rgba(0, 0, 0, 0.12);
-	position: relative;
-	margin-top: 120upx;
-}
-.login-bg {
-	height: 300upx;
-	padding: 25upx;
-	margin-top: -90upx;
-	background: linear-gradient(90deg, #39b54a, #8dc63f);
-}
-.text-style {
-	padding: 20upx;
-	margin-bottom: 20upx;
-}
+	.landing {
+		height: 84upx;
+		line-height: 84upx;
+		border-radius: 44upx;
+		font-size: 32upx;
+		background: linear-gradient(90deg, #39b54a, #8dc63f);
+	}
+
+	.login-btn {
+		padding: 10upx 20upx;
+		margin-top: 350upx;
+	}
+
+	.login-function {
+		overflow: auto;
+		padding: 20upx 20upx 30upx 20upx;
+	}
+
+	.login-forget {
+		float: left;
+		font-size: 26upx;
+		color: #999;
+	}
+
+	.login-register {
+		color: #666;
+		float: right;
+		font-size: 26upx;
+	}
+
+	.login-input input {
+		background: #f2f5f6;
+		font-size: 28upx;
+		padding: 10upx 25upx;
+		height: 62upx;
+		line-height: 62upx;
+		border-radius: 8upx;
+	}
+
+	.login-margin-b {
+		margin-bottom: 25upx;
+	}
+
+	.login-input {
+		padding: 10upx 20upx;
+	}
+
+	.login-head {
+		font-size: 34upx;
+		text-align: center;
+		padding: 25upx 10upx 55upx 10upx;
+	}
+
+	.login-card {
+		background: #fff;
+		border-radius: 12upx;
+		padding: 10upx 25upx;
+		box-shadow: 0 6upx 18upx rgba(0, 0, 0, 0.12);
+		position: relative;
+		margin-top: 120upx;
+	}
+
+	.login-bg {
+		height: 300upx;
+		padding: 25upx;
+		margin-top: -90upx;
+		background: linear-gradient(90deg, #39b54a, #8dc63f);
+	}
+
+	.text-style {
+		padding: 20upx;
+		margin-bottom: 20upx;
+	}
 </style>
