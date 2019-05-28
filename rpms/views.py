@@ -18,11 +18,11 @@ def _get_timestamp():
 # done
 def _generate_json_message(flag, message):
     if flag:
-        return HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
+        return HttpResponse("{\"error\":0,\"errmsg\":\""+message+"\"}",
                             content_type="application/x-www-form-urlencoded",
                             )
     else:
-        return HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",
+        return HttpResponse("{\"error\":1,\"errmsg\":\""+message+"\"}",
                             content_type="application/x-www-form-urlencoded",
                             )
 
@@ -31,7 +31,9 @@ def _generate_json_message(flag, message):
 # done
 def _generate_json_from_models(response_list):
     return HttpResponse(json.dumps(response_list),
-                        content_type="application/json")
+                        content_type="application/x-www-form-urlencoded",
+                        )
+#                      content_type="application/json")
 #    res["Access-Control-Allow-Origin"] = "*"
 #    res["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE,OPTIONS"
 #    res["Access-Control-Max-Age"] = "1000"
