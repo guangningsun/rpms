@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 # env need pip install django-cors-headers
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
 #    'django.middleware.security.SecurityMiddleware',

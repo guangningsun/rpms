@@ -19,11 +19,11 @@ def _get_timestamp():
 def _generate_json_message(flag, message):
     if flag:
         return HttpResponse("{\"error\":0,\"errmsg\":"+message+"}",
-                            content_type="application/json",
+                            content_type="application/x-www-form-urlencoded",
                             )
     else:
         return HttpResponse("{\"error\":1,\"errmsg\":"+message+"}",
-                            content_type="application/json",
+                            content_type="application/x-www-form-urlencoded",
                             )
 
 
@@ -32,6 +32,11 @@ def _generate_json_message(flag, message):
 def _generate_json_from_models(response_list):
     return HttpResponse(json.dumps(response_list),
                         content_type="application/json")
+#    res["Access-Control-Allow-Origin"] = "*"
+#    res["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE,OPTIONS"
+#    res["Access-Control-Max-Age"] = "1000"
+#    res["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+#   return res
 
 
 # 学生管理界面跳转
@@ -314,12 +319,12 @@ def student_login_api(request):
         context = {}
         stu_num_id = request.POST['stu_num_id']
         try:
-            if stu_id_card:
+            if stu_num_id:
                 student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
             if student_info is not None:
                 return _generate_json_message(True, "login success")
             else:
-                return r_generate_json_message(False, "login false")
+                return _generate_json_message(False, "login false")
         except:
             return _generate_json_message(False, "login false")
 
@@ -332,7 +337,6 @@ def get_student_info_summary_api(request):
             if stu_num_id:
                 student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
                 if student_info is not None:
-                    #import pdb;pdb.set_trace()
                     total_amount = PaymentInfo.objects.\
                         filter(stu_num_id=stu_num_id).\
                         aggregate(total_amount=Sum("payment_amount"))
@@ -344,7 +348,6 @@ def get_student_info_summary_api(request):
                     dict_tmp = {}
                     dict_tmp.update(student_info.__dict__)
                     dict_tmp.pop("_state", None)
-                    #dict_tmp.update({'total_amount': total_amount, 'already_payed_amount': already_payed_amount})
                     dict_tmp.update(total_amount)
                     dict_tmp.update(already_payed_amount)
                     return _generate_json_from_models(dict_tmp)
