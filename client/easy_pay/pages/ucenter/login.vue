@@ -5,8 +5,8 @@
 		</cu-custom>
 		<view class="login-bg">
 			<view class="login-card">
-				<view class="login-head">输入身份证号验证登录</view>
-				<view class="login-input login-margin-b"><input type="text" placeholder="身份证号" v-model="id_number" /></view>
+				<view class="login-head">输入学号验证登录</view>
+				<view class="login-input login-margin-b"><input type="text" placeholder="请输入学号" v-model="id_number" /></view>
 				<!--<view class="login-input">-->
 				<!--<input type="number" placeholder="请输入密码(8-16位)" />-->
 				<!--</view>-->
