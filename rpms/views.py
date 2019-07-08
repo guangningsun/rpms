@@ -154,6 +154,7 @@ def modify_class(request):
 
 # 创建学生
 def create_student(request):
+    context = {}
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
@@ -197,7 +198,7 @@ def remove_student(request):
     try:
         stu_num_ids = request.POST['stu_num_ids']
         for stu_num_id in stu_num_ids.split(","):
-            student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
+            student_info = StudentInfo.objects.get(stu_id=stu_num_id)
             student_info.delete()
         return render(request, 'manage_student.html', context)
     except:
@@ -208,6 +209,7 @@ def remove_student(request):
 # success
 def create_user(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
     try:
         if request.POST:
             user_info = UserInfo(

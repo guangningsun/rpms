@@ -62,13 +62,13 @@ $(document).ready(function() {
 
     function getApartNameSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.username;
+            return row.stu_name;
         });
     }
 
     function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.user_id;
+            return row.stu_id;
         });
     }
 
@@ -79,23 +79,23 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.id);
+            console.log(row.stu_id);
 
             $('#deleteSingleRoom').modal();
-            $('#deleteSingleRoomMsg').html(row.username + ' ?');
+            $('#deleteSingleRoomMsg').html(row.stu_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user_web/",
+                    url: "/remove_student/",
                     dataType: "json",
-                    data: { "user_ids": row.user_ids },
+                    data: { "stu_num_ids": row.stu_num_ids },
                     success: function(msg) {
                         var msg_val = eval(msg);
                         if (msg_val.message === '200denied') {
                             alert("不允许删除！");
                         } else if (msg_val.message === '200success') {
                             $table.bootstrapTable('remove', {
-                                field: 'user_id',
-                                values: [row.user_id]
+                                field: 'stu_num_id',
+                                values: [row.stu_num_id]
                             });
                             $('#deleteSingleRoom').modal('hide');
                         }
@@ -114,13 +114,13 @@ $(document).ready(function() {
         if (ids.length > 0) {
             $('#deleteMultiRoom').modal();
             ids_str = ids.toString().trim();
-            var user_name = getApartNameSelections().toString().trim();
-            $('#deleteMultiRoomMsg').html(user_name + ' ?'+ ids_str);
+            var stu_name = getApartNameSelections().toString().trim();
+            $('#deleteMultiRoomMsg').html(stu_name + ' ?'+ ids_str);
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user/",
+                    url: "/remove_student/",
                     dataType: "json",
-                    data: { user_ids: ids_str },
+                    data: { stu_num_ids: ids_str },
                     type: "POST",
                     success: function(msg) {
                         window.location.reload();

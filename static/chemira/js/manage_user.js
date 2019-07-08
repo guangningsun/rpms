@@ -79,7 +79,7 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.id);
+            console.log(row.user_ids);
 
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.username + ' ?');
