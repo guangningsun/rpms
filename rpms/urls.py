@@ -20,6 +20,7 @@ from django.conf.urls import include, url
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', views.init_web),
+    url(r'^logout/', views.init_web),
     url(r'^create_user/', views.create_user),
     url(r'^get_all_user_info/', views.get_all_user_info),
     url(r'^user_login/', views.user_login),
@@ -27,7 +28,7 @@ urlpatterns = [
     url(r'^modify_user/', views.modify_user),
     url(r'^remove_user/', views.remove_user),
    
-    url(r'^manage_user', views.manage_student),
+    url(r'^manage_user', views.manage_user),
     url(r'^manage_payment', views.manage_payment),
     url(r'^manage_student', views.manage_student),
     url(r'^manage_payment_class', views.manage_payment_class),
@@ -60,3 +61,6 @@ urlpatterns = [
     url(r'^get_student_info_summary_api',
         views.get_student_info_summary_api),
 ]
+
+
+handler404 = views.page_not_found

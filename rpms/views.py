@@ -137,7 +137,18 @@ def modify_payment_class(request):
 
 
 def create_class(request):
-    pass
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
+    try:
+        if request.POST:
+            class_info = ClassInfo(
+                class_id=_get_timestamp(),
+                class_num=request.POST['class_num'],
+                )
+            class_info.save()
+        return render(request, 'manage_class.html', context)
+    except:
+        return render(request, 'manage_class.html', context)
 
 
 def remove_class(request):
@@ -145,7 +156,14 @@ def remove_class(request):
 
 
 def get_all_class_info(request):
-    pass
+    list_response = []
+    list_class = ClassInfo.objects.all()
+    for res in list_class:
+        dict_tmp = {}
+        dict_tmp.update(res.__dict__)
+        dict_tmp.pop("_state", None)
+        list_response.append(dict_tmp)
+    return _generate_json_from_models(list_response)
 
 
 def modify_class(request):
@@ -357,3 +375,7 @@ def get_student_info_summary_api(request):
                     return _generate_json_from_models(dict_tmp)
         except:
             return _generate_json_message(False, "get student info  false")
+
+# 找不到界面
+def page_not_found(request, exception):
+    return render(request, '404.html', status=404)
