@@ -135,10 +135,10 @@
                     <!-- <div class="panel" id="user_table"></div> -->
                     <div id="toolbar" class="pull-left col-">
                         <button id="remove" class="btn btn-danger">
-                            <i class="icon-remove"></i>批量删用户
+                            <i class="icon-remove"></i>删除缴费记录
                         </button>
                         <button id="addSingle" class="btn btn-success " data-toggle="modal" data-target="#addSingleRoom">
-                            <i class="icon-plus"></i>添加用户
+                            <i class="icon-plus"></i>添加缴费记录
                         </button>
                     </div>
                     
@@ -164,42 +164,49 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-primary" id="myModalLabel">添加用户</h4>
                 </div>
-                <form id="add_room_form" action="/create_user_web/" class="form-horizontal" role="form" method="post">
+                <form id="add_room_form" action="/create_payment/" class="form-horizontal" role="form" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">用户名</label>
-                            <div class="col-sm-8">
-                                <input name="username" class="form-control" id="focusedInput" type="text"  placeholder="请输入用户名...">
+                            <label class="col-sm-3 control-label">缴费款项名称</label>
+                            <div class="col-sm-7">
+                                <input name="payment_class_name" class="form-control" id="focusedInput" type="text"  placeholder="请输入缴费款项...">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-8">
-                                <input name="password" class="form-control" id="focusedInput" type="password" placeholder="请输入密码...">
+                            <label class="col-sm-3 control-label">学生缴费时间</label>
+                            <div class="col-sm-7">
+                                <input name="stu_payment_time" class="form-control" id="focusedInput" type="text" placeholder="请输入学生缴费时间...">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">邮箱</label>
-                            <div class="col-sm-8">
-                                <input name="user_email" class="form-control" id="focusedInput" type="text" placeholder="请输入邮箱...">
+                            <label class="col-sm-3 control-label">缴费金额</label>
+                            <div class="col-sm-7">
+                                <input name="payment_amount" class="form-control" id="focusedInput" type="text" placeholder="请输入缴费金额...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号</label>
+                            <div class="col-sm-7">
+                                <input name="stu_num_id" class="form-control" id="focusedInput" type="text" placeholder="请输入学号...">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">手机号</label>
-                            <div class="col-sm-8">
-                                <input name="user_phone" class="form-control" id="focusedInput" type="text" placeholder="请输入手机号...">
+                                <label class="col-sm-3 control-label">付款状态</label>
+                                <div class="col-sm-7">
+                                    <input name="payment_status" class="form-control" id="focusedInput" type="text" placeholder="请输入付款状态...">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">创建者ID</label>
+                            <div class="col-sm-7">
+                                <input name="create_user_id" class="form-control" id="focusedInput" type="text" placeholder="请输入创建者ID...">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">手机号</label>
-                            <div class="col-sm-8">
-                                <input name="user_permission" class="form-control" id="focusedInput" type="text" placeholder="请输入权限...">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">地址</label>
-                            <div class="col-sm-8">
-                                <input name="user_address" class="form-control" id="focusedInput" type="text" placeholder="请输入地址...">
+                            <label class="col-sm-3 control-label">付款返回备注</label>
+                            <div class="col-sm-7">
+                                <input name="payment_res_desc" class="form-control" id="focusedInput" type="text" placeholder="请输入付款返回备注...">
                             </div>
                         </div>
                     </div>

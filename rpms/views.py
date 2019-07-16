@@ -90,7 +90,7 @@ def create_payment(request):
     try:
         if request.POST:
             payment_info = PaymentInfo(
-                payment_id=_get_timestamp(),
+                payment_id=uuid.uuid1(),
                 payment_class_name=request.POST['payment_class_name'],
                 payment_create_time=current_time,
                 stu_payment_time=request.POST['stu_payment_time'],
