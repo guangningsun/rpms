@@ -63,13 +63,13 @@ $(document).ready(function() {
 
     function getApartNameSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.username;
+            return row.class_num;
         });
     }
 
     function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.user_id;
+            return row.class_id;
         });
     }
 
@@ -115,13 +115,13 @@ $(document).ready(function() {
         if (ids.length > 0) {
             $('#deleteMultiRoom').modal();
             ids_str = ids.toString().trim();
-            var user_name = getApartNameSelections().toString().trim();
-            $('#deleteMultiRoomMsg').html(user_name + ' ?'+ ids_str);
+            var class_num = getApartNameSelections().toString().trim();
+            $('#deleteMultiRoomMsg').html(class_num + ' ?'+ ids_str);
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user/",
+                    url: "/remove_class/",
                     dataType: "json",
-                    data: { user_ids: ids_str },
+                    data: { class_ids: ids_str },
                     type: "POST",
                     success: function(msg) {
                         window.location.reload();

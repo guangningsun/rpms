@@ -31,8 +31,9 @@ urlpatterns = [
     url(r'^manage_user', views.manage_user),
     url(r'^manage_payment', views.manage_payment),
     url(r'^manage_student', views.manage_student),
-    url(r'^manage_payment_class', views.manage_payment_class),
+    url(r'^manage_p_class', views.manage_p_class),
     url(r'^manage_class', views.manage_class),
+    url(r'^settings', views.manage_settings),
    
     url(r'^create_student/', views.create_student),
     url(r'^get_all_student_info/', views.get_all_student_info),
@@ -47,10 +48,10 @@ urlpatterns = [
     url(r'^get_payment_list_by_stu_id_card',
         views.get_payment_list_by_stu_id_card),
 
-    url(r'^remove_payment_class', views.remove_payment_class),
-    url(r'^create_payment_class', views.create_payment_class),
-    url(r'^get_all_payment_class_info', views.get_all_payment_class_info),
-    url(r'^modify_payment_class', views.modify_payment_class),
+    url(r'^remove_p_class', views.remove_payment_class),
+    url(r'^create_p_class', views.create_payment_class),
+    url(r'^get_all_p_class_info', views.get_all_payment_class_info),
+    url(r'^modify_p_class', views.modify_payment_class),
 
     url(r'^create_class', views.create_class),
     url(r'^remove_class', views.remove_class),
@@ -60,6 +61,7 @@ urlpatterns = [
     url(r'^student_login_api', views.student_login_api),
     url(r'^get_student_info_summary_api',
         views.get_student_info_summary_api),
+    url(r'^excel_upload', views.excel_upload)
 ]
 
 

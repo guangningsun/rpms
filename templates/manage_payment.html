@@ -68,7 +68,7 @@
                     <!-- nav -->
                     <nav class="nav-primary hidden-xs">
                             <ul class="nav">
-                                <li class="active">
+                                <li>
                                     <a href="/manage_user">
                                         <i class="icon-home"></i>
                                         <span>用户管理</span>
@@ -94,7 +94,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/manage_payment_class">
+                                    <a href="/manage_p_class">
                                         <i class="icon-tasks"></i>
                                         <span>缴费类别</span>
                                     </a>
@@ -106,7 +106,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="settings.html">
+                                    <a href="/settings">
                                         <!-- <b class="badge bg-primary pull-right">3</b>  -->
                                         <i class="icon-book"></i>
                                         <span>设&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp置</span>
@@ -141,9 +141,17 @@
                             <i class="icon-plus"></i>添加用户
                         </button>
                     </div>
+                    
                     <table style="background: #EBF8EC" id="table" data-show-columns="true" data-search="true" data-toolbar="#toolbar" data-show-toggle="true" data-pagination="true" data-height="525" data-striped="true" data-id-field="id" data-url="" data-checkbox-header="true" data-show-pagination-switch="true" data-page-list="[10, 25, 50, 100, all]">
                     </table>
+                    <form action="/excel_upload" method="post" enctype="multipart/form-data">
+                        <input type="submit" title="提交" class="btn btn-sm btn-write">
+                        <input type="file" title="浏览" name="excel_file"class="btn btn-sm btn-info">
+                    </form>
                 </div>
+     
+                
+
             </section>
             <a href="/logout" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="body"></a>
         </section>

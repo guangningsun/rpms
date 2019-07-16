@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>缴费管理系统</title>
+    <meta name="description" content="mis">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/css/app.v1.css">
+    <link rel="stylesheet" href="/static/chemira/css/room_manager.css">
+    <link rel="stylesheet" href="/static/chemira/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/chemira/css/bootstrap-datetimepicker.min.css">
+    <!--[if lt IE 9]>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/html5.js" cache="false"></script>
+    <script src="js/ie/fix.js" cache="false"></script> <![endif]-->
+    <script src="/static/chemira/css/app.v1.js"></script>
+    <script src="/static/chemira/js/bootstrap3-validation.js"></script>
+    <script src="/static/chemira/js/tableExport.js"></script>
+    <script src="/static/chemira/js/jquery.base64.js"></script>
+    <script src="/static/chemira/js/bootstrap-table.js"></script>
+    <script src="/static/chemira/js/bootstrap-table-export.js"></script>
+    <script src="/static/chemira/js/bootstrap-table-zh-CN.js"></script>
+    <script>
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+    </script>
+    <script src="/static/chemira/js/jquery.toggle-password.js"></script>
+    <script src="/static/chemira/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/static/chemira/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script src="/static/chemira/js/jquery.cookie.js"></script>
+</head>
+
+<body>
+    <section class="hbox stretch">
+        <!-- .aside -->
+        <aside class="bg-dark aside-sm" id="nav">
+            <section class="vbox">
+                <header class="dker nav-bar">
+                    <a href="#" class="nav-brand" data-toggle="fullscreen" id="navi_domain">缴费软件</a>
+                    <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
+                        <i class="icon-comment-alt"></i>
+                    </a>
+                </header>
+                <footer class="footer bg-gradient hidden-xs">
+                    <a href="/logout" class="btn btn-sm btn-link m-r-n-xs pull-right">
+                        <i class="icon-off"></i>
+                    </a>
+                </footer>
+                <section>
+                    <!-- user -->
+                    <div class="bg-success nav-user hidden-xs pos-rlt">
+                        <div class="nav-avatar pos-rlt">
+                            <a href="#" class="thumb-sm avatar animated rollIn" data-toggle="dropdown">
+                                <img src="/static/images/avatar.jpg" alt="" class="">
+                                <span class="caret caret-white"></span>
+                            </a>
+                            <ul class="dropdown-menu m-t-sm animated fadeInLeft">
+                                <span class="arrow top"></span>
+                                <li><a href="/logout">logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="nav-msg">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <b class="badge badge-white count-n" id="navi_user_name"></b>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- / user -->
+                    <!-- nav -->
+                    <nav class="nav-primary hidden-xs">
+                        <ul class="nav">
+                            <li>
+                                <a href="/manage_user">
+                                    <i class="icon-home"></i>
+                                    <span>用户管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/manage_student">
+                                    <i class="icon-building"></i>
+                                    <span>学生管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/manage_class">
+                                    <i class="icon-sitemap"></i>
+                                    <span>班级管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+                                <a href="/manage_payment">
+                                    <i class="icon-tasks"></i>
+                                    <span>缴费管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+                                <a href="/manage_p_class">
+                                    <i class="icon-tasks"></i>
+                                    <span>缴费类别</span>
+                                </a>
+                            </li>
+                            <li >
+                                <a href="/manage_report">
+                                    <i class="icon-tasks"></i>
+                                    <span>报表管理</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="/settings">
+                                    <!-- <b class="badge bg-primary pull-right">3</b>  -->
+                                    <i class="icon-book"></i>
+                                    <span>设&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp置</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- / nav -->
+                    <!-- note -->
+                    <!-- <div class="bg-danger wrapper hidden-vertical animated rollIn text-sm">
+                            <a href="#" data-dismiss="alert" class="pull-right m-r-n-sm m-t-n-sm"><i class="icon-close icon-remove "></i></a>
+                            Hi, this is welcome msg.
+                        </div> -->
+                    <!-- / note -->
+                </section>
+            </section>
+        </aside>
+        <!-- /.aside -->
+        <!-- .vbox -->
+    设置界面需求
+    <!-- Bootstrap -->
+    <!-- Sparkline Chart -->
+    <!-- App -->
+    <script src="/static/chemira/js/manage_user.js"></script>
+    <script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    </script>
+</body>
+
+</html>

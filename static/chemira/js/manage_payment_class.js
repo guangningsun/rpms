@@ -62,13 +62,13 @@ $(document).ready(function() {
 
     function getApartNameSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.stu_name;
+            return row.payment_class_name;
         });
     }
 
     function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.stu_id;
+            return row.payment_class_id;
         });
     }
 
@@ -79,23 +79,23 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.stu_id);
+            console.log(row.id);
 
             $('#deleteSingleRoom').modal();
-            $('#deleteSingleRoomMsg').html(row.stu_name + ' ?');
+            $('#deleteSingleRoomMsg').html(row.payment_class_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_student/",
+                    url: "/remove_p_class/",
                     dataType: "json",
-                    data: { "stu_num_ids": row.stu_num_ids },
+                    data: { "user_ids": row.payment_class_id },
                     success: function(msg) {
                         var msg_val = eval(msg);
                         if (msg_val.message === '200denied') {
                             alert("不允许删除！");
                         } else if (msg_val.message === '200success') {
                             $table.bootstrapTable('remove', {
-                                field: 'stu_num_id',
-                                values: [row.stu_num_id]
+                                field: 'payment_class_id',
+                                values: [row.payment_class_id]
                             });
                             $('#deleteSingleRoom').modal('hide');
                         }
@@ -114,13 +114,13 @@ $(document).ready(function() {
         if (ids.length > 0) {
             $('#deleteMultiRoom').modal();
             ids_str = ids.toString().trim();
-            var stu_name = getApartNameSelections().toString().trim();
-            $('#deleteMultiRoomMsg').html(stu_name + ' ?'+ ids_str);
+            var payment_class_name = getApartNameSelections().toString().trim();
+            $('#deleteMultiRoomMsg').html(payment_class_name + ' ?'+ ids_str);
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_student/",
+                    url: "/remove_payment_class/",
                     dataType: "json",
-                    data: { stu_num_ids: ids_str },
+                    data: { payment_class_ids: ids_str },
                     type: "POST",
                     success: function(msg) {
                         window.location.reload();
@@ -143,7 +143,7 @@ $(document).ready(function() {
     function responseHandler(res) {
         console.log(res);
         $.each(res.rows, function(i, row) {
-            row.state = $.inArray(row.stu_id, selections) !== -1;
+            row.state = $.inArray(row.id, selections) !== -1;
         });
         return res;
     }
@@ -156,57 +156,22 @@ $(document).ready(function() {
         checkbox: true
     });
     columns.push({
-        field: 'stu_id',
-        title: '学生ID',
+        field: 'payment_class_id',
+        title: '缴费类别ID',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'stu_num_id',
-        title: '学号',
+        field: 'payment_class_name',
+        title: '缴费项目名称',
         align: 'center',
         valign: 'middle',
         sortable: true
     });
     columns.push({
-        field: 'stu_name',
-        title: '用户名',
-        align: 'center',
-        valign: 'middle',
-        sortable: true
-    });
-    columns.push({
-        field: 'stu_id_card',
-        title: '身份证号',
-        align: 'center',
-        valign: 'middle',
-        sortable: true
-    });
-    columns.push({
-        field: 'stu_sexy',
-        title: '性别',
-        align: 'center',
-        valign: 'middle',
-        sortable: true
-    });
-    columns.push({
-        field: 'stu_phone_num',
-        title: '手机号',
-        align: 'center',
-        valign: 'middle',
-        sortable: true
-    });
-    columns.push({
-        field: 'stu_desc',
-        title: '备注',
-        align: 'center',
-        valign: 'middle',
-        sortable: true
-    });
-    columns.push({
-        field: 'class_id',
-        title: '班级号',
+        field: 'payment_class_desc',
+        title: '缴费类别备注',
         align: 'center',
         valign: 'middle',
         sortable: true
@@ -229,7 +194,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: "GET",
-        url: '/get_all_student_info',
+        url: '/get_all_p_class_info',
         success: function(data) {
             var allRoomDataObjs = eval(data);
             $('#table').bootstrapTable('destroy').bootstrapTable({
