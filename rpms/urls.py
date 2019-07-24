@@ -61,7 +61,8 @@ urlpatterns = [
     url(r'^student_login_api', views.student_login_api),
     url(r'^get_student_info_summary_api',
         views.get_student_info_summary_api),
-    url(r'^excel_upload', views.excel_upload)
+    url(r'^excel_upload', views.excel_upload),
+    url(r'^h5pay', views.h5pay),
 ]
 
 

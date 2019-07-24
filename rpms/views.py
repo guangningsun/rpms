@@ -585,4 +585,3 @@ f_res =final_res[:-1]
 
 url = apiUrl_makeOrder+"?"+f_res
 print url
-
