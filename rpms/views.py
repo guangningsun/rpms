@@ -8,6 +8,8 @@ from TestModel.models import *
 from django.db.models import Avg, Count, Min, Sum
 import xlrd
 import uuid
+from collections import OrderedDict
+import hashlib
 
 
 # 内部方法，用于获取当前时间戳
@@ -515,3 +517,72 @@ def excel_upload(request):
 # 找不到界面
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
+
+
+def test_h5pay(request):
+    apiUrl_makeOrder = "https://qr-test2.chinaums.com/netpay-portal/webpay/pay.do"
+    notifyUrl = "http://172.27.49.240:8080/h5pay/notifyUrl.do"
+    returnUrl = "http://172.27.49.240:8080/h5pay/returnUrl.do"
+
+    msgSrc = 3194
+    msgType = "trade.h5Pay"
+    requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    merOrderId = "3194"+time.strftime('%Y%m%d%H%M%S', time.localtime())+str(random.randint(1000000,9999999))
+    mid = 898310148160568
+    tid = 88880001
+    instMid = "H5DEFAULT"
+    totalAmount = 1
+    md5key = "fcAmtnx7MwismjWNhNKdHC44mNXtnEQeJkRrhKJwyrW2ysRR"
+    param = {
+        "msgSrc": msgSrc,
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "merOrderId": merOrderId,
+        "mid": mid,
+        "tid": tid,
+        "instMid": instMid,
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
+    }
+    sorted_param = json.dumps(param, sort_keys=True)
+    ritems = json.loads(sorted_param).items()
+    conv_sign = ""
+    for key, value in ritems:
+        conv_sign += key + "=" + value + "&"
+    final_sign = conv_sign[:-1]+md5key
+    url = apiUrl_makeOrder+"?"+final_sign
+    response.sendRedirect(url)
+    conv_sign = ""
+for key, value in ritems:
+    conv_sign+=key + "=" + value + "&"
+final_sign = conv_sign[:-1]+md5key
+
+md = hashlib.md5()
+md.update(final_sign.encode())
+final_md = md.hexdigest().upper()
+
+return_json = {
+    "msgSrc": msgSrc,
+    "msgType": msgType,
+    "requestTimestamp": requestTimestamp,
+    "merOrderId": merOrderId,
+    "sign": final_md,
+    "mid": mid,
+    "tid": tid,
+    "instMid": instMid,
+    "totalAmount": totalAmount,
+    "notifyUrl": notifyUrl,
+    "returnUrl": returnUrl
+}
+
+sjitems =json.loads(json.dumps(return_json)).items()
+
+final_res = ""
+for key, value in sjitems:
+    final_res+=key + "=" + value +"&"
+f_res =final_res[:-1]
+
+url = apiUrl_makeOrder+"?"+f_res
+print url
+
