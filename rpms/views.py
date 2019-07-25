@@ -2,6 +2,7 @@
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.shortcuts import redirect
 import json
 import time
 from TestModel.models import *
@@ -580,12 +581,4 @@ def h5pay(request):
     }
     encoded = urllib.parse.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
-
-    #sjitems =json.loads(json.dumps(return_json)).items()
-    #final_res = ""
-    #for key, value in sjitems:
-    #    final_res+=key + "=" + value +"&"
-    #f_res =final_res[:-1]
-    #reuturn_url = apiUrl_makeOrder+"?"+f_res
-    print ("最后要传送报文")
-    print (reuturn_url)
+    return redirect(reuturn_url)
