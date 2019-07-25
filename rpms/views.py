@@ -541,7 +541,9 @@ def h5pay(request):
         "mid": mid,
         "tid": tid,
         "instMid": instMid,
-        "totalAmount": totalAmount
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
     }
     sorted_param = json.dumps(param, sort_keys=True)
     print ("排序后的参数")
