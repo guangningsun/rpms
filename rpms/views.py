@@ -2,10 +2,15 @@
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.shortcuts import redirect
 import json
 import time
 from TestModel.models import *
 from django.db.models import Avg, Count, Min, Sum
+import xlrd
+import uuid
+from collections import OrderedDict
+import hashlib
 
 
 # 内部方法，用于获取当前时间戳
@@ -64,7 +69,7 @@ def manage_user(request):
 
 # 缴费类别管理界面跳转
 # done
-def manage_payment_class(request):
+def manage_p_class(request):
     context = {}
     return render(request, 'manage_payment_class.html', context)
 
@@ -74,6 +79,13 @@ def manage_class(request):
     return render(request, 'manage_class.html', context)
 
 
+def manage_settings(request):
+    context = {}
+    return render(request, 'settings.html', context)
+
+    
+
+
 # 创建缴费记录
 def create_payment(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -81,7 +93,7 @@ def create_payment(request):
     try:
         if request.POST:
             payment_info = PaymentInfo(
-                payment_id=_get_timestamp(),
+                payment_id=uuid.uuid1(),
                 payment_class_name=request.POST['payment_class_name'],
                 payment_create_time=current_time,
                 stu_payment_time=request.POST['stu_payment_time'],
@@ -121,15 +133,42 @@ def get_payment_list_by_stu_id_card(request):
 
 
 def create_payment_class(request):
-    pass
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
+    try:
+        if request.POST:
+            payment_class_info = PaymentClassInfo(
+                payment_class_id=_get_timestamp(),
+                payment_class_name=request.POST['payment_class_name'],
+                payment_class_desc=request.POST['payment_class_desc'],
+                )
+            payment_class_info.save()
+        return render(request, 'manage_payment_class.html', context)
+    except:
+        return render(request, 'manage_payment_class.html', context)
 
 
 def remove_payment_class(request):
-    pass
+    context = {}
+    try:
+        payment_class_ids = request.POST['payment_class_ids']
+        for payment_class_id in class_ids.split(","):
+            payment_class_info = PaymentClassInfo.objects.get(payment_class_id=payment_class_id)
+            payment_class_info.delete()
+        return render(request, 'manage_payment_class.html', context)
+    except:
+        return render(request, 'manage_payment_class.html', context)
 
 
 def get_all_payment_class_info(request):
-    pass
+    list_response = []
+    list_payment_class = PaymentClassInfo.objects.all()
+    for res in list_payment_class:
+        dict_tmp = {}
+        dict_tmp.update(res.__dict__)
+        dict_tmp.pop("_state", None)
+        list_response.append(dict_tmp)
+    return _generate_json_from_models(list_response)
 
 
 def modify_payment_class(request):
@@ -137,15 +176,41 @@ def modify_payment_class(request):
 
 
 def create_class(request):
-    pass
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
+    try:
+        if request.POST:
+            class_info = ClassInfo(
+                class_id=_get_timestamp(),
+                class_num=request.POST['class_num'],
+                )
+            class_info.save()
+        return render(request, 'manage_class.html', context)
+    except:
+        return render(request, 'manage_class.html', context)
 
 
 def remove_class(request):
-    pass
+    context = {}
+    try:
+        class_ids = request.POST['class_ids']
+        for class_id in class_ids.split(","):
+            class_info = ClassInfo.objects.get(class_id=class_id)
+            class_info.delete()
+        return render(request, 'manage_class.html', context)
+    except:
+        return render(request, 'manage_class.html', context)
 
 
 def get_all_class_info(request):
-    pass
+    list_response = []
+    list_class = ClassInfo.objects.all()
+    for res in list_class:
+        dict_tmp = {}
+        dict_tmp.update(res.__dict__)
+        dict_tmp.pop("_state", None)
+        list_response.append(dict_tmp)
+    return _generate_json_from_models(list_response)
 
 
 def modify_class(request):
@@ -154,6 +219,7 @@ def modify_class(request):
 
 # 创建学生
 def create_student(request):
+    context = {}
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
@@ -197,7 +263,7 @@ def remove_student(request):
     try:
         stu_num_ids = request.POST['stu_num_ids']
         for stu_num_id in stu_num_ids.split(","):
-            student_info = StudentInfo.objects.get(stu_num_id=stu_num_id)
+            student_info = StudentInfo.objects.get(stu_id=stu_num_id)
             student_info.delete()
         return render(request, 'manage_student.html', context)
     except:
@@ -208,6 +274,7 @@ def remove_student(request):
 # success
 def create_user(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    context = {}
     try:
         if request.POST:
             user_info = UserInfo(
@@ -355,3 +422,163 @@ def get_student_info_summary_api(request):
                     return _generate_json_from_models(dict_tmp)
         except:
             return _generate_json_message(False, "get student info  false")
+
+
+def excel_upload(request):
+    context = {}
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    if request.method == 'POST':
+        f = request.FILES['excel_file']
+        wb = xlrd.open_workbook(filename=None, file_contents=f.read())
+        payment_table = wb.sheets()[0]
+        payment_table_nrows = payment_table.nrows
+        payment_table_ncole = payment_table.ncols
+        for i in range(2, payment_table_nrows):
+            row_values = payment_table.row_values(i)
+            payment_info = PaymentInfo(
+                payment_id=uuid.uuid1(),
+                payment_class_name=row_values[0],
+                payment_create_time=current_time,
+                stu_payment_time=row_values[1],
+                payment_amount=int(row_values[2]),
+                payment_status=int(row_values[3]),
+                stu_num_id=int(row_values[4]),
+                create_user_id=int(row_values[6]),
+                payment_res_desc=row_values[5]
+                )
+            payment_info.save()
+    return render(request, 'manage_payment.html', context)
+
+#
+#def upload(request):
+#    '''
+#    :param request:
+#    :return: 上传文件excel表格 ,并进行解析
+#    '''
+#    if request.method == "POST":
+#        print("post request")
+#        myform = FileUploadForm(request.POST, request.FILES)
+# 
+#        #在这里可以添加筛选excel的机制
+#        if myform.is_valid():
+#            # print(myform)
+#            f = request.FILES['my_file']
+#            print(f)
+# 
+#            #开始解析上传的excel表格
+#            wb = xlrd.open_workbook(filename=None, file_contents=f.read())  # 关键点在于这里
+#            table = wb.sheets()[0]
+#            nrows = table.nrows  #行数
+#            ncole = table.ncols  #列数
+#            print("row :%s, cole: %s" % (nrows, ncole))
+# 
+#            for i in range(1, nrows):
+#                rowValues = table.row_values(i)  #一行的数据
+# 
+#                print(type(rowValues[10]))
+#                R_projectname=rowValues[1]
+# 
+#                print('rowValues-->{}'.format(R_projectname))
+# 
+#                pf = PhoneMsg.objects.filter(M_name = R_projectname)
+#                # pf = PhoneMsg.objects.all()
+#                if not pf.exists():   #空值
+#                    return render(request,'rc_test/upFileFail.html',context={'error':u'R_projectname 不存在,联系管理员进行添加!'})
+# 
+#                print(pf)
+# 
+#                pm = PhoneMsg.objects.get(M_name =R_projectname)
+#                pm.save()
+#                re = Result()           #实例化result表
+#                re.R_projectname = R_projectname
+#                re.R_name = rowValues[2]
+#                re.R_version = rowValues[3]
+#                re.R_context = rowValues[4]
+#                re.R_result = rowValues[5]
+#                re.R_note = rowValues[6]
+#                re.R_ower = rowValues[7]
+#                re.R_kexuan = rowValues[8]
+#                re.R_inning = rowValues[9]
+#                re.R_createtime = datetime(*xldate_as_tuple(rowValues[10],0))
+#                print(datetime(*xldate_as_tuple(rowValues[10],0)))
+#                re.save()
+#                pm.result.add(re)
+# 
+#            handle_upload_file(f, str(f))        #上传文件处理
+# 
+#        return render(request, "rc_test/upFileSuccess.html")
+# 
+# 
+#    else:
+#        print("get request")
+#        myform = FileUploadForm()
+#    return render(request, 'rc_test/upFile.html', context={'form': myform, 'what': "文件传输"}
+
+
+# 找不到界面
+def page_not_found(request, exception):
+    return render(request, '404.html', status=404)
+
+
+def h5pay(request):
+    apiUrl_makeOrder = "https://qr-test2.chinaums.com/netpay-portal/webpay/pay.do"
+    notifyUrl = "http://172.27.49.240:8080/h5pay/notifyUrl.do"
+    returnUrl = "https://www.baidu.com/"
+    msgSrc = "WWW.TEST.COM"
+    msgType = "trade.h5Pay"
+    requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    merOrderId = "3194"+time.strftime('%Y%m%d%H%M%S', time.localtime())+str(random.randint(1000000,9999999))
+    mid = "898310148160568"
+    tid = "88880001"
+    instMid = "H5DEFAULT"
+    totalAmount = "1"
+    md5key = "fcAmtnx7MwismjWNhNKdHC44mNXtnEQeJkRrhKJwyrW2ysRR"
+
+    param = {
+        "msgSrc": msgSrc,
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "merOrderId": merOrderId,
+        "mid": mid,
+        "tid": tid,
+        "instMid": instMid,
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
+    }
+    sorted_param = json.dumps(param, sort_keys=True)
+    print ("排序后的参数")
+    print (sorted_param)
+    #for_signed_param = urllib.parse.urlencode(json.loads(sorted_param, object_pairs_hook=OrderedDict))
+
+    ritems = json.loads(sorted_param,object_pairs_hook=OrderedDict).items()
+    conv_sign = ""
+    for key, value in ritems:
+        conv_sign+=key + "=" + value + "&"
+    final_sign = conv_sign[:-1]+md5key
+    #final_sign = for_signed_param+md5key
+    print ("待签名参数")
+    print(final_sign)
+
+    md = hashlib.md5()
+    md.update(final_sign.encode())
+    final_md = md.hexdigest().upper()
+    print ("MD5签名并upper后sign值")
+    print (final_md)
+
+    return_json = {
+        "msgSrc": msgSrc,
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "merOrderId": merOrderId,
+        "sign": final_md,
+        "mid": mid,
+        "tid": tid,
+        "instMid": instMid,
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
+    }
+    encoded = urllib.parse.urlencode(return_json)
+    reuturn_url = apiUrl_makeOrder+"?"+encoded
+    return redirect(reuturn_url)
