@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "注册",
+  "bounce": "none",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}

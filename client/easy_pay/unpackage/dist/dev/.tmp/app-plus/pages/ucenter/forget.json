@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "忘记密码",
+  "bounce": "none",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}

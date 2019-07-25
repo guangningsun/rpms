@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "缴费",
+  "bounce": "none",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}

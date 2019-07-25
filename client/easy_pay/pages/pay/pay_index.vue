@@ -81,8 +81,46 @@
 			},
 			payFee(){
 				console.log(this.book_fee);
-				uni.navigateTo({
-					url:'pay_success'
+				// uni.navigateTo({
+				// 	url:'pay_success'
+				// });
+				
+				uni.request({
+					url: 'http://114.116.64.103:9000/h5pay',
+					method: "POST",
+					dataType: 'json',
+					header: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					data: {
+						stu_num_id: this.id_number
+					},
+					success: function(result) {
+						console.log(result.data.error);
+						// var data = JSON.parse(result.data);
+						// console.log(data.error);
+				
+						if (result.data.error === 0) {
+							// this.verify_failed = false;
+							// uni.switchTab({
+							// 	url: 'my_info'
+							// });
+						}
+					},
+					fail: err => {
+						console.log('request fail', err);
+						// this.verify_failed = true;
+				
+						// test code
+						// this.goToMyInfo();
+					},
+					complete: () => {
+				
+						this.loading = false;
+				
+						// test code
+						// this.goToMyInfo();
+					}
 				});
 			}
 		}

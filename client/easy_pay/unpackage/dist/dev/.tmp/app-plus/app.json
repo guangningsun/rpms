@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/ucenter/login",
+    "pages/ucenter/register",
+    "pages/ucenter/my_info",
+    "pages/ucenter/forget",
+    "pages/pay/pay_success",
+    "pages/pay/pay_index",
+    "pages/pay/pay_record"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Easy Pay",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "color": "#8F8F94",
+    "selectedColor": "#0bd38a",
+    "list": [
+      {
+        "pagePath": "pages/ucenter/my_info",
+        "iconPath": "static/img/common/me_unchecked.png",
+        "selectedIconPath": "static/img/common/me_checked.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/pay/pay_index",
+        "iconPath": "static/img/common/pay_unchecked.png",
+        "selectedIconPath": "static/img/common/pay_checked.png",
+        "text": "缴费"
+      },
+      {
+        "pagePath": "pages/pay/pay_record",
+        "iconPath": "static/img/common/pay_record_unchecked.png",
+        "selectedIconPath": "static/img/common/pay_record_checked.png",
+        "text": "记录"
+      }
+    ]
+  },
+  "nvueCompiler": "weex",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "easy_pay",
+  "compilerVersion": "2.1.1",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}
