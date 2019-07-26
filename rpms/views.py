@@ -11,6 +11,12 @@ import xlrd
 import uuid
 from collections import OrderedDict
 import hashlib
+import urllib
+import random
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 # 内部方法，用于获取当前时间戳
@@ -82,8 +88,6 @@ def manage_class(request):
 def manage_settings(request):
     context = {}
     return render(request, 'settings.html', context)
-
-    
 
 
 # 创建缴费记录
@@ -579,6 +583,7 @@ def h5pay(request):
         "notifyUrl": notifyUrl,
         "returnUrl": returnUrl
     }
-    encoded = urllib.parse.urlencode(return_json)
+    #encoded = urllib.parse.urlencode(return_json)
+    encoded = urllib.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
     return redirect(reuturn_url)
