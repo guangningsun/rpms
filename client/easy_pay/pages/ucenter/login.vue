@@ -66,6 +66,7 @@
 						stu_num_id: this.id_number
 					},
 					success: function(result) {
+					    console.log(result)
 						console.log(result.data.error);
 						// var data = JSON.parse(result.data);
 						// console.log(data.error);

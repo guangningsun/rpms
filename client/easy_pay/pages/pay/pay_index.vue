@@ -72,7 +72,8 @@
 		data() {
 			return {
 				modalName: null,
-				book_fee:""
+				book_fee:"",
+				redirect_pay_rul:""
 			}
 		},
 		methods: {
@@ -92,19 +93,24 @@
 					header: {
 						'Content-Type': 'application/x-www-form-urlencoded'
 					},
-					data: {
-						stu_num_id: this.id_number
-					},
+					// data: {
+					// 	stu_num_id: this.id_number
+					// },
 					success: function(result) {
-						console.log(result.data.error);
 						// var data = JSON.parse(result.data);
-						// console.log(data.error);
-				
+						console.log(result);
 						if (result.data.error === 0) {
-							// this.verify_failed = false;
-							// uni.switchTab({
-							// 	url: 'my_info'
-							// });
+							this.redirect_pay_rul = result.data.msg;
+							console.log(this.redirect_pay_rul);
+
+                            uni.setStorage({
+                                key: 'key_redirect_pay_url',
+                                data: this.redirect_pay_rul
+                            });
+
+							uni.navigateTo({
+                                url: '../../pages/pay/pay_web_view'
+                            });
 						}
 					},
 					fail: err => {
@@ -114,12 +120,8 @@
 						// test code
 						// this.goToMyInfo();
 					},
-					complete: () => {
-				
+					complete: () => {	
 						this.loading = false;
-				
-						// test code
-						// this.goToMyInfo();
 					}
 				});
 			}

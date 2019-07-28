@@ -55,6 +55,15 @@
 			}
 		},
 		{
+			"path" : "pages/pay/pay_web_view",
+			"style" : {
+				"navigationBarTitleText" : "支付",
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
+		},
+		{
 		    "path" : "pages/pay/pay_record",
 		    "style" : {
 				"navigationBarTitleText" : "缴费记录",
