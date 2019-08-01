@@ -20,8 +20,8 @@
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
-                    <view class="flex-sub padding-sm margin-xs radius text-grey">身份证号</view>
-                    <view class="flex-twice padding-sm margin-xs radius">{{id_number}}</view>
+                    <view class="flex-sub padding-sm margin-xs radius text-grey">手机号</view>
+                    <view class="flex-twice padding-sm margin-xs radius">{{stu_phone_num}}</view>
                 </view>
 
                 <view class="flex solid-bottom p-xs margin-bottom-sm mb-sm">
@@ -63,7 +63,7 @@
     export default {
         data() {
             return {
-				id_number:'',
+                stu_phone_num:'',
 				name:'',
 				student_number:'',
 				student_class:'',
@@ -93,8 +93,7 @@
 				success: res => {
 					console.log(res);
 					this.name = res.data.stu_name;
-					this.id_number = res.data.stu_id;
-					this.student_teacher = res.data.student_teacher;
+					this.stu_phone_num = res.data.stu_phone_num;
 					this.unpayed_fee = res.data.total_amount;
 					this.payed_fee = res.data.already_payed_amount;
 					this.student_class = res.data.class_id;

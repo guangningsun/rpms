@@ -14,10 +14,10 @@
 				<!--<view class="login-forget" @click="go_forget">忘记密码</view>-->
 				<!--<view class="login-register" @click="go_register">快速注册></view>-->
 				<!--</view>-->
-				<text class="text-style text-red">{{ verify_failed ? '验证未通过，请重新验证' : '' }}</text>
+				<text class="text-style text-red">{{verify_failed}}</text>
 			</view>
 		</view>
-		<view class="login-btn"><button class="landing" type="primary" @tap="verifyId">验证</button></view>
+		<view class="login-btn"><button class="landing" type="primary" @click="verifyId">验证</button></view>
 	</view>
 </template>
 
@@ -26,11 +26,9 @@
 		data() {
 			return {
 				id_number: "",
-				verify_failed: false
+				verify_failed: ''
 			};
 		},
-		onLoad() {},
-
 		methods: {
 			go_forget() {
 				uni.navigateTo({
@@ -49,7 +47,6 @@
 			},
 			verifyId() {
 				console.log(this.id_number);
-
 				uni.setStorage({
 					key: 'key_id_number',
 					data: this.id_number
@@ -66,32 +63,15 @@
 						stu_num_id: this.id_number
 					},
 					success: function(result) {
-					    console.log(result)
-						console.log(result.data.error);
-						// var data = JSON.parse(result.data);
-						// console.log(data.error);
-
-						if (result.data.error === 0) {
-							this.verify_failed = false;
-							uni.switchTab({
-								url: 'my_info'
-							});
-						}
-					},
-					fail: err => {
-						console.log('request fail', err);
-						this.verify_failed = true;
-
-						// test code
-						// this.goToMyInfo();
-					},
-					complete: () => {
-
-						this.loading = false;
-
-						// test code
-						// this.goToMyInfo();
-					}
+                        if (result.data.error === 0) {
+                            uni.switchTab({
+                                url: 'my_info'
+                            });
+                        }
+                        else {
+                            this.verify_failed = '验证未通过，请重新验证';
+                        }
+					}.bind(this)
 				});
 			}
 		}
