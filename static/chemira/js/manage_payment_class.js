@@ -79,27 +79,19 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.id);
-
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.payment_class_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
                     url: "/remove_p_class/",
                     dataType: "json",
-                    data: { "user_ids": row.payment_class_id },
-                    success: function(msg) {
-                        var msg_val = eval(msg);
-                        if (msg_val.message === '200denied') {
-                            alert("不允许删除！");
-                        } else if (msg_val.message === '200success') {
+                    data: { "payment_class_ids": row.payment_class_id },
+                    success: function(msg) {                     
                             $table.bootstrapTable('remove', {
                                 field: 'payment_class_id',
                                 values: [row.payment_class_id]
                             });
                             $('#deleteSingleRoom').modal('hide');
-                        }
-
                     }
                 });
             });
@@ -118,7 +110,7 @@ $(document).ready(function() {
             $('#deleteMultiRoomMsg').html(payment_class_name + ' ?'+ ids_str);
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_payment_class/",
+                    url: "/remove_p_class/",
                     dataType: "json",
                     data: { payment_class_ids: ids_str },
                     type: "POST",

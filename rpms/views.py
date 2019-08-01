@@ -90,7 +90,11 @@ def manage_class(request):
 
 def manage_settings(request):
     context = {}
-    return render(request, 'settings.html', context)
+    return render(request, '404.html', context)
+
+def manage_report(request):
+    context = {}
+    return render(request, '404.html', context)
 
 
 # 创建缴费记录
@@ -117,7 +121,16 @@ def create_payment(request):
 
 
 def remove_payment(request):
-    pass
+    context = {}
+    try:
+        payment_ids = request.POST['payment_ids']
+        #import pdb;pdb.set_trace()
+        for payment_id in payment_ids.split(","):
+            payment_info = PaymentInfo.objects.get(payment_id=payment_id)
+            payment_info.delete()
+        return _generate_json_message(True, "Remove payment Success")
+    except:
+        return _generate_json_message(True, "Remove payment Failed")
 
 
 def get_all_payment_info(request):
@@ -150,7 +163,7 @@ def create_payment_class(request):
                 payment_class_desc=request.POST['payment_class_desc'],
                 )
             payment_class_info.save()
-        return render(request, 'manage_payment_class.html', context)
+        return _generate_json_message(True, "Create payment Success")
     except:
         return render(request, 'manage_payment_class.html', context)
 
@@ -162,9 +175,9 @@ def remove_payment_class(request):
         for payment_class_id in class_ids.split(","):
             payment_class_info = PaymentClassInfo.objects.get(payment_class_id=payment_class_id)
             payment_class_info.delete()
-        return render(request, 'manage_payment_class.html', context)
+        return _generate_json_message(True, "Remove payment class Success")
     except:
-        return render(request, 'manage_payment_class.html', context)
+        return _generate_json_message(True, "Remove payment class Success")
 
 
 def get_all_payment_class_info(request):
@@ -204,9 +217,9 @@ def remove_class(request):
         for class_id in class_ids.split(","):
             class_info = ClassInfo.objects.get(class_id=class_id)
             class_info.delete()
-        return render(request, 'manage_class.html', context)
+        return _generate_json_message(True, "Remove Class Success")
     except:
-        return render(request, 'manage_class.html', context)
+        return _generate_json_message(True, "Remove Class Failed")
 
 
 def get_all_class_info(request):
@@ -268,13 +281,14 @@ def modify_student(request):
 def remove_student(request):
     context = {}
     try:
+        #import pdb;pdb.set_trace()
         stu_num_ids = request.POST['stu_num_ids']
         for stu_num_id in stu_num_ids.split(","):
             student_info = StudentInfo.objects.get(stu_id=stu_num_id)
             student_info.delete()
-        return render(request, 'manage_student.html', context)
+        return _generate_json_message(True, "Remove Student Success")
     except:
-        return render(request, 'manage_student.html', context)
+        return _generate_json_message(True, "Remove Student Success")
 
 
 # 创建用户信息/用户注册
@@ -310,9 +324,9 @@ def remove_user(request):
         for user_id in user_ids.split(","):
             user_info = UserInfo.objects.get(user_id=user_id)
             user_info.delete()
-        return render(request, 'manage_user.html', context)
+        return _generate_json_message(True, "Remove User Success")
     except:
-        return render(request, 'manage_user.html', context)
+        return _generate_json_message(True, "Remove User Failed")
 
 
 # 修改用户信息
@@ -449,7 +463,28 @@ def get_student_bill_by_stu_num(request):
                 return _generate_json_from_models(list_response)
         except:
             return _generate_json_message(False, "get student bill  false")
-                
+
+
+def get_already_payed_bill_by_stu_num(request):
+    if request.POST:
+        context = {}
+        stu_num_id = request.POST['stu_num_id']
+        #import pdb;pdb.set_trace()
+        try:
+            if stu_num_id:
+                stu_bill_list = PaymentInfo.objects.\
+                    filter(stu_num_id=stu_num_id).\
+                    filter(payment_status='1') 
+                list_response = []
+                for stu_bill in stu_bill_list:
+                    dict_tmp = {}
+                    dict_tmp.update(stu_bill.__dict__)
+                    dict_tmp.pop("_state", None)
+                    list_response.append(dict_tmp)
+                return _generate_json_from_models(list_response)
+        except:
+            return _generate_json_message(False, "get student bill  false")
+
 
 def excel_upload(request):
     context = {}

@@ -79,27 +79,19 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.stu_id);
-
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.stu_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
                     url: "/remove_student/",
                     dataType: "json",
-                    data: { "stu_num_ids": row.stu_num_ids },
+                    data: { "stu_num_ids": row.stu_num_id },
                     success: function(msg) {
-                        var msg_val = eval(msg);
-                        if (msg_val.message === '200denied') {
-                            alert("不允许删除！");
-                        } else if (msg_val.message === '200success') {
                             $table.bootstrapTable('remove', {
                                 field: 'stu_num_id',
                                 values: [row.stu_num_id]
                             });
-                            $('#deleteSingleRoom').modal('hide');
-                        }
-
+                            $('#deleteSingleRoom').modal('hide');    
                     }
                 });
             });
