@@ -163,7 +163,7 @@ def create_payment_class(request):
                 payment_class_desc=request.POST['payment_class_desc'],
                 )
             payment_class_info.save()
-        return _generate_json_message(True, "Create payment Success")
+        return render(request, 'manage_payment_class.html', context)
     except:
         return render(request, 'manage_payment_class.html', context)
 
