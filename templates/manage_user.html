@@ -12,9 +12,10 @@
     <!--[if lt IE 9]>
     <script src="js/ie/respond.min.js" cache="false"></script>
     <script src="js/ie/html5.js" cache="false"></script>
-    <script src="js/ie/fix.js" cache="false"></script> <![endif]-->
+    <script src="js/ie/fix.js" cache="false"></script> <![endif] validator.js-->
     <script src="/static/chemira/css/app.v1.js"></script>
     <script src="/static/chemira/js/bootstrap3-validation.js"></script>
+    <script src="/static/chemira/js/validator.js"></script>
     <script src="/static/chemira/js/tableExport.js"></script>
     <script src="/static/chemira/js/jquery.base64.js"></script>
     <script src="/static/chemira/js/bootstrap-table.js"></script>
@@ -157,12 +158,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-primary" id="myModalLabel">添加用户</h4>
                 </div>
-                <form id="add_user_form" action="/create_user/" class="form-horizontal" role="form" method="post">
+                <!--action="/create_user/" -->
+                <form id="add_user_form"  class="form-horizontal" role="form" method="post" data-toggle="validator">
                     <div class="modal-body">
                         <div class="form-group">
                                 <label class="col-sm-2 control-label">登录名</label>
                                 <div class="col-sm-8">
-                                    <input name="login_name" class="form-control" id="login_name" type="text" check-type="required" required-message="登录名不能为空！"   placeholder="请输入登录名...">
+                                    <input name="login_name" class="form-control" id="login_name" type="text" required  placeholder="请输入登录名..." data-error="用户名不能为空">
+                                    <div class="help-block with-errors"></div>
                                 </div>
                         </div>
                         <div class="form-group">
@@ -248,47 +251,17 @@
     <!-- Sparkline Chart -->
     <!-- App -->
     <script src="/static/chemira/js/manage_user.js"></script>
-    <script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language: 'zh-CN',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-
-    $('#add_user_form').formValidation({
-        message: '此值无效', icon: { valid: 'glyphicon glyphicon-ok', invalid: 'glyphicon glyphicon-remove', validating: 'glyphicon glyphicon-refresh' }, locale: 'zh_CN', fields:{
-            login_name:{
-                    verbose: false,//代表验证按顺序验证。验证成功才会下一个（验证成功才会发最后一个remote远程验证）
-                    validators: {
-                        notEmpty: {
-                            message: '这是必填字段'
-                        },
-                        digits: {
-                            message: '值不是数字'
-                        },
-                        stringLength: {
-                            min: 16,
-                            message:'必须为16个数字'
-                        }
-                    }
-                },
-                onSuccess:function(){
-                    $('#add_user_form').submit();
-             }
-
-        });
-
-    function submit_user(){
-        console.log("======")
-        $('#add_user_form').validation();
-        $('#add_user_form').submit();
-    }
-    </script>
 </body>
-
+<script type="text/javascript">
+    $(function(){
+      //1. 简单写法：
+      $("add_user_form").validation();
+      $("button[type='submit']").on('click',function(event){
+        // 2.最后要调用 valid()方法。
+        if ($("add_user_form").valid(this,"error!")==false){
+          //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+          return false;
+        }
+      })  })
+   </script>
 </html>
