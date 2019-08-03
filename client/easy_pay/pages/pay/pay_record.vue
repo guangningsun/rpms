@@ -5,25 +5,11 @@
 			<view class="cu-bar bg-white solid-bottom"><view class="action text-green">缴费明细</view></view>
 
 			<view class="padding bg-white cu-list menu">
-				<view class="cu-item">
-					<view class="content"><text class="text-grey">书费</text></view>
-					<view class="action"><view class="cu-tag round bg-olive light">1000元,已交清</view></view>
-					<view class="action"><button class="cu-btn-s bg-red shadow" @tap="showModal" data-target="DialogModal1">退费</button></view>
-				</view>
-				<view class="cu-item">
-					<view class="content"><text class="text-grey">学费</text></view>
-					<view class="action"><view class="cu-tag round bg-olive light">10000元,已交清</view></view>
-					<view class="action"><button class="cu-btn-s bg-red shadow" @tap="showModal">退费</button></view>
-				</view>
-				<view class="cu-item">
-					<view class="content"><text class="text-grey">杂费</text></view>
-					<view class="action"><view class="cu-tag round bg-olive light">500元,已交清</view></view>
-					<view class="action"><button class="cu-btn-s bg-red shadow" @tap="showModal">退费</button></view>
-				</view>
-				<view class="cu-item">
-					<view class="content"><text class="text-grey">住宿费</text></view>
-					<view class="action"><view class="cu-tag round bg-olive light">5000元,已交清</view></view>
-					<view class="action"><button class="cu-btn-s bg-red shadow" @tap="showModal">退费</button></view>
+
+				<view class="cu-item" v-for="(item,index) in payRecords" :key="index">
+					<view class="content"><text class="text-grey">{{item.payment_class_name}}</text></view>
+					<view class="action"><view class="cu-tag round bg-olive light">{{item.payment_amount}}元,已交清</view></view>
+					<!--<view class="action"><button class="cu-btn-s bg-red shadow" @tap="showModal" data-target="DialogModal1">退费</button></view>-->
 				</view>
 			</view>
 		</block>
@@ -50,13 +36,46 @@
 export default {
 	data() {
 		return {
-			modalName: null
+			modalName: null,
+            student_number:'',
+			payRecords:[]
 		};
 	},
+    onShow(){
+        this.initData();
+    },
 	methods: {
 		showModal(e) {
 			this.modalName = e.currentTarget.dataset.target;
 		},
+        initData(){
+            this.student_number = uni.getStorageSync('key_id_number');
+
+            uni.request({
+                url: 'http://114.116.64.103:9000/get_already_payed_bill_by_stu_num',
+                method: "POST",
+                dataType: 'json',
+                header: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    stu_num_id: this.student_number
+                },
+                success: function(result) {
+                    console.log(result.data);
+                    if (result.statusCode === 200) {
+                        console.log(JSON.stringify(result));
+                        this.payRecords = result.data;
+                    }
+                }.bind(this),
+                fail: err => {
+                    console.log('request fail', err);
+                    uni.showToast({
+                        title: '请求失败~'
+                    });
+                }
+            });
+        },
 		applyRefund(e) {
 			uni.showToast({
 				title: '申请退款成功！'

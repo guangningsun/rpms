@@ -16,39 +16,9 @@
 						<view class='cu-tag radius line-orange padding-xs' >{{item.payment_amount}} 元</view>
 					</view>
 					<view class="action">
-						<button class="cu-btn bg-green shadow" @tap="payFee":data-payAmount="item.payment_amount">缴费</button>
+						<button class="cu-btn bg-green shadow" @tap="payFee(item)">缴费</button>
 					</view>
 				</view>
-
-
-
-				<!--<view class="cu-bar bg-white solid-bottom">-->
-					<!--<view class="cu-bar justify-start">-->
-						<!--<view class="action ">学费</view>-->
-						<!--<view class='cu-tag radius line-orange padding-xs'>10000元</view>-->
-					<!--</view>-->
-					<!--<view class="action">-->
-						<!--<button class="cu-btn bg-green shadow" @tap="payFee">缴费</button>-->
-					<!--</view>-->
-				<!--</view>-->
-				<!--<view class="cu-bar bg-white solid-bottom">-->
-					<!--<view class="cu-bar justify-start test">-->
-						<!--<view class="action ">住宿费</view>-->
-						<!--<view class='cu-tag radius line-orange padding-xs'>5000元</view>-->
-					<!--</view>-->
-					<!--<view class="action">-->
-						<!--<button class="cu-btn bg-green shadow" @tap="payFee">缴费</button>-->
-					<!--</view>-->
-				<!--</view>-->
-				<!--<view class="cu-bar bg-white solid-bottom">-->
-					<!--<view class="cu-bar justify-start">-->
-						<!--<view class="action ">杂费</view>-->
-						<!--<view class='cu-tag radius line-orange padding-xs'>500元</view>-->
-					<!--</view>-->
-					<!--<view class="action">-->
-						<!--<button class="cu-btn bg-green shadow" @tap="payFee">缴费</button>-->
-					<!--</view>-->
-				<!--</view>-->
 			</view>
 		</block>
 
@@ -76,7 +46,6 @@
 		data() {
 			return {
 				modalName: null,
-				bookFee:"",
 				redirectPayUrl:"",
                 student_number:'',
                 payItems: [],
@@ -117,12 +86,9 @@
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target;
 			},
-			payFee(){
-
-				// uni.navigateTo({
-				// 	url:'pay_success'
-				// });
-
+			payFee:function(e){
+                let payAmount = e.payment_amount;
+                console.log("payAmount:" + payAmount);
 				uni.request({
 					url: 'http://114.116.64.103:9000/h5pay',
 					method: "POST",
@@ -130,9 +96,9 @@
 					header: {
 						'Content-Type': 'application/x-www-form-urlencoded'
 					},
-					// data: {
-                    // 	stu_num_id: this.id_number
-                    // },
+                    data: {
+                        totalAmount:payAmount
+                    },
 					success: function(result) {
 						if (result.data.error === 0) {
 							this.redirectPayUrl = result.data.msg;
