@@ -1,6 +1,6 @@
 <template>
     <view class="bg-white">
-        <cu-custom bgColor="bg-gradual-green" :isBack="false">
+        <cu-custom :bg-color="isSuccess?'bg-gradual-green':'bg-gradual-red'" :isBack="false">
             <block slot="content">缴费结果</block>
         </cu-custom>
         <view>
@@ -24,7 +24,7 @@
             return {
                 paymentId : '',
                 paymentResultStr : '',
-                isSuccess : undefined
+                isSuccess : true
             }
         },
         onLoad(){
@@ -42,11 +42,11 @@
                 success: res => {
                     console.log(res);
                     if (res.data.msg === '0') {
-                        this.paymentResultStr = '成功';
+                        this.paymentResultStr = '支付成功';
                         this.isSuccess = true;
                     }
                     else {
-                        this.paymentResultStr = '失败';
+                        this.paymentResultStr = '支付失败';
                         this.isSuccess = false;
                     }
                 },
