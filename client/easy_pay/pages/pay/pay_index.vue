@@ -88,7 +88,13 @@
 			},
 			payFee:function(e){
                 let payAmount = e.payment_amount;
-                console.log("payAmount:" + payAmount);
+                let paymentId = e.payment_id;
+                console.log(paymentId);
+                try {
+                    uni.setStorageSync('payment_id', paymentId);
+                } catch (e) {
+                    console.log("setStorateSync paymentId error");
+                }
 				uni.request({
 					url: 'http://114.116.64.103:9000/h5pay',
 					method: "POST",

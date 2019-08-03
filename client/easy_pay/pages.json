@@ -37,7 +37,7 @@
 			}
 		},
 		{
-		    "path" : "pages/pay/pay_success",
+		    "path" : "pages/pay/pay_result",
 		    "style" : {
 				"navigationBarTitleText" : "缴费结果",
 				"app-plus":{
@@ -102,12 +102,7 @@
 				"selectedIconPath": "static/img/common/pay_record_checked.png",
 				"text": "记录"
 			}
-			// {
-			// 	"pagePath": "pages/pay/pay_success",
-			// 	"iconPath": "static/img/common/pay_record_unchecked.png",
-			// 	"selectedIconPath": "static/img/common/pay_record_checked.png",
-			// 	"text": "记录"
-			// }
+
 		]
 	}
 }
