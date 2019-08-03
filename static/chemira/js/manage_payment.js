@@ -68,7 +68,7 @@ $(document).ready(function() {
 
     function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function(row) {
-            return row.user_id;
+            return row.payment_id;
         });
     }
 
@@ -79,27 +79,19 @@ $(document).ready(function() {
 
     window.operateEvents = {
         'click .remove': function(e, value, row, index) {
-            console.log(row.id);
-
             $('#deleteSingleRoom').modal();
-            $('#deleteSingleRoomMsg').html(row.username + ' ?');
+            $('#deleteSingleRoomMsg').html(row.payment_id + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user_web/",
+                    url: "/remove_payment",
                     dataType: "json",
-                    data: { "user_ids": row.user_ids },
+                    data: { "payment_id": row.payment_id },
                     success: function(msg) {
-                        var msg_val = eval(msg);
-                        if (msg_val.message === '200denied') {
-                            alert("不允许删除！");
-                        } else if (msg_val.message === '200success') {
-                            $table.bootstrapTable('remove', {
-                                field: 'user_id',
-                                values: [row.user_id]
-                            });
-                            $('#deleteSingleRoom').modal('hide');
-                        }
-
+                        $table.bootstrapTable('remove', {
+                            field: 'payment_id',
+                            values: [row.payment_id]
+                        });
+                        $('#deleteSingleRoom').modal('hide'); 
                     }
                 });
             });
@@ -114,16 +106,19 @@ $(document).ready(function() {
         if (ids.length > 0) {
             $('#deleteMultiRoom').modal();
             ids_str = ids.toString().trim();
-            var user_name = getApartNameSelections().toString().trim();
-            $('#deleteMultiRoomMsg').html(user_name + ' ?'+ ids_str);
+            $('#deleteMultiRoomMsg').html(ids_str+ ' 1111?');
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user/",
+                    url: "/remove_payment/",
                     dataType: "json",
-                    data: { user_ids: ids_str },
+                    data: { payment_ids: ids_str },
                     type: "POST",
                     success: function(msg) {
-                        window.location.reload();
+                        location.reload();
+                        $table.bootstrapTable('remove', {
+                            field: 'payment_id',
+                            values: [row.payment_id]
+                        });
                     }
                 });
                 $remove.prop('disabled', false);

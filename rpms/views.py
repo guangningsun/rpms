@@ -30,11 +30,13 @@ def _get_timestamp():
 def _generate_json_message(flag, message):
     if flag:
         return HttpResponse("{\"error\":0,\"errmsg\":\""+message+"\"}",
-                            content_type="application/x-www-form-urlencoded",
+                            #content_type="application/x-www-form-urlencoded",
+                            content_type='application/json',
                             )
     else:
         return HttpResponse("{\"error\":1,\"errmsg\":\""+message+"\"}",
-                            content_type="application/x-www-form-urlencoded",
+                            #content_type="application/x-www-form-urlencoded",
+                            content_type='application/json',
                             )
 
 
@@ -42,7 +44,8 @@ def _generate_json_message(flag, message):
 # done
 def _generate_json_from_models(response_list):
     return HttpResponse(json.dumps(response_list),
-                        content_type="application/x-www-form-urlencoded",
+                        #content_type="application/x-www-form-urlencoded",
+                        content_type='application/json',
                         )
 #                      content_type="application/json")
 #    res["Access-Control-Allow-Origin"] = "*"
@@ -87,7 +90,11 @@ def manage_class(request):
 
 def manage_settings(request):
     context = {}
-    return render(request, 'settings.html', context)
+    return render(request, '404.html', context)
+
+def manage_report(request):
+    context = {}
+    return render(request, '404.html', context)
 
 
 # 创建缴费记录
@@ -114,7 +121,16 @@ def create_payment(request):
 
 
 def remove_payment(request):
-    pass
+    context = {}
+    try:
+        payment_ids = request.POST['payment_ids']
+        #import pdb;pdb.set_trace()
+        for payment_id in payment_ids.split(","):
+            payment_info = PaymentInfo.objects.get(payment_id=payment_id)
+            payment_info.delete()
+        return _generate_json_message(True, "Remove payment Success")
+    except:
+        return _generate_json_message(True, "Remove payment Failed")
 
 
 def get_all_payment_info(request):
@@ -159,9 +175,9 @@ def remove_payment_class(request):
         for payment_class_id in class_ids.split(","):
             payment_class_info = PaymentClassInfo.objects.get(payment_class_id=payment_class_id)
             payment_class_info.delete()
-        return render(request, 'manage_payment_class.html', context)
+        return _generate_json_message(True, "Remove payment class Success")
     except:
-        return render(request, 'manage_payment_class.html', context)
+        return _generate_json_message(True, "Remove payment class Success")
 
 
 def get_all_payment_class_info(request):
@@ -201,9 +217,9 @@ def remove_class(request):
         for class_id in class_ids.split(","):
             class_info = ClassInfo.objects.get(class_id=class_id)
             class_info.delete()
-        return render(request, 'manage_class.html', context)
+        return _generate_json_message(True, "Remove Class Success")
     except:
-        return render(request, 'manage_class.html', context)
+        return _generate_json_message(True, "Remove Class Failed")
 
 
 def get_all_class_info(request):
@@ -265,13 +281,14 @@ def modify_student(request):
 def remove_student(request):
     context = {}
     try:
+        #import pdb;pdb.set_trace()
         stu_num_ids = request.POST['stu_num_ids']
         for stu_num_id in stu_num_ids.split(","):
             student_info = StudentInfo.objects.get(stu_id=stu_num_id)
             student_info.delete()
-        return render(request, 'manage_student.html', context)
+        return _generate_json_message(True, "Remove Student Success")
     except:
-        return render(request, 'manage_student.html', context)
+        return _generate_json_message(True, "Remove Student Success")
 
 
 # 创建用户信息/用户注册
@@ -307,9 +324,9 @@ def remove_user(request):
         for user_id in user_ids.split(","):
             user_info = UserInfo.objects.get(user_id=user_id)
             user_info.delete()
-        return render(request, 'manage_user.html', context)
+        return _generate_json_message(True, "Remove User Success")
     except:
-        return render(request, 'manage_user.html', context)
+        return _generate_json_message(True, "Remove User Failed")
 
 
 # 修改用户信息
@@ -427,6 +444,47 @@ def get_student_info_summary_api(request):
         except:
             return _generate_json_message(False, "get student info  false")
 
+def get_student_bill_by_stu_num(request):
+    if request.POST:
+        context = {}
+        stu_num_id = request.POST['stu_num_id']
+        #import pdb;pdb.set_trace()
+        try:
+            if stu_num_id:
+                stu_bill_list = PaymentInfo.objects.\
+                    filter(stu_num_id=stu_num_id).\
+                    filter(payment_status='0') 
+                list_response = []
+                for stu_bill in stu_bill_list:
+                    dict_tmp = {}
+                    dict_tmp.update(stu_bill.__dict__)
+                    dict_tmp.pop("_state", None)
+                    list_response.append(dict_tmp)
+                return _generate_json_from_models(list_response)
+        except:
+            return _generate_json_message(False, "get student bill  false")
+
+
+def get_already_payed_bill_by_stu_num(request):
+    if request.POST:
+        context = {}
+        stu_num_id = request.POST['stu_num_id']
+        #import pdb;pdb.set_trace()
+        try:
+            if stu_num_id:
+                stu_bill_list = PaymentInfo.objects.\
+                    filter(stu_num_id=stu_num_id).\
+                    filter(payment_status='1') 
+                list_response = []
+                for stu_bill in stu_bill_list:
+                    dict_tmp = {}
+                    dict_tmp.update(stu_bill.__dict__)
+                    dict_tmp.pop("_state", None)
+                    list_response.append(dict_tmp)
+                return _generate_json_from_models(list_response)
+        except:
+            return _generate_json_message(False, "get student bill  false")
+
 
 def excel_upload(request):
     context = {}
@@ -452,71 +510,6 @@ def excel_upload(request):
                 )
             payment_info.save()
     return render(request, 'manage_payment.html', context)
-
-#
-#def upload(request):
-#    '''
-#    :param request:
-#    :return: 上传文件excel表格 ,并进行解析
-#    '''
-#    if request.method == "POST":
-#        print("post request")
-#        myform = FileUploadForm(request.POST, request.FILES)
-# 
-#        #在这里可以添加筛选excel的机制
-#        if myform.is_valid():
-#            # print(myform)
-#            f = request.FILES['my_file']
-#            print(f)
-# 
-#            #开始解析上传的excel表格
-#            wb = xlrd.open_workbook(filename=None, file_contents=f.read())  # 关键点在于这里
-#            table = wb.sheets()[0]
-#            nrows = table.nrows  #行数
-#            ncole = table.ncols  #列数
-#            print("row :%s, cole: %s" % (nrows, ncole))
-# 
-#            for i in range(1, nrows):
-#                rowValues = table.row_values(i)  #一行的数据
-# 
-#                print(type(rowValues[10]))
-#                R_projectname=rowValues[1]
-# 
-#                print('rowValues-->{}'.format(R_projectname))
-# 
-#                pf = PhoneMsg.objects.filter(M_name = R_projectname)
-#                # pf = PhoneMsg.objects.all()
-#                if not pf.exists():   #空值
-#                    return render(request,'rc_test/upFileFail.html',context={'error':u'R_projectname 不存在,联系管理员进行添加!'})
-# 
-#                print(pf)
-# 
-#                pm = PhoneMsg.objects.get(M_name =R_projectname)
-#                pm.save()
-#                re = Result()           #实例化result表
-#                re.R_projectname = R_projectname
-#                re.R_name = rowValues[2]
-#                re.R_version = rowValues[3]
-#                re.R_context = rowValues[4]
-#                re.R_result = rowValues[5]
-#                re.R_note = rowValues[6]
-#                re.R_ower = rowValues[7]
-#                re.R_kexuan = rowValues[8]
-#                re.R_inning = rowValues[9]
-#                re.R_createtime = datetime(*xldate_as_tuple(rowValues[10],0))
-#                print(datetime(*xldate_as_tuple(rowValues[10],0)))
-#                re.save()
-#                pm.result.add(re)
-# 
-#            handle_upload_file(f, str(f))        #上传文件处理
-# 
-#        return render(request, "rc_test/upFileSuccess.html")
-# 
-# 
-#    else:
-#        print("get request")
-#        myform = FileUploadForm()
-#    return render(request, 'rc_test/upFile.html', context={'form': myform, 'what': "文件传输"}
 
 
 # 找不到界面
