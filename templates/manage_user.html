@@ -158,8 +158,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-primary" id="myModalLabel">添加用户</h4>
                 </div>
-                <!--action="/create_user/" -->
-                <form id="add_user_form"  class="form-horizontal" role="form" method="post" data-toggle="validator">
+
+                <form id="add_user_form" action="/create_user/" class="form-horizontal" role="form" method="post" data-toggle="validator">
                     <div class="modal-body">
                         <div class="form-group">
                                 <label class="col-sm-2 control-label">登录名</label>
@@ -252,16 +252,4 @@
     <!-- App -->
     <script src="/static/chemira/js/manage_user.js"></script>
 </body>
-<script type="text/javascript">
-    $(function(){
-      //1. 简单写法：
-      $("add_user_form").validation();
-      $("button[type='submit']").on('click',function(event){
-        // 2.最后要调用 valid()方法。
-        if ($("add_user_form").valid(this,"error!")==false){
-          //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
-          return false;
-        }
-      })  })
-   </script>
 </html>

@@ -296,6 +296,7 @@ def remove_student(request):
 def create_user(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     context = {}
+    #import pdb;pdb.set_trace()
     try:
         if request.POST:
             user_info = UserInfo(
@@ -310,9 +311,10 @@ def create_user(request):
                 class_id=request.POST['class_id']
                 )
             user_info.save()
-        return render(request, 'manage_user.html', context)
+        # return render(request, 'manage_user.html', context)
+        return HttpResponseRedirect('/manage_user')
     except:
-        return render(request, 'manage_user.html', context)
+        return HttpResponseRedirect('/manage_user')
 
 
 # 删除用户信息
