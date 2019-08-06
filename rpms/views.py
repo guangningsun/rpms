@@ -163,9 +163,10 @@ def create_payment_class(request):
                 payment_class_desc=request.POST['payment_class_desc'],
                 )
             payment_class_info.save()
-        return render(request, 'manage_payment_class.html', context)
+        return HttpResponseRedirect('/manage_p_class')
+        #return render(request, 'manage_payment_class.html', context)
     except:
-        return render(request, 'manage_payment_class.html', context)
+        return HttpResponseRedirect('/manage_p_class')
 
 
 def remove_payment_class(request):
@@ -205,9 +206,10 @@ def create_class(request):
                 class_num=request.POST['class_num'],
                 )
             class_info.save()
-        return render(request, 'manage_class.html', context)
+        return HttpResponseRedirect('/manage_class')
+        #return render(request, 'manage_class.html', context)
     except:
-        return render(request, 'manage_class.html', context)
+        return HttpResponseRedirect('/manage_class')
 
 
 def remove_class(request):
@@ -254,9 +256,10 @@ def create_student(request):
                 class_id=request.POST['class_id']
                 )
             student_info.save()
-        return render(request, 'manage_student.html', context)
+        return HttpResponseRedirect('/manage_student')
+        #return render(request, 'manage_student.html', context)
     except:
-        return render(request, 'manage_student.html', context)
+        return HttpResponseRedirect('/manage_student')
 
 
 def get_all_student_info(request):
