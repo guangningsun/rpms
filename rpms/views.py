@@ -115,9 +115,9 @@ def create_payment(request):
                 payment_res_desc=request.POST['payment_res_desc']
                 )
             payment_info.save()
-        return render(request, 'manage_payment.html', context)
+        return HttpResponseRedirect('/manage_payment')
     except:
-        return render(request, 'manage_payment.html', context)
+        return HttpResponseRedirect('/manage_payment')
 
 
 def remove_payment(request):
