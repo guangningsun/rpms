@@ -516,26 +516,29 @@ def excel_upload(request):
     context = {}
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     if request.method == 'POST':
-        f = request.FILES['excel_file']
-        wb = xlrd.open_workbook(filename=None, file_contents=f.read())
-        payment_table = wb.sheets()[0]
-        payment_table_nrows = payment_table.nrows
-        payment_table_ncole = payment_table.ncols
-        for i in range(2, payment_table_nrows):
-            row_values = payment_table.row_values(i)
-            payment_info = PaymentInfo(
-                payment_id=uuid.uuid1(),
-                payment_class_name=row_values[0],
-                payment_create_time=current_time,
-                stu_payment_time=row_values[1],
-                payment_amount=int(row_values[2]),
-                payment_status=int(row_values[3]),
-                stu_num_id=int(row_values[4]),
-                create_user_id=int(row_values[6]),
-                payment_res_desc=row_values[5]
-                )
-            payment_info.save()
-    return render(request, 'manage_payment.html', context)
+        try:
+            f = request.FILES['excel_file']
+            wb = xlrd.open_workbook(filename=None, file_contents=f.read())
+            payment_table = wb.sheets()[0]
+            payment_table_nrows = payment_table.nrows
+            payment_table_ncole = payment_table.ncols
+            for i in range(2, payment_table_nrows):
+                row_values = payment_table.row_values(i)
+                payment_info = PaymentInfo(
+                    payment_id=uuid.uuid1(),
+                    payment_class_name=row_values[0],
+                    payment_create_time=current_time,
+                    stu_payment_time=row_values[1],
+                    payment_amount=int(row_values[2]),
+                    payment_status=int(row_values[3]),
+                    stu_num_id=int(row_values[4]),
+                    create_user_id=int(row_values[6]),
+                    payment_res_desc=row_values[5]
+                    )
+                payment_info.save()
+        except:
+            return HttpResponseRedirect('/manage_payment')
+    return HttpResponseRedirect('/manage_payment')
 
 
 # 找不到界面
