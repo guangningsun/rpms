@@ -103,18 +103,21 @@ def create_payment(request):
     context = {}
     try:
         if request.POST:
-            payment_info = PaymentInfo(
-                payment_id=uuid.uuid1(),
-                payment_class_name=request.POST['payment_class_name'],
-                payment_create_time=current_time,
-                stu_payment_time=request.POST['stu_payment_time'],
-                payment_amount=request.POST['payment_amount'],
-                payment_status=request.POST['payment_status'],
-                stu_num_id=request.POST['stu_num_id'],
-                create_user_id=request.POST['create_user_id'],
-                payment_res_desc=request.POST['payment_res_desc']
-                )
-            payment_info.save()
+            try:
+                PaymentInfo.objects.get(payment_class_name=request.POST['payment_class_name'])
+            except:
+                payment_info = PaymentInfo(
+                    payment_id=uuid.uuid1(),
+                    payment_class_name=request.POST['payment_class_name'],
+                    payment_create_time=current_time,
+                    stu_payment_time=request.POST['stu_payment_time'],
+                    payment_amount=request.POST['payment_amount'],
+                    payment_status=request.POST['payment_status'],
+                    stu_num_id=request.POST['stu_num_id'],
+                    create_user_id=request.POST['create_user_id'],
+                    payment_res_desc=request.POST['payment_res_desc']
+                    )
+                payment_info.save()
         return HttpResponseRedirect('/manage_payment')
     except:
         return HttpResponseRedirect('/manage_payment')
@@ -157,12 +160,15 @@ def create_payment_class(request):
     context = {}
     try:
         if request.POST:
-            payment_class_info = PaymentClassInfo(
-                payment_class_id=_get_timestamp(),
-                payment_class_name=request.POST['payment_class_name'],
-                payment_class_desc=request.POST['payment_class_desc'],
-                )
-            payment_class_info.save()
+            try:
+                PaymentClassInfo.objects.get(payment_class_name=request.POST['payment_class_name'])
+            except:
+                payment_class_info = PaymentClassInfo(
+                    payment_class_id=_get_timestamp(),
+                    payment_class_name=request.POST['payment_class_name'],
+                    payment_class_desc=request.POST['payment_class_desc'],
+                    )
+                payment_class_info.save()
         return HttpResponseRedirect('/manage_p_class')
         #return render(request, 'manage_payment_class.html', context)
     except:
@@ -201,11 +207,14 @@ def create_class(request):
     context = {}
     try:
         if request.POST:
-            class_info = ClassInfo(
-                class_id=_get_timestamp(),
-                class_num=request.POST['class_num'],
-                )
-            class_info.save()
+            try:
+                UserInfo.objects.get(class_num=request.POST['class_num'])
+            except:
+                class_info = ClassInfo(
+                    class_id=_get_timestamp(),
+                    class_num=request.POST['class_num'],
+                    )
+                class_info.save()
         return HttpResponseRedirect('/manage_class')
         #return render(request, 'manage_class.html', context)
     except:
@@ -245,17 +254,22 @@ def create_student(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
-            student_info = StudentInfo(
-                stu_id=_get_timestamp(),
-                stu_num_id=request.POST['stu_num_id'],
-                stu_name=request.POST['stu_name'],
-                stu_id_card=request.POST['stu_id_card'],
-                stu_sexy=request.POST['stu_sexy'],
-                stu_phone_num=request.POST['stu_phone_num'],
-                stu_desc=request.POST['stu_desc'],
-                class_id=request.POST['class_id']
-                )
-            student_info.save()
+            try:
+                StudentInfo.objects.get(stu_num_id=request.POST['stu_num_id'])
+                StudentInfo.objects.get(stu_id_card=request.POST['stu_id_card'])
+                StudentInfo.objects.get(stu_phone_num=request.POST['stu_phone_num'])
+            except:
+                student_info = StudentInfo(
+                    stu_id=_get_timestamp(),
+                    stu_num_id=request.POST['stu_num_id'],
+                    stu_name=request.POST['stu_name'],
+                    stu_id_card=request.POST['stu_id_card'],
+                    stu_sexy=request.POST['stu_sexy'],
+                    stu_phone_num=request.POST['stu_phone_num'],
+                    stu_desc=request.POST['stu_desc'],
+                    class_id=request.POST['class_id']
+                    )
+                student_info.save()
         return HttpResponseRedirect('/manage_student')
         #return render(request, 'manage_student.html', context)
     except:
@@ -302,18 +316,22 @@ def create_user(request):
     #import pdb;pdb.set_trace()
     try:
         if request.POST:
-            user_info = UserInfo(
-                login_name=request.POST['login_name'],
-                username=request.POST['username'],
-                password=request.POST['password'],
-                user_id=_get_timestamp(),
-                user_permission=request.POST['user_permission'],
-                is_deleted=0,
-                create_time=current_time,
-                description=request.POST['description'],
-                class_id=request.POST['class_id']
-                )
-            user_info.save()
+            try:
+                UserInfo.objects.get(login_name=request.POST['login_name'])
+                UserInfo.objects.get(username=request.POST['username'])
+            except:
+                user_info = UserInfo(
+                    login_name=request.POST['login_name'],
+                    username=request.POST['username'],
+                    password=request.POST['password'],
+                    user_id=_get_timestamp(),
+                    user_permission=request.POST['user_permission'],
+                    is_deleted=0,
+                    create_time=current_time,
+                    description=request.POST['description'],
+                    class_id=request.POST['class_id']
+                    )
+                user_info.save()
         # return render(request, 'manage_user.html', context)
         return HttpResponseRedirect('/manage_user')
     except:
@@ -423,6 +441,9 @@ def student_login_api(request):
         except:
             return _generate_json_message(False, "login false")
 
+def check_stu_num_repl(request):
+    print ("check student num")
+    return 0
 
 def get_student_info_summary_api(request):
     if request.POST:
