@@ -550,7 +550,7 @@ def page_not_found(request, exception):
 def h5pay(request):
     apiUrl_makeOrder = "https://qr-test2.chinaums.com/netpay-portal/webpay/pay.do"
     notifyUrl = "http://172.27.49.240:8080/h5pay/notifyUrl.do"
-    returnUrl = "https://www.baidu.com/"
+    returnUrl = "http://114.116.64.103:8089/#/pages/pay/pay_result"
     msgSrc = "WWW.TEST.COM"
     msgType = "trade.h5Pay"
     requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -606,8 +606,11 @@ def h5pay(request):
         "notifyUrl": notifyUrl,
         "returnUrl": returnUrl
     }
-    #encoded = urllib.parse.urlencode(return_json)
-    encoded = urllib.urlencode(return_json)
+    encoded = urllib.parse.urlencode(return_json)
+    payment_info = PaymentInfo.objects.get(payment_id=request.POST['payment_id'])
+    payment_info.merOrderId = merOrderId
+    payment_info.save()
+    #encoded = urllib.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
     return redirect(reuturn_url)
 
@@ -669,4 +672,22 @@ def query_result_transaction(request):
     print(unionpay_response)
     #import pdb;pdb.set_trace()
     print(unionpay_response.content)
+    payment_info = PaymentInfo.objects.get(payment_id=request.POST['payment_id'])
+    payment_info.payment_res_desc = unionpay_response.content
+    payment_info.save()
     return _generate_json_message(True, "unionpay response")
+
+
+def pay_success(request):
+    return _generate_json_message(True, "pay success")
+
+def get_payment_status(request):
+    payment_info = PaymentInfo.objects.filter(payment_id=request.POST['payment_id'])
+    if payment_info:
+        return HttpResponse("{\"error\":0,\"msg\":\""+payment_info[0].payment_status+"\"}",
+                            content_type='application/json',
+                            )
+    else:
+        return HttpResponse("{\"error\":1,\"msg\":\"没有该付款记录\"}",
+                            content_type='application/json',
+                            )

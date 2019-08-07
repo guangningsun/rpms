@@ -204,6 +204,13 @@ $(document).ready(function() {
         sortable: true
     });
     columns.push({
+        field: 'merOrderId',
+        title: '订单号',
+        align: 'center',
+        valign: 'middle',
+        sortable: true
+    });
+    columns.push({
         field: 'payment_res_desc',
         title: '第三方返回信息',
         align: 'center',
