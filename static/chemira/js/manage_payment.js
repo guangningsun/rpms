@@ -95,9 +95,6 @@ $(document).ready(function() {
                     }
                 });
             });
-
-
-
         }
     };
 
@@ -106,7 +103,7 @@ $(document).ready(function() {
         if (ids.length > 0) {
             $('#deleteMultiRoom').modal();
             ids_str = ids.toString().trim();
-            $('#deleteMultiRoomMsg').html(ids_str+ ' 1111?');
+            $('#deleteMultiRoomMsg').html(ids_str+ '?');
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
                     url: "/remove_payment/",

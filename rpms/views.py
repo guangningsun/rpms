@@ -14,6 +14,7 @@ import hashlib
 import urllib
 import random
 import logging
+import requests
 
 
 logger = logging.getLogger(__name__)
@@ -103,21 +104,24 @@ def create_payment(request):
     context = {}
     try:
         if request.POST:
-            payment_info = PaymentInfo(
-                payment_id=uuid.uuid1(),
-                payment_class_name=request.POST['payment_class_name'],
-                payment_create_time=current_time,
-                stu_payment_time=request.POST['stu_payment_time'],
-                payment_amount=request.POST['payment_amount'],
-                payment_status=request.POST['payment_status'],
-                stu_num_id=request.POST['stu_num_id'],
-                create_user_id=request.POST['create_user_id'],
-                payment_res_desc=request.POST['payment_res_desc']
-                )
-            payment_info.save()
-        return render(request, 'manage_payment.html', context)
+            try:
+                PaymentInfo.objects.get(payment_class_name=request.POST['payment_class_name'])
+            except:
+                payment_info = PaymentInfo(
+                    payment_id=uuid.uuid1(),
+                    payment_class_name=request.POST['payment_class_name'],
+                    payment_create_time=current_time,
+                    stu_payment_time=request.POST['stu_payment_time'],
+                    payment_amount=request.POST['payment_amount'],
+                    payment_status=request.POST['payment_status'],
+                    stu_num_id=request.POST['stu_num_id'],
+                    create_user_id=request.POST['create_user_id'],
+                    payment_res_desc=request.POST['payment_res_desc']
+                    )
+                payment_info.save()
+        return HttpResponseRedirect('/manage_payment')
     except:
-        return render(request, 'manage_payment.html', context)
+        return HttpResponseRedirect('/manage_payment')
 
 
 def remove_payment(request):
@@ -157,15 +161,19 @@ def create_payment_class(request):
     context = {}
     try:
         if request.POST:
-            payment_class_info = PaymentClassInfo(
-                payment_class_id=_get_timestamp(),
-                payment_class_name=request.POST['payment_class_name'],
-                payment_class_desc=request.POST['payment_class_desc'],
-                )
-            payment_class_info.save()
-        return render(request, 'manage_payment_class.html', context)
+            try:
+                PaymentClassInfo.objects.get(payment_class_name=request.POST['payment_class_name'])
+            except:
+                payment_class_info = PaymentClassInfo(
+                    payment_class_id=_get_timestamp(),
+                    payment_class_name=request.POST['payment_class_name'],
+                    payment_class_desc=request.POST['payment_class_desc'],
+                    )
+                payment_class_info.save()
+        return HttpResponseRedirect('/manage_p_class')
+        #return render(request, 'manage_payment_class.html', context)
     except:
-        return render(request, 'manage_payment_class.html', context)
+        return HttpResponseRedirect('/manage_p_class')
 
 
 def remove_payment_class(request):
@@ -200,14 +208,18 @@ def create_class(request):
     context = {}
     try:
         if request.POST:
-            class_info = ClassInfo(
-                class_id=_get_timestamp(),
-                class_num=request.POST['class_num'],
-                )
-            class_info.save()
-        return render(request, 'manage_class.html', context)
+            try:
+                UserInfo.objects.get(class_num=request.POST['class_num'])
+            except:
+                class_info = ClassInfo(
+                    class_id=_get_timestamp(),
+                    class_num=request.POST['class_num'],
+                    )
+                class_info.save()
+        return HttpResponseRedirect('/manage_class')
+        #return render(request, 'manage_class.html', context)
     except:
-        return render(request, 'manage_class.html', context)
+        return HttpResponseRedirect('/manage_class')
 
 
 def remove_class(request):
@@ -243,20 +255,26 @@ def create_student(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     try:
         if request.POST:
-            student_info = StudentInfo(
-                stu_id=_get_timestamp(),
-                stu_num_id=request.POST['stu_num_id'],
-                stu_name=request.POST['stu_name'],
-                stu_id_card=request.POST['stu_id_card'],
-                stu_sexy=request.POST['stu_sexy'],
-                stu_phone_num=request.POST['stu_phone_num'],
-                stu_desc=request.POST['stu_desc'],
-                class_id=request.POST['class_id']
-                )
-            student_info.save()
-        return render(request, 'manage_student.html', context)
+            try:
+                StudentInfo.objects.get(stu_num_id=request.POST['stu_num_id'])
+                StudentInfo.objects.get(stu_id_card=request.POST['stu_id_card'])
+                StudentInfo.objects.get(stu_phone_num=request.POST['stu_phone_num'])
+            except:
+                student_info = StudentInfo(
+                    stu_id=_get_timestamp(),
+                    stu_num_id=request.POST['stu_num_id'],
+                    stu_name=request.POST['stu_name'],
+                    stu_id_card=request.POST['stu_id_card'],
+                    stu_sexy=request.POST['stu_sexy'],
+                    stu_phone_num=request.POST['stu_phone_num'],
+                    stu_desc=request.POST['stu_desc'],
+                    class_id=request.POST['class_id']
+                    )
+                student_info.save()
+        return HttpResponseRedirect('/manage_student')
+        #return render(request, 'manage_student.html', context)
     except:
-        return render(request, 'manage_student.html', context)
+        return HttpResponseRedirect('/manage_student')
 
 
 def get_all_student_info(request):
@@ -296,23 +314,29 @@ def remove_student(request):
 def create_user(request):
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     context = {}
+    #import pdb;pdb.set_trace()
     try:
         if request.POST:
-            user_info = UserInfo(
-                login_name=request.POST['login_name'],
-                username=request.POST['username'],
-                password=request.POST['password'],
-                user_id=_get_timestamp(),
-                user_permission=request.POST['user_permission'],
-                is_deleted=0,
-                create_time=current_time,
-                description=request.POST['description'],
-                class_id=request.POST['class_id']
-                )
-            user_info.save()
-        return render(request, 'manage_user.html', context)
+            try:
+                UserInfo.objects.get(login_name=request.POST['login_name'])
+                UserInfo.objects.get(username=request.POST['username'])
+            except:
+                user_info = UserInfo(
+                    login_name=request.POST['login_name'],
+                    username=request.POST['username'],
+                    password=request.POST['password'],
+                    user_id=_get_timestamp(),
+                    user_permission=request.POST['user_permission'],
+                    is_deleted=0,
+                    create_time=current_time,
+                    description=request.POST['description'],
+                    class_id=request.POST['class_id']
+                    )
+                user_info.save()
+        # return render(request, 'manage_user.html', context)
+        return HttpResponseRedirect('/manage_user')
     except:
-        return render(request, 'manage_user.html', context)
+        return HttpResponseRedirect('/manage_user')
 
 
 # 删除用户信息
@@ -418,6 +442,9 @@ def student_login_api(request):
         except:
             return _generate_json_message(False, "login false")
 
+def check_stu_num_repl(request):
+    print ("check student num")
+    return 0
 
 def get_student_info_summary_api(request):
     if request.POST:
@@ -490,26 +517,29 @@ def excel_upload(request):
     context = {}
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     if request.method == 'POST':
-        f = request.FILES['excel_file']
-        wb = xlrd.open_workbook(filename=None, file_contents=f.read())
-        payment_table = wb.sheets()[0]
-        payment_table_nrows = payment_table.nrows
-        payment_table_ncole = payment_table.ncols
-        for i in range(2, payment_table_nrows):
-            row_values = payment_table.row_values(i)
-            payment_info = PaymentInfo(
-                payment_id=uuid.uuid1(),
-                payment_class_name=row_values[0],
-                payment_create_time=current_time,
-                stu_payment_time=row_values[1],
-                payment_amount=int(row_values[2]),
-                payment_status=int(row_values[3]),
-                stu_num_id=int(row_values[4]),
-                create_user_id=int(row_values[6]),
-                payment_res_desc=row_values[5]
-                )
-            payment_info.save()
-    return render(request, 'manage_payment.html', context)
+        try:
+            f = request.FILES['excel_file']
+            wb = xlrd.open_workbook(filename=None, file_contents=f.read())
+            payment_table = wb.sheets()[0]
+            payment_table_nrows = payment_table.nrows
+            payment_table_ncole = payment_table.ncols
+            for i in range(2, payment_table_nrows):
+                row_values = payment_table.row_values(i)
+                payment_info = PaymentInfo(
+                    payment_id=uuid.uuid1(),
+                    payment_class_name=row_values[0],
+                    payment_create_time=current_time,
+                    stu_payment_time=row_values[1],
+                    payment_amount=int(row_values[2]),
+                    payment_status=int(row_values[3]),
+                    stu_num_id=int(row_values[4]),
+                    create_user_id=int(row_values[6]),
+                    payment_res_desc=row_values[5]
+                    )
+                payment_info.save()
+        except:
+            return HttpResponseRedirect('/manage_payment')
+    return HttpResponseRedirect('/manage_payment')
 
 
 # 找不到界面
@@ -580,3 +610,63 @@ def h5pay(request):
     encoded = urllib.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
     return redirect(reuturn_url)
+
+def query_result_transaction(request):
+    msgSrc = "WWW.TEST.COM"
+    msgType = "query"
+    requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    merOrderId = "3194"+time.strftime('%Y%m%d%H%M%S', time.localtime())+str(random.randint(1000000,9999999))
+    mid = "898310148160568"
+    tid = "88880001"
+    instMid = "H5DEFAULT"
+    totalAmount = "1"
+    md5key = "fcAmtnx7MwismjWNhNKdHC44mNXtnEQeJkRrhKJwyrW2ysRR"
+
+    param = {
+    "msgType": msgType,
+    "requestTimestamp": requestTimestamp,
+    "msgSrc": msgSrc,
+    "mid": mid,
+    "tid": tid,
+    "merOrderId": merOrderId,
+    "instMid": instMid
+    }
+
+    sorted_param = json.dumps(param, sort_keys=True)
+    print ("排序后的参数")
+    print (sorted_param)
+    #for_signed_param = urllib.parse.urlencode(json.loads(sorted_param, object_pairs_hook=OrderedDict))
+
+    ritems = json.loads(sorted_param,object_pairs_hook=OrderedDict).items()
+    conv_sign = ""
+    for key, value in ritems:
+        conv_sign+=key + "=" + value + "&"
+    final_sign = conv_sign[:-1]+md5key
+    #final_sign = for_signed_param+md5key
+    print ("待签名参数")
+    print(final_sign)
+
+    md = hashlib.md5()
+    md.update(final_sign.encode())
+    final_md = md.hexdigest().upper()
+    print ("MD5签名并upper后sign值")
+    print (final_md)
+
+    return_json = {
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "msgSrc": msgSrc,
+        "mid": mid,
+        "tid": tid,
+        "merOrderId": merOrderId,
+        "sign": final_md,
+        "instMid": instMid
+    }
+    print ("最后要post的json参数")
+    print (return_json)
+    post_url = "https://qr-test2.chinaums.com/netpay-portal/webpay/pay.do"
+    unionpay_response = requests.post(post_url,return_json)
+    print(unionpay_response)
+    #import pdb;pdb.set_trace()
+    print(unionpay_response.content)
+    return _generate_json_message(True, "unionpay response")
