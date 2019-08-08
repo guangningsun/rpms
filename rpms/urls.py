@@ -68,7 +68,8 @@ urlpatterns = [
         views.get_already_payed_bill_by_stu_num),
     url(r'^excel_upload', views.excel_upload),
     url(r'^h5pay', views.h5pay),
-
+    url(r'^pay_success',views.pay_success),
+    url(r'^get_payment_status',views.get_payment_status),
 
     url(r'^check_stu_num_repl', views.check_stu_num_repl),
     url(r'^query_result_transaction', views.query_result_transaction),
