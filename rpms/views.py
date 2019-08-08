@@ -30,12 +30,12 @@ def _get_timestamp():
 # done
 def _generate_json_message(flag, message):
     if flag:
-        return HttpResponse("{\"error\":0,\"errmsg\":\""+message+"\"}",
+        return HttpResponse("{\"error\":0,\"msg\":\""+message+"\"}",
                             #content_type="application/x-www-form-urlencoded",
                             content_type='application/json',
                             )
     else:
-        return HttpResponse("{\"error\":1,\"errmsg\":\""+message+"\"}",
+        return HttpResponse("{\"error\":1,\"msg\":\""+message+"\"}",
                             #content_type="application/x-www-form-urlencoded",
                             content_type='application/json',
                             )
@@ -612,7 +612,7 @@ def h5pay(request):
     payment_info.save()
     #encoded = urllib.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
-    return redirect(reuturn_url)
+    return _generate_json_message(True, reuturn_url)
 
 def query_result_transaction(request):
     msgSrc = "WWW.TEST.COM"
