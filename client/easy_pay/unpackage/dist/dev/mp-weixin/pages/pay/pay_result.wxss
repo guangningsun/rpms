@@ -1,0 +1,8 @@
+
+.flex{
+	padding: 10rpx, 30rpx;
+}
+.flex-sub{
+	padding: 20rpx;
+}
+
