@@ -618,7 +618,7 @@ def query_result_transaction(request):
     msgSrc = "WWW.TEST.COM"
     msgType = "query"
     requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-    merOrderId = "3194"+time.strftime('%Y%m%d%H%M%S', time.localtime())+str(random.randint(1000000,9999999))
+    merOrderId = PaymentInfo.objects.get(payment_id=request.POST['payment_id']).merOrderId
     mid = "898310148160568"
     tid = "88880001"
     instMid = "H5DEFAULT"
@@ -667,13 +667,26 @@ def query_result_transaction(request):
     }
     print ("最后要post的json参数")
     print (return_json)
-    post_url = "https://qr-test2.chinaums.com/netpay-portal/webpay/pay.do"
-    unionpay_response = requests.post(post_url,return_json)
+    post_url = "https://qr-test2.chinaums.com/netpay-route-server/api/"
+    headers = {'Content-Type':'application/json'}
+    unionpay_response = requests.post(url=post_url,data=json.dumps(return_json),headers=headers)
     print(unionpay_response)
-    #import pdb;pdb.set_trace()
     print(unionpay_response.content)
     payment_info = PaymentInfo.objects.get(payment_id=request.POST['payment_id'])
-    payment_info.payment_res_desc = unionpay_response.content
+    payment_info.payment_res_desc = unionpay_response.text
+    unionpay_reponse_json = unionpay_response.text
+    if unionpay_reponse_json:
+        items = json.loads(unionpay_reponse_json).items()
+        for key,value in items:
+            if key == 'errCode':
+                if value == "SUCCESS":
+                    payment_info.payment_status="1"
+                    for k,v in items:
+                        if k == "responseTimestamp":
+                            payment_info.stu_payment_time=v
+                else:
+                    payment_info.payment_status="0"
+    
     payment_info.save()
     return _generate_json_message(True, "unionpay response")
 
