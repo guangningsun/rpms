@@ -53,7 +53,10 @@ $(document).ready(function() {
             return [
                 '<a class="modify" href="javascript:void(0)" title="修改">',
                 '<i class="icon-pencil text-primary"></i>',
-                '</a>  '
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="删除">',
+                '<i class="icon-remove text-danger"></i>',
+                '</a>'
             ].join('');
         }
 
@@ -78,6 +81,31 @@ $(document).ready(function() {
     });
 
     window.operateEvents = {
+        'click .modify': function(e, value, row, index) {
+            var user_obj = row;
+            console.log(user_obj);
+            var username = user_obj.username;
+            var login_name = user_obj.login_name;
+            var description = user_obj.description;
+            var class_id= user_obj.class_id;
+            console.log(login_name)
+            $('#m_username')[0].value = username;
+            $('#m_login_name')[0].value = login_name;
+            $('#m_description')[0].value = description;
+            $('#m_class_id')[0].value = class_id;
+            delete $('#user_permission_admin').checked;
+            delete $('#user_permission_teacher').checked;
+            if (user_obj.user_permission === '0'){
+                $('#user_permission_admin').attr("checked", "checked");
+            } else {
+                $('#user_permission_teacher').attr("checked", "checked");
+            }
+            //if (waterMode === '1') {
+             //   $('#modify_water_div').hide();
+            //}
+
+            $('#modifySingleUser').modal();
+        },
         'click .remove': function(e, value, row, index) {
             console.log(row.user_ids);
 

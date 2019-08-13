@@ -136,6 +136,9 @@
                         <button id="addSingle" class="btn btn-success " data-toggle="modal" data-target="#addSingleStudent">
                             <i class="icon-plus"></i>添加学生
                         </button>
+                        <button id="modifySingle" class="btn btn-success " data-toggle="modal" data-target="#modifySingleStudent">
+                                <i class="icon-plus"></i>修改
+                            </button>
                     </div>
                     <table style="background: #EBF8EC" id="table" data-show-columns="true" data-search="true" data-toolbar="#toolbar" data-show-toggle="true" data-pagination="true" data-height="525" data-striped="true" data-id-field="id" data-url="" data-checkbox-header="true" data-show-pagination-switch="true" data-page-list="[10, 25, 50, 100, all]">
                     </table>
@@ -218,6 +221,79 @@
     </div>
 
                         
+
+
+    <div class="modal fade" id="modifySingleStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-primary" id="myModalLabel">修改</h4>
+                    </div>
+                    <form id="add_room_form" action="/create_student/" class="form-horizontal" role="form" method="post" data-toggle="validator">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">学号</label>
+                                <div class="col-sm-8">
+                                    <input name="stu_num_id" class="form-control"  id="focusedInput" type="text" required placeholder="请输入学号..." data-error="学号不能为空">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">姓名</label>
+                                <div class="col-sm-8">
+                                    <input name="stu_name" class="form-control" id="focusedInput" type="text" required placeholder="请输入姓名...">
+                                </div>
+                            </div>
+    
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label">性别</label>
+                                        <div class="radio-inline">
+                                          <label>
+                                            <input type="radio" name="stu_sexy" value="男" required>
+                                            男
+                                          </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                          <label>
+                                            <input type="radio" name="stu_sexy" value="女" required>
+                                            女
+                                          </label>
+                                        </div>
+                                      </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">身份证</label>
+                                <div class="col-sm-8">
+                                    <input name="stu_id_card" class="form-control" id="focusedInput" type="text" required placeholder="请输入身份证...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机号</label>
+                                <div class="col-sm-8">
+                                    <input name="stu_phone_num" class="form-control" id="focusedInput" type="text" required placeholder="请输入手机号...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注</label>
+                                <div class="col-sm-8">
+                                    <input name="stu_desc" class="form-control" id="focusedInput" type="text" required placeholder="请输入备注...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-2 control-label">班号</label>
+                                    <div class="col-sm-8">
+                                        <input name="class_id" class="form-control" id="focusedInput" type="text" required placeholder="请输入备注...">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-success">创建</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
      
     <div class="modal fade" id="deleteMultiRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
