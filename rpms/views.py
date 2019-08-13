@@ -360,11 +360,13 @@ def modify_user(request):
         if request.POST:
             user_info = UserInfo.objects.get(user_id=request.POST['user_id'])
             user_info.username = request.POST['username']
+            user_info.username = request.POST['login_name']
             user_info.password = request.POST['password']
-            user_info.user_email = request.POST['user_email']
-            user_info.user_address = request.POST['user_address']
-            user_info.user_phone = request.POST['user_phone']
             user_info.user_permission = request.POST['user_permission']
+            user_info.create_time = request.POST['create_time']
+            user_info.is_deleted = request.POST['is_deleted']
+            user_info.description = request.POST['description']
+            user_info.class_id = request.POST['class_id']
             user_info.save()
         return _generate_json_message(True, "update user info success")
     except:

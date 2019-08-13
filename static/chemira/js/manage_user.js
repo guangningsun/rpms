@@ -88,11 +88,21 @@ $(document).ready(function() {
             var login_name = user_obj.login_name;
             var description = user_obj.description;
             var class_id= user_obj.class_id;
+            var is_deleted = user_obj.is_deleted;
+            var create_time = user_obj.create_time;
+            var user_id = user_obj.user_id;
             console.log(login_name)
             $('#m_username')[0].value = username;
             $('#m_login_name')[0].value = login_name;
             $('#m_description')[0].value = description;
             $('#m_class_id')[0].value = class_id;
+            $('#password')[0].value = "";
+            $('#m_is_deleted')[0].value = is_deleted;
+            $('#m_create_time')[0].value = m_create_time;
+            $('#m_user_id')[0].value = user_id;
+            
+            
+            
             delete $('#user_permission_admin').checked;
             delete $('#user_permission_teacher').checked;
             if (user_obj.user_permission === '0'){
