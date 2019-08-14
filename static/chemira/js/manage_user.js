@@ -98,7 +98,7 @@ $(document).ready(function() {
             $('#m_class_id')[0].value = class_id;
             $('#password')[0].value = "";
             $('#m_is_deleted')[0].value = is_deleted;
-            $('#m_create_time')[0].value = m_create_time;
+            $('#m_create_time')[0].value = create_time;
             $('#m_user_id')[0].value = user_id;
             
             
@@ -117,27 +117,21 @@ $(document).ready(function() {
             $('#modifySingleUser').modal();
         },
         'click .remove': function(e, value, row, index) {
-            console.log(row.user_ids);
-
+            console.log(row.user_id);
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.username + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user_web/",
+                    url: "/remove_user/",
                     dataType: "json",
-                    data: { "user_ids": row.user_ids },
+                    data: { "user_ids": row.user_id },
+                    type: "POST",
                     success: function(msg) {
-                        var msg_val = eval(msg);
-                        if (msg_val.message === '200denied') {
-                            alert("不允许删除！");
-                        } else if (msg_val.message === '200success') {
                             $table.bootstrapTable('remove', {
                                 field: 'user_id',
                                 values: [row.user_id]
                             });
                             $('#deleteSingleRoom').modal('hide');
-                        }
-
                     }
                 });
             });
