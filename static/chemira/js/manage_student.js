@@ -53,7 +53,10 @@ $(document).ready(function() {
             return [
                 '<a class="modify" href="javascript:void(0)" title="修改">',
                 '<i class="icon-pencil text-primary"></i>',
-                '</a>  '
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="删除">',
+                '<i class="icon-remove text-danger"></i>',
+                '</a>'
             ].join('');
         }
 
@@ -78,7 +81,37 @@ $(document).ready(function() {
     });
 
     window.operateEvents = {
+        'click .modify': function(e, value, row, index) {
+            var stu_obj = row;
+            console.log(stu_obj);
+       
+            var class_id = stu_obj.class_id;
+            var stu_desc = stu_obj.stu_desc;
+            var stu_id = stu_obj.stu_id;
+            var stu_id_card= stu_obj.stu_id_card;
+            var stu_name = stu_obj.stu_name;
+            var stu_num_id = stu_obj.stu_num_id;
+            var stu_phone_num = stu_obj.stu_phone_num;
+            var stu_sexy = stu_obj.stu_sexy;
+            $('#m_class_id')[0].value = class_id;
+            $('#m_stu_desc')[0].value = stu_desc;
+            $('#m_stu_id')[0].value = stu_id;
+            $('#m_stu_id_card')[0].value = stu_id_card;
+            $('#m_stu_name')[0].value = stu_name;
+            $('#m_stu_num_id')[0].value = stu_num_id;
+            $('#m_stu_phone_num')[0].value = stu_phone_num;
+
+            delete $('#m_stu_sexy_boy').checked;
+            delete $('#m_stu_sexy_girl').checked;
+            if (stu_sexy === '男'){
+                $('#m_stu_sexy_boy').attr("checked", "checked");
+            } else {
+                $('#m_stu_sexy_girl').attr("checked", "checked");
+            }
+            $('#modifySingleStudent').modal();
+        },
         'click .remove': function(e, value, row, index) {
+            console.log(row.stu_num_id);
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.stu_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
@@ -86,6 +119,7 @@ $(document).ready(function() {
                     url: "/remove_student/",
                     dataType: "json",
                     data: { "stu_num_ids": row.stu_num_id },
+                    type: "POST",
                     success: function(msg) {
                             $table.bootstrapTable('remove', {
                                 field: 'stu_num_id',

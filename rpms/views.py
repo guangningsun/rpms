@@ -293,7 +293,21 @@ def get_student_info_by_id(request):
 
 
 def modify_student(request):
-    pass
+    try:
+        if request.POST:
+            student_info = StudentInfo.objects.get(stu_id=request.POST['stu_id'])
+            student_info.stu_num_id = request.POST['stu_num_id']
+            student_info.stu_name = request.POST['stu_name']
+            student_info.stu_id_card = request.POST['stu_id_card']
+            student_info.stu_sexy = request.POST['stu_sexy']
+            student_info.stu_phone_num = request.POST['stu_phone_num']
+            student_info.stu_desc = request.POST['stu_desc']
+            student_info.class_id = request.POST['class_id']
+            student_info.save()
+        return HttpResponseRedirect('/manage_student')
+    except:
+        return HttpResponseRedirect('/manage_student')
+
 
 
 def remove_student(request):
@@ -368,9 +382,9 @@ def modify_user(request):
             user_info.description = request.POST['description']
             user_info.class_id = request.POST['class_id']
             user_info.save()
-        return _generate_json_message(True, "update user info success")
+        return HttpResponseRedirect('/manage_user')
     except:
-        return _generate_json_message(False, "update user info false")
+        return HttpResponseRedirect('/manage_user')
 
 
 # 查找用户信息
