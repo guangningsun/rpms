@@ -76,7 +76,6 @@
                                 </li>
                                 <li>
                                     <a href="/manage_student">
-                                        <!-- <b class="badge bg-primary pull-right">3</b>  -->
                                         <i class="icon-building"></i>
                                         <span>学生管理</span>
                                     </a>
@@ -161,7 +160,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">缴费项目</label>
                             <div class="col-sm-8">
-                                <input name="payment_class_name" class="form-control" id="focusedInput" type="text"  placeholder="请输入缴费项目名称...">
+                                <input name="payment_class_name" class="form-control" id="payment_class_name" type="text"  placeholder="请输入缴费项目名称...">
                             </div>
                         </div>
                         <div class="form-group">
@@ -173,6 +172,32 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
                         <button type="submit" class="btn btn-success">创建</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modifySinglePaymentClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="myModalLabel">修改班级</h4>
+                </div>
+                <form id="modify_payment_class_form" action="/modify_p_class/" class="form-horizontal" role="form" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">班级号</label>
+                            <div class="col-sm-8">
+                                <input name="class_num" class="form-control" id="m_class_num" type="text"  placeholder="请输入班级号...">
+                            </div>
+                        </div>
+                    </div>
+                    <input name="payment_class_id"  id="m_payment_class_id" type="hidden">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">修改</button>
                     </div>
                 </form>
             </div>
@@ -223,18 +248,6 @@
     <!-- Sparkline Chart -->
     <!-- App -->
     <script src="/static/chemira/js/manage_payment_class.js"></script>
-    <script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language: 'zh-CN',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-    </script>
 </body>
 
 </html>

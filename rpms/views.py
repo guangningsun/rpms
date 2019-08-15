@@ -246,7 +246,14 @@ def get_all_class_info(request):
 
 
 def modify_class(request):
-    pass
+    try:
+        if request.POST:
+            class_info = ClassInfo.objects.get(class_id=request.POST['class_id'])
+            class_info.class_num = request.POST['class_num']
+            class_info.save()
+        return HttpResponseRedirect('/manage_class')
+    except:
+        return HttpResponseRedirect('/manage_class')
 
 
 # 创建学生

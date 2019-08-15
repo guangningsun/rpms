@@ -53,7 +53,10 @@ $(document).ready(function() {
             return [
                 '<a class="modify" href="javascript:void(0)" title="修改">',
                 '<i class="icon-pencil text-primary"></i>',
-                '</a>  '
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="删除">',
+                '<i class="icon-remove text-danger"></i>',
+                '</a>'
             ].join('');
         }
 
@@ -77,38 +80,30 @@ $(document).ready(function() {
         el: '#btn_show_pass'
     });
 
-    // window.operateEvents = {
-    //     'click .remove': function(e, value, row, index) {
-    //         $('#deleteSingleRoom').modal();
-    //         $('#deleteSingleRoomMsg').html(row.payment_class_name + ' ?');
-    //         $('#deleteSingleRoomOk').click(function() {
-    //             $.ajax({
-    //                 url: "/remove_p_class/",
-    //                 dataType: "json",
-    //                 data: { "payment_class_ids": row.payment_class_id },
-    //                 success: function(msg) {                     
-    //                         $table.bootstrapTable('remove', {
-    //                             field: 'payment_class_id',
-    //                             values: [row.payment_class_id]
-    //                         });
-    //                         $('#deleteSingleRoom').modal('hide');
-    //                 }
-    //             });
-    //         });
+     window.operateEvents = {
 
+        'click .modify': function(e, value, row, index) {
+            var obj = row;
+            console.log(obj);
+       
+            var payment_class_id = obj.payment_class_id;
+            var payment_class_name = obj.payment_class_name;
+            var payment_class_desc = obj.payment_class_desc;
 
-
-    //     }
-    // };
-    window.operateEvents = {
+            $('#m_payment_class_id')[0].value = payment_class_id;
+            $('#m_payment_class_name')[0].value = payment_class_name;
+            $('#m_payment_class_desc')[0].value = payment_class_desc;
+            $('#modifySinglePaymentClass').modal();
+        },
         'click .remove': function(e, value, row, index) {
             $('#deleteSingleRoom').modal();
-            $('#deleteSingleRoomMsg').html(row.payment_class_name + ' ?');
+            //$('#deleteSingleRoomMsg').html(row.payment_class_name + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_p_class",
+                    url: "/remove_p_class/",
                     dataType: "json",
                     data: { "payment_class_ids": row.payment_class_id },
+                    type: "POST",
                     success: function(msg) {
                         $table.bootstrapTable('remove', {
                             field: 'payment_class_id',
@@ -120,39 +115,14 @@ $(document).ready(function() {
             });
         }
     };
-    // $remove.click(function() {
-    //     var ids = getIdSelections();
-    //     if (ids.length > 0) {
-    //         $('#deleteMultiRoom').modal();
-    //         ids_str = ids.toString().trim();
-    //         var payment_class_name = getApartNameSelections().toString().trim();
-    //         $('#deleteMultiRoomMsg').html(payment_class_name + ' ?'+ ids_str);
-    //         $('#deleteMultiRoomOk').click(function() {
-    //             $.ajax({
-    //                 url: "/remove_p_class/",
-    //                 dataType: "json",
-    //                 data: { payment_class_ids: ids_str },
-    //                 type: "POST",
-    //                 success: function(msg) {
-    //                     window.location.reload();
-    //                 }
-    //             });
-    //             $remove.prop('disabled', false);
-    //             $('#deleteMultiRoom').modal('hide');
-    //         });
 
-    //     }
     $remove.click(function() {
         var ids = getIdSelections();
-        console.log("===1=====")
         if (ids.length > 0) {
-            console.log("===2=====")
             $('#deleteMultiRoom').modal();
-            console.log("===3=====")
             ids_str = ids.toString().trim();
-            console.log("===4=====")
-            $('#deleteMultiRoomMsg').html(ids_str+ '?');
-            console.log("===5=====")
+            var payment_class_name = getApartNameSelections().toString().trim();
+            $('#deleteMultiRoomMsg').html(ids_str+ '?'+ payment_class_name);
             $('#deleteMultiRoomOk').click(function() {
                 $.ajax({
                     url: "/remove_p_class/",
@@ -160,11 +130,7 @@ $(document).ready(function() {
                     data: { payment_class_ids: ids_str },
                     type: "POST",
                     success: function(msg) {
-                        location.reload();
-                        $table.bootstrapTable('remove', {
-                            field: 'payment_class_id',
-                            values: [row.payment_class_id]
-                        });
+                        window.location.reload();
                     }
                 });
                 $remove.prop('disabled', false);

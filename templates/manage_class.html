@@ -172,6 +172,32 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modifySingleClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-primary" id="myModalLabel">修改班级</h4>
+                </div>
+                <form id="modify_class_form" action="/modify_class/" class="form-horizontal" role="form" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">班级号</label>
+                            <div class="col-sm-8">
+                                <input name="class_num" class="form-control" id="m_class_num" type="text"  placeholder="请输入班级号...">
+                            </div>
+                        </div>
+                    </div>
+                    <input name="class_id"  id="m_class_id" type="hidden">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
     <div class="modal fade" id="deleteMultiRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -217,18 +243,6 @@
     <!-- Sparkline Chart -->
     <!-- App -->
     <script src="/static/chemira/js/manage_class.js"></script>
-    <script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language: 'zh-CN',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-    </script>
 </body>
 
 </html>

@@ -78,6 +78,17 @@ $(document).ready(function() {
     });
 
     window.operateEvents = {
+        'click .modify': function(e, value, row, index) {
+            var obj = row;
+            console.log(obj);
+       
+            var class_id = obj.class_id;
+            var class_num = obj.class_num;
+
+            $('#m_class_id')[0].value = class_id;
+            $('#m_class_num')[0].value = class_num;
+            $('#modifySingleClass').modal();
+        },
         'click .remove': function(e, value, row, index) {
             $('#deleteSingleRoom').modal();
             $('#deleteSingleRoomMsg').html(row.payment_id + ' ?');
@@ -216,13 +227,6 @@ $(document).ready(function() {
         align: 'center',
         valign: 'middle',
         sortable: true
-    });
-    columns.push({
-        field: 'operate',
-        title: '操作',
-        align: 'center',
-        events: operateEvents,
-        formatter: operateFormatter
     });
 
     $("#checkin_form").validation({

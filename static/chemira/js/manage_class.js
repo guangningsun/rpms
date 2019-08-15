@@ -54,7 +54,10 @@ $(document).ready(function() {
             return [
                 '<a class="modify" href="javascript:void(0)" title="修改">',
                 '<i class="icon-pencil text-primary"></i>',
-                '</a>  '
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="删除">',
+                '<i class="icon-remove text-danger"></i>',
+                '</a>'
             ].join('');
         }
 
@@ -79,29 +82,35 @@ $(document).ready(function() {
     });
 
     window.operateEvents = {
+        'click .modify': function(e, value, row, index) {
+            var obj = row;
+            console.log(obj);
+       
+            var class_id = obj.class_id;
+            var class_num = obj.class_num;
+
+            $('#m_class_id')[0].value = class_id;
+            $('#m_class_num')[0].value = class_num;
+            $('#modifySingleClass').modal();
+        },
         'click .remove': function(e, value, row, index) {
             console.log(row.user_ids);
 
             $('#deleteSingleRoom').modal();
-            $('#deleteSingleRoomMsg').html(row.username + ' ?');
+            $('#deleteSingleRoomMsg').html(row.class_num + ' ?');
             $('#deleteSingleRoomOk').click(function() {
                 $.ajax({
-                    url: "/remove_user_web/",
+                    url: "/remove_class/",
                     dataType: "json",
-                    data: { "user_ids": row.user_ids },
+                    data: { "class_ids": row.class_id },
+                    type: "POST",
                     success: function(msg) {
-                        var msg_val = eval(msg);
-                        if (msg_val.message === '200denied') {
-                            alert("不允许删除！");
-                        } else if (msg_val.message === '200success') {
                             $table.bootstrapTable('remove', {
-                                field: 'user_id',
-                                values: [row.user_id]
+                                field: 'class_id',
+                                values: [row.class_id]
                             });
                             $('#deleteSingleRoom').modal('hide');
                         }
-
-                    }
                 });
             });
 
