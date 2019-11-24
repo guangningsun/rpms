@@ -714,6 +714,76 @@ def query_result_transaction(request):
     return _generate_json_message(True, "unionpay response")
 
 
+
+def weixinpay(request):
+    apiUrl_makeOrder = "https://qr-test2.chinaums.com/netpay-route-server/api/"
+    notifyUrl = "http://172.27.49.240:8080/h5pay/notifyUrl.do"
+    returnUrl = "http://114.116.64.103:8089/#/pages/pay/pay_result"
+    msgSrc = "WWW.TEST.COM"
+    msgType = "wx.unifiedOrder"
+    requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    merOrderId = "3194"+time.strftime('%Y%m%d%H%M%S', time.localtime())+str(random.randint(1000000,9999999))
+    mid = "898201612345678"
+    tid = "88880001"
+    instMid = "MINIDEFAULT"
+    totalAmount = "1"
+    md5key = "fcAmtnx7MwismjWNhNKdHC44mNXtnEQeJkRrhKJwyrW2ysRR"
+
+    param = {
+        "msgSrc": msgSrc,
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "merOrderId": merOrderId,
+        "mid": mid,
+        "tid": tid,
+        "instMid": instMid,
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
+    }
+    sorted_param = json.dumps(param, sort_keys=True)
+    print ("排序后的参数")
+    print (sorted_param)
+    #for_signed_param = urllib.parse.urlencode(json.loads(sorted_param, object_pairs_hook=OrderedDict))
+
+    ritems = json.loads(sorted_param,object_pairs_hook=OrderedDict).items()
+    conv_sign = ""
+    for key, value in ritems:
+        conv_sign+=key + "=" + value + "&"
+    final_sign = conv_sign[:-1]+md5key
+    #final_sign = for_signed_param+md5key
+    print ("待签名参数")
+    print(final_sign)
+
+    md = hashlib.md5()
+    md.update(final_sign.encode())
+    final_md = md.hexdigest().upper()
+    print ("MD5签名并upper后sign值")
+    print (final_md)
+
+    return_json = {
+        "msgSrc": msgSrc,
+        "msgType": msgType,
+        "requestTimestamp": requestTimestamp,
+        "merOrderId": merOrderId,
+        "sign": final_md,
+        "mid": mid,
+        "tid": tid,
+        "instMid": instMid,
+        "totalAmount": totalAmount,
+        "notifyUrl": notifyUrl,
+        "returnUrl": returnUrl
+    }
+    encoded = urllib.parse.urlencode(return_json)
+    payment_info = PaymentInfo.objects.get(payment_id=request.POST['payment_id'])
+    payment_info.merOrderId = merOrderId
+    payment_info.save()
+    #encoded = urllib.urlencode(return_json)
+    reuturn_url = apiUrl_makeOrder+"?"+encoded
+    return _generate_json_message(True, reuturn_url)
+
+
+
 def pay_success(request):
     return _generate_json_message(True, "pay success")
 

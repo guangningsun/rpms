@@ -73,6 +73,7 @@ urlpatterns = [
 
     url(r'^check_stu_num_repl', views.check_stu_num_repl),
     url(r'^query_result_transaction', views.query_result_transaction),
+    url(r'^weixinpay', views.weixinpay),
 ]
 
 
