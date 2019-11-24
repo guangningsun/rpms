@@ -718,7 +718,7 @@ def query_result_transaction(request):
 def weixinpay(request):
     apiUrl_makeOrder = "https://qr-test2.chinaums.com/netpay-route-server/api/"
     notifyUrl = "http://172.27.49.240:8080/h5pay/notifyUrl.do"
-    returnUrl = "http://114.116.64.103:8089/#/pages/pay/pay_result"
+    returnUrl = "http://tjyzzpay.cn:8003/#/pages/pay/pay_result"
     msgSrc = "WWW.TEST.COM"
     msgType = "wx.unifiedOrder"
     requestTimestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -774,11 +774,11 @@ def weixinpay(request):
         "notifyUrl": notifyUrl,
         "returnUrl": returnUrl
     }
-    encoded = urllib.parse.urlencode(return_json)
+    #encoded = urllib.parse.urlencode(return_json)
     payment_info = PaymentInfo.objects.get(payment_id=request.POST['payment_id'])
     payment_info.merOrderId = merOrderId
     payment_info.save()
-    #encoded = urllib.urlencode(return_json)
+    encoded = urllib.urlencode(return_json)
     reuturn_url = apiUrl_makeOrder+"?"+encoded
     return _generate_json_message(True, reuturn_url)
 
